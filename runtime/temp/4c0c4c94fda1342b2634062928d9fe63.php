@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:63:"D:\WWW\huoshu\public/../application/index\view\index\index.html";i:1516180883;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:63:"D:\WWW\huoshu\public/../application/index\view\index\index.html";i:1516260116;}*/ ?>
 <html lang="en">
 
 <head>
@@ -9,12 +9,23 @@
 </head>
 
 <body>
+    <script>
+        var $result = <?php echo $result; ?>;
+        var $page = <?php echo $page; ?>;
+    </script>
     <div id="root">
-        活书
+
+        <div>
+            活书
+        </div>
     </div>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="/huoshu/public/static/css/reset.css">
     <link rel="stylesheet" href="/huoshu/public/static/css/root.css">
     <script src="/huoshu/public/static/js/vue.js"></script>
+    <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
     <script src="/huoshu/public/static/js/index/index.js"></script>
 </body>
