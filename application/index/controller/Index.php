@@ -5,6 +5,7 @@ use think\Controller;
 use think\Db;
 use think\Session;
 use app\index\model\Article;
+use app\index\model\Type;
 
 class Index extends Controller
 {
@@ -19,9 +20,11 @@ class Index extends Controller
         if (!isset($currentpage)) {
             $currentpage = 0;
         }
+        $type = Type::all();
         $result = Article::page([], $currentpage)['data'];
         $page = Article::page([], $currentpage)['page'];
         $this->assign('result', json_encode($result));
+        $this->assign('type', json_encode($type));
         $this->assign('page', $page);
         return $this->fetch();
     }
@@ -42,7 +45,6 @@ class Index extends Controller
         // return "hello".$name;
         // $this->assign('name', $name);
         $result = Db::name('data')->find();
-
         return $this->fetch('index', [
             'result' => $result
         ]);

@@ -86,7 +86,13 @@ export default {
         data: {
           currentPage: this.currentPage
         },
+        before() {
+          var index = layer.load(1, {
+            shade: [0.1, "#fff"] //0.1透明度的白色背景
+          });
+        },
         success(result) {
+          layer.closeAll();
           self.changeResultAndPage(
             JSON.parse(result)["result"],
             JSON.parse(result)["page"]

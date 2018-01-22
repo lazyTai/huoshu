@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Header from "./Header.vue";
+import Header from "../components/Header.vue";
 import Badge from "./badge.vue";
 import List from "./list.vue";
 export default {
