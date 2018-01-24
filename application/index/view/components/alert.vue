@@ -2,14 +2,14 @@
   <div class="alert1" :style='style_alert'>
     <div class="alert_header" :style='style_alert_header' @mousedown="_mousedown">
       <span class="header_title_content" :style='style_header_title_content'>header</span>
-      <i class="glyphicon glyphicon-remove"></i>
+      <i class="glyphicon glyphicon-remove" @click="_closeAlert1"></i>
     </div>
     <div class="alert_body" :style="alert_body">
-      爱仕达多
+      <slot></slot>
     </div>
     <div class="alert_footer" :style="style_alert_footer">
-      <button class="btn btn-primary">确定</button>
-      <button class="btn btn-default">取消</button>
+      <button class="btn btn-primary" @click="_sure">确定</button>
+      <button class="btn btn-default" @click="_cancel">取消</button>
     </div>
   </div>
 </template>
@@ -21,11 +21,32 @@
 import { uuid } from "../util/util";
 export default {
   props: {
+    show: Boolean,
+    close: Function,
     width: Number,
     height: Number,
-    isMark: Boolean
+    isMark: Boolean,
+    sure: Function,
+    cancel: Function
+    // body: Object
+  },
+  created() {
+    var self = this;
   },
   methods: {
+    _cancel() {
+      this.cancel && this.cancel.call(this);
+      this._closeAlert1();
+    },
+    _sure() {
+      this.sure && this.sure.call(this);
+      this._closeAlert1();
+    },
+    _closeAlert1() {
+      var self = this;
+      self.$data._show = false;
+      self.close && self.close.call(self);
+    },
     _mousedown(e) {
       this.startx = e.clientX;
       this.starty = e.clientY;
@@ -64,9 +85,11 @@ export default {
     }
   },
   data() {
+    var _show = this.show;
     return {
       top: 0,
-      left: 0
+      left: 0,
+      _show
     };
   },
   computed: {
@@ -76,6 +99,7 @@ export default {
       var _height = this.height || 200;
       var _top = this.top;
       var _left = this.left;
+      var _show = this.$data._show;
       return {
         background: "#fff",
         width: `${_width}px`,
@@ -84,7 +108,7 @@ export default {
         left: _left + "px",
         boxSizing: "border-box",
         border: "1px solid #eee",
-        display: "flex",
+        display: _show ? "flex" : "none",
         position: "absolute",
         flexDirection: "column",
         zIndex: 99
@@ -99,7 +123,8 @@ export default {
         width: `${_width}px`,
         padding: 10,
         borderBottom: "1px solid #eee",
-        display: "flex"
+        display: "flex",
+        cursor: "pointer"
         // border: "1px solid #eee"
       };
     },

@@ -26,6 +26,7 @@ class Index extends Controller
         $this->assign('result', json_encode($result));
         $this->assign('type', json_encode($type));
         $this->assign('page', $page);
+        $this->assign('user', json_encode(input('session.ext_user')));
         return $this->fetch();
     }
     public function getList()

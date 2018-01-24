@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:63:"D:\WWW\huoshu\public/../application/index\view\index\index.html";i:1516778083;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:63:"D:\WWW\huoshu\public/../application/index\view\login\index.html";i:1516778525;}*/ ?>
 <html lang="en">
 
 <head>
@@ -10,13 +10,9 @@
 
 <body>
     <script>
-        var $result = <?php echo $result; ?>;
-        var $page = <?php echo $page; ?>;
-        var $type = <?php echo $type; ?>;
-        var $user=<?php echo $user; ?>;
+      $user=<?php echo $user; ?>;
     </script>
     <div id="root">
-
         <div>
             活书
         </div>
@@ -32,7 +28,7 @@
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/index/index.js"></script>
+    <script src="/huoshu/public/static/js/login/login.js"></script>
 </body>
 
 </html>

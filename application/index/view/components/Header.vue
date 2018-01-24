@@ -25,7 +25,7 @@
             <a href="/huoshu/public/index/My_Self/">{{user.name}}</a>
           </li>
           <li class="dropdown" v-if="!user">
-            <a href="/huoshu/public/index/My_Self/">我的</a>
+            <a href="/huoshu/public/index/Login/">登录/注册</a>
           </li>
         </ul>
       </div>

@@ -5,7 +5,9 @@ module.exports = {
         index: path.resolve(__dirname,
             '../application/index/view/index/index.js'),
         my_self: path.resolve(__dirname,
-            '../application/index/view/my_self/index.js')
+            '../application/index/view/my_self/index.js'),
+        login: path.resolve(__dirname,
+            '../application/index/view/login/index.js')
     },
     output: {
         path: path.resolve(__dirname, '../public/static/js/'),

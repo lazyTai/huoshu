@@ -9,15 +9,14 @@ class User extends Model
 {
     protected $table = 'think_user';
 
-    public function profile()
-    {
-        return $this->hasOne(
-            '\app\index\model\Profile',
-            'user_id',
-            'id'
-        );
-    }
 
+    public static function login($name, $password)
+    {
+        $_name = $name;
+        $_password = $password;
+        $result = User::get(['name' => $_name, 'password' => $_password]);
+        return $result;
+    }
 
     public static function updates($userId, $user, $profile)
     {
