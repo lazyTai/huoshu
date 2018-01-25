@@ -22,6 +22,11 @@ class Login extends Controller
         $this->assign('user', json_encode($user));
         return $this->fetch();
     }
+    function unlogin()
+    {
+        Session::delete('ext_user');
+        return $this->redirect('Index/index');
+    }
     function logining()
     {
         $name = input('request.name');
@@ -42,7 +47,7 @@ class Login extends Controller
                 "result" => "登录成功"
             ]);
         } else {
-            Session::clear('ext_user');
+            Session::delete('ext_user');
             return json([
                 "success" => false,
                 "result" => "密码或者账号"

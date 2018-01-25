@@ -13,7 +13,5 @@ return [
     '__pattern__' => [
         'name' => '\w+',
     ],
-    "/" => "/demo/public/index/book",
-    "/router" =>"/demo/public/index/router",
-    "/router" =>"/demo/public/index/router"
+    "/" => "/huoshu/public/index",
 ];

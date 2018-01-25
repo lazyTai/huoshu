@@ -21,8 +21,20 @@
           <button type="submit" class="btn btn-default">提交</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown" v-if="user">
-            <a href="/huoshu/public/index/My_Self/">{{user.name}}</a>
+          <li class="dropdown" v-if="user" id="tipLayer" style="padding-top: 17px;">
+            <Tip left="-80">
+              <a slot="children">{{user.name}}</a>
+              <ul slot="tip" style="width:100px;marginTop:10px;
+              padding:0px 10px;background:#fff;">
+                <li style="padding:10px 0px;cursor: pointer;">
+                  <a href="/huoshu/public/index/my_self">详细信息</a>
+                </li>
+                <li style="cursor: pointer;">
+                  <a href="/huoshu/public/index/login/unlogin">注销</a>
+                </li>
+              </ul>
+            </Tip>
+
           </li>
           <li class="dropdown" v-if="!user">
             <a href="/huoshu/public/index/Login/">登录/注册</a>
@@ -41,6 +53,12 @@ export default {
     return {
       user: $user
     };
+  },
+  methods: {
+    tipLayer() {}
+  },
+  components: {
+    Tip: require("../components/tip.vue").default
   }
 };
 </script>
