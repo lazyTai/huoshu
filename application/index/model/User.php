@@ -18,6 +18,14 @@ class User extends Model
         return $result;
     }
 
+    public static function user_profile($user_id)
+    {
+        $user = User::get(['id' => $user_id]);
+        $profile = Profile::get(['user_id' => $user_id]);
+        $user['profile'] = $profile;
+        return $user;
+    }
+
     public static function updates($userId, $user, $profile)
     {
         Db::startTrans();

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:65:"D:\WWW\huoshu\public/../application/index\view\my_self\index.html";i:1516351311;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:65:"D:\WWW\huoshu\public/../application/index\view\my_self\index.html";i:1516864213;}*/ ?>
 <html lang="en">
 
 <head>
@@ -10,7 +10,7 @@
 
 <body>
     <script>
-      $user=<?php echo $currentUser; ?>;
+      $user=<?php echo $user; ?>;
     </script>
     <div id="root">
         <div>
