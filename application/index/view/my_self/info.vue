@@ -8,6 +8,7 @@
           <div v-show="show_upload_button" @click="_upload" style="marginTop:-15px;marginLeft:-2px;
           padding:5px;
           text-align:center;width:100px;cursor:pointer;position:absolute;background:#222;color:#fff;">重新上传</div>
+          <input type="file" v-show="false" ref="file_header_image">
         </span>
         <div>
           <!-- <button class="btn btn-default" @click="_upload">重新上传</button> -->
@@ -17,7 +18,7 @@
         </div>
       </div>
       <div class="_row">
-        <span class="label1"> name</span>
+        <span class="label1">name</span>
         {{user.name}}
       </div>
       <div class="_row">
@@ -47,9 +48,24 @@ export default {
       show_upload_button: false
     };
   },
+  mounted() {
+    var self = this;
+    self.image_input = this.$refs["file_header_image"];
+    self.image_input.addEventListener("change", () => {
+      var formdata = new FormData();
+      formdata.append("file", self.image_input.files[0]);
+      ajaxForm({
+        data: formdata,
+        url: "/huoshu/public/index/my_self/changeImage",
+        success(json) {
+          debugger;
+        }
+      });
+    });
+  },
   methods: {
     _upload() {
-      ajax({});
+      this.image_input.click();
     },
     closeAlert() {
       this.$data.showAlert = false;
