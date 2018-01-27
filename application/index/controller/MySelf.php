@@ -4,6 +4,7 @@ namespace app\index\controller;
 use think\Controller;
 use app\index\model\User;
 use app\index\model\Profile;
+use app\index\util\Util as Util;
 
 class MySelf extends Controller
 {
@@ -73,5 +74,15 @@ class MySelf extends Controller
             }
 
         }
+    }
+
+    public function updateUserAndProfile()
+    {
+        $params = input('post.');
+        $params_user = Util::object_array(json_decode($params['user']));
+        $params_profile = Util::object_array(json_decode($params['profile']));
+        $infor = User::updates($params_user['id'], $params_user, $params_profile);
+        return json($infor);
+
     }
 }

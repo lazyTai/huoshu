@@ -18,16 +18,20 @@
         </div>
       </div>
       <div class="_row">
-        <span class="label1">name</span>
-        {{user.name}}
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">name</span>
+          <input type="text" class="form-control" v-model='user.name' aria-describedby="basic-addon1">
+        </div>
       </div>
       <div class="_row">
-        <span class="label1">
-          address</span>
-        {{user.profile.address}}
+
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon2">address</span>
+          <input type="text" class="form-control" v-model='user.profile.address' aria-describedby="basic-addon2">
+        </div>
       </div>
       <div class="_row">
-        <button class="btn btn-primary">修改</button>
+        <button class="btn btn-primary" @click='save'>保存</button>
       </div>
 
       <!-- <Alert :close="closeAlert" :show="showAlert" :sure="sureAlert" :cancel="cancelAlert">
@@ -58,7 +62,7 @@ export default {
         data: formdata,
         url: "/huoshu/public/index/my_self/changeImage",
         success(json) {
-          debugger;
+          self.$data.user.profile["image_url"] = JSON.parse(json);
         }
       });
     });
@@ -75,6 +79,25 @@ export default {
     },
     cancelAlert() {
       console.log("cancelAlert");
+    },
+    save() {
+      ajax({
+        data: {
+          user: JSON.stringify($user),
+          profile: JSON.stringify($user.profile)
+        },
+        type: "post",
+        url: "/huoshu/public/index/my_self/updateUserAndProfile",
+        before() {
+          layer.load(1, {
+            shade: [0.1, "#fff"] //0.1透明度的白色背景
+          });
+        },
+        success(json) {
+          layer.closeAll();
+          layer.msg("保存成功");
+        }
+      });
     }
   },
   components: {
@@ -83,6 +106,10 @@ export default {
 };
 </script>
 <style>
+._row .input-group-addon {
+  width: 80px;
+  overflow: hidden;
+}
 .image_wrapper {
   width: 100;
   height: 100;
