@@ -1,13 +1,13 @@
 <template>
-    <div class="tip_tip" :style="tip_tip_style" ref="tip_children">
-        <div @mousedown="_mousedown">
-            <slot name="children"></slot>
-        </div>
-        <div v-show="show" :style="tip_style" ref="tip_tiptip">
-            <slot name="tip"></slot>
-        </div>
-
+  <div class="tip_tip" :style="tip_tip_style" ref="tip_children">
+    <div @mousedown="_mousedown">
+      <slot name="children"></slot>
     </div>
+    <div v-show="show" :style="tip_style" ref="tip_tiptip">
+      <slot name="tip"></slot>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -41,8 +41,15 @@ export default {
 
     this.$data.children_top = _top;
     this.$data.children_left = _left;
-    if (this.left) {
-      this.$data.children_left = this.left;
+    // if (this.left) {
+    //   this.$data.children_left = this.left;
+    // }
+    if (all_width < 768) {
+      /* 小屏幕 */
+      this.$data.children_left = 50;
+    }
+    if (768 < all_width) {
+      this.$data.children_left = -100;
     }
     this.$data.children_width = _width;
     this.$data.children_height = _height;

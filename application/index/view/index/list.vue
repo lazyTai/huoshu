@@ -20,46 +20,38 @@
 }
 </style>
 <template>
-    <div class="list_all">
-        <div class="media _media"
-        v-for="(item,index) in  list"
-        >
-            <div class="media-left">
-                <a href="#" class="_media_object_wrapper">
-                    <img class="media-object _media_object" 
-                    :src="item.image_src" />
-                </a>
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading">{{item.title}}</h4>
-                {{item.content}}
-            </div>
-        </div>
-
-
-        <nav 
-        class="page_all"
-        aria-label="Page navigation">
-            <ul class="pagination">
-                <li v-show="show_prev">
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li v-for='item in page'
-                 :class="{active:currentPage==item}">
-                    <a href="#"
-                    @click="pageItemClick(item)"
-                    >{{item}}</a>
-                </li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+  <div class="list_all">
+    <div class="media _media" v-for="(item,index) in  list">
+      <div class="media-left">
+        <a href="#" class="_media_object_wrapper">
+          <img class="media-object _media_object" :src="item.image_src" />
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">{{item.title}}</h4>
+        {{item.content}}
+      </div>
     </div>
+
+    <!-- 分页 -->
+    <nav class="page_all" aria-label="Page navigation">
+      <ul class="pagination">
+        <li v-show="!show_prev">
+          <a href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li v-for='item in page' :class="{active:currentPage==item}">
+          <a href="#" @click="pageItemClick(item)">{{item}}</a>
+        </li>
+        <li v-show="!show_next">
+          <a href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>
 <script>
 export default {
@@ -71,10 +63,21 @@ export default {
     changeResultAndPage: Function
   },
   data() {
-    return {
-      show_prev: this.currentPage - 1 <= 0,
-      show_prev: this.currentPage >= this.page
-    };
+    return {};
+  },
+  computed: {
+    show_prev: function() {
+      if (this.currentPage) {
+        return this.currentPage - 1 <= 0;
+      }
+      return false;
+    },
+    show_next: function() {
+      if (this.currentPage && this.page) {
+        return this.currentPage >= this.page;
+      }
+      return false;
+    }
   },
   created() {},
   methods: {
