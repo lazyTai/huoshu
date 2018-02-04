@@ -21,4 +21,15 @@ class Article extends Model
             "page" => ceil($count / config('pageSize'))
         ];
     }
+
+    public static function new_list($list_mun)
+    {
+        $data = Db::table('think_article')->order('create_time desc')->limit(
+            0,
+            $list_mun
+        )->select();
+        return $data;
+    }
+
+
 }

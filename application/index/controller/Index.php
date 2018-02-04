@@ -6,9 +6,11 @@ use think\Db;
 use think\Session;
 use app\index\model\Article;
 use app\index\model\Type;
+use app\index\model\Hot;
 
 class Index extends Controller
 {
+
     public function index()
     {
         $currentpage = 0;
@@ -28,6 +30,21 @@ class Index extends Controller
         $this->assign('page', $page);
         $this->assign('user', json_encode(input('session.ext_user')));
         return $this->fetch();
+    }
+
+    public function new_list()
+    {
+
+        return json([
+            "data" => Article::new_list(10)
+        ]);
+    }
+    public function hot_list()
+    {
+
+        return json([
+            "data" => Hot::hot_page(10)
+        ]);
     }
     public function getList()
     {
@@ -49,6 +66,13 @@ class Index extends Controller
         return $this->fetch('index', [
             'result' => $result
         ]);
+    }
+
+    public function getList_by_type()
+    {
+        $params = input('post.');
+        $list = Article::all(['type_id' => $params['type_id']]);
+        return json($list);
     }
 
 

@@ -29,9 +29,9 @@ class Login extends Controller
     }
     function logining()
     {
-        $name = input('request.name');
-        $password = input('request.password');
-        $data = input('request.captcha');
+        $name = input('post.name');
+        $password = input('post.password');
+        $data = input('post.captcha');
         // dump(captcha_check($data));
         // if (!captcha_check($data)) {
         //  //验证失败
