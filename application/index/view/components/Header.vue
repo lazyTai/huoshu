@@ -13,12 +13,12 @@
       </div>
 
       <div class="nav collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <form class="navbar-form navbar-left">
+        <div class="navbar-form navbar-left">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
+            <input type="text" v-model="search_input" class="form-control" placeholder="Search">
           </div>
-          <button type="submit" class="btn btn-default">提交</button>
-        </form>
+          <button type="button" @click="click_search" class="btn btn-default">提交</button>
+        </div>
 
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown" v-if="user" id="tipLayer" style="padding-top: 17px;text-align:center">
@@ -51,13 +51,37 @@
 
 <script>
 export default {
+  props: {
+    setResult: Function
+  },
   data() {
     return {
-      user: $user
+      user: $user,
+      search_input: ""
     };
   },
   methods: {
-    tipLayer() {}
+    tipLayer() {},
+    click_search() {
+      var self = this;
+      ajax({
+        type: "post",
+        url: "/huoshu/public/index/index/getList_by_title",
+        data: {
+          title: self.$data.search_input
+        },
+        before() {
+          var index = layer.load(1, {
+            shade: [0.1, "#fff"] //0.1透明度的白色背景
+          });
+        },
+        success(result) {
+          layer.closeAll();
+          // debugger;
+          self.setResult && self.setResult(JSON.parse(result));
+        }
+      });
+    }
   },
   components: {
     Tip: require("../components/tip.vue").default

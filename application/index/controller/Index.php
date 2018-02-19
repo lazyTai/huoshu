@@ -75,5 +75,13 @@ class Index extends Controller
         return json($list);
     }
 
+    public function getList_by_title()
+    {
+        $params = input('post.');
+        $list = Article::where('title', 'like', '%' . $params['title'] . '%')
+        ->select();
+        return json($list);
+    }
+
 
 }

@@ -3,7 +3,7 @@
 </style>
 <template>
   <div id="app">
-      <Nav />
+      <Nav  :setResult="setResult"/>
       <Badge />
       <List  :list='result' :page="page"
         :currentPage="currentPage"
@@ -34,6 +34,9 @@ export default {
     List
   },
   methods: {
+    setResult(result){
+      this.result=result;
+    },
     changePage(currentPage) {
       this.currentPage = currentPage;
     },
