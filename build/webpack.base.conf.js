@@ -9,7 +9,9 @@ module.exports = {
         login: path.resolve(__dirname,
             '../application/index/view/login/index.js'),
         test: path.resolve(__dirname,
-            '../application/index/view/test/index.js')
+            '../application/index/view/test/index.js'),
+        article_detail: path.resolve(__dirname,
+            '../application/index/view/article/detail.js'),
     },
     output: {
         path: path.resolve(__dirname, '../public/static/js/'),

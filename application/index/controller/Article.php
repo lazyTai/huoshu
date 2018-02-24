@@ -11,6 +11,20 @@ class Article extends Controller
     {
         return "asd";
     }
+
+    public function detail($id){
+        $article=ArticleDao::get($id);
+        $this->assign("article", $article);
+        if(input("session.ext_user")){
+            $this->assign("user", json_encode(input("session.ext_user")));
+        }else{
+            $this->error("没有登陆","/huoshu/public/index");
+        }
+       
+        return $this->fetch();
+        // return json($article);
+    }
+
     public function readOne()
     {
         // $article = input('post.article/a');

@@ -28,7 +28,9 @@
         </a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading">{{item.title}}</h4>
+        <h4 class="media-heading">
+          <a :href="'/huoshu/public/index/article/detail?id='+item.id">{{item.title}}</a>
+          </h4>
         {{item.content}}
       </div>
     </div>

@@ -15,6 +15,9 @@ class User extends Model
         $_name = $name;
         $_password = $password;
         $result = User::get(['name' => $_name, 'password' => $_password]);
+        $profile=  Profile::get(['user_id'=>$result->id]);
+        $result['image_url']= $profile->image_url;
+        $result['address']= $profile->address;
         return $result;
     }
 
