@@ -12,6 +12,8 @@ module.exports = {
             '../application/index/view/test/index.js'),
         article_detail: path.resolve(__dirname,
             '../application/index/view/article/detail.js'),
+        article_edit: path.resolve(__dirname,
+            '../application/index/view/article/edit.js'),
     },
     output: {
         path: path.resolve(__dirname, '../public/static/js/'),

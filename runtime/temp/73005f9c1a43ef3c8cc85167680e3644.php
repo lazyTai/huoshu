@@ -1,17 +1,18 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\detail.html";i:1519449425;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\edit.html";i:1519538764;}*/ ?>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/huoshu/public/static/common/tai.png" type="image/x-icon" />
     <title>活书</title>
 </head>
 
 <body>
     <script>
         var $article = <?php echo $article; ?>;
-        var $user=<?php echo $user; ?>;
+        var $user = <?php echo $user; ?>;
     </script>
     <div id="root">
 
@@ -31,7 +32,7 @@
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/article_detail/article_detail.js"></script>
+    <script src="/huoshu/public/static/js/article_edit/article_edit.js"></script>
 </body>
 
 </html>

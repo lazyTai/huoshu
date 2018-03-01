@@ -29,6 +29,7 @@
 }
 .edit_btn {
   border-radius: 50px !important;
+  line-height: 38px !important;
 }
 .article_content {
   padding-top: 30px;
@@ -52,7 +53,7 @@
             <div class="a_num_artitcle"> 评论:{{article.num_artitcle}}</div>
           </div>
         </div>
-        <button class="btn btn-default edit_btn">點擊編輯</button>
+        <a class="btn btn-default edit_btn" :href="'/huoshu/public/index/article/edit?id='+article.id">點擊編輯</a>
       </div>
     </div>
 
