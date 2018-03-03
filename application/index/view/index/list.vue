@@ -1,6 +1,6 @@
 <style>
 ._media_object_wrapper {
-  max-width: 200;
+  max-width:200px;
   max-height: 200;
   display: inline-block;
 }
@@ -18,6 +18,10 @@
 .page_all {
   text-align: center;
 }
+.content_show {
+  height: 48px;
+  overflow: hidden;
+}
 </style>
 <template>
   <div class="list_all">
@@ -30,8 +34,8 @@
       <div class="media-body">
         <h4 class="media-heading">
           <a :href="'/huoshu/public/index/article/detail?id='+item.id">{{item.title}}</a>
-          </h4>
-        {{item.content}}
+        </h4>
+        <div v-html="item.content" class="content_show"></div>
       </div>
     </div>
 

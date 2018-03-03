@@ -24,7 +24,7 @@ class Article extends Controller
         $article['num_like']=$params['num_like'];
         $article['num_content']=$params['num_content'];
         $infor=ArticleDao::update($article);
-        return  $infor;
+        return  json($infor);
     }
     public function edit($id){
         $article=ArticleDao::get($id);
