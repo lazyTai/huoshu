@@ -13,6 +13,19 @@ class Article extends Controller
     }
 
 
+    public function save(){
+        $params=input('post.');
+        $article['id']=$params['id'];
+        $article['title']=$params['title'];
+        $article['content']=$params['content'];
+        $article['image_src']=$params['image_src'];
+        $article['type_id']=$params['type_id'];
+        $article['num_artitcle']=$params['num_artitcle'];
+        $article['num_like']=$params['num_like'];
+        $article['num_content']=$params['num_content'];
+        $infor=ArticleDao::update($article);
+        return  $infor;
+    }
     public function edit($id){
         $article=ArticleDao::get($id);
         $this->assign("article", $article);

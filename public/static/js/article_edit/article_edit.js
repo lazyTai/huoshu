@@ -97,6 +97,20 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
@@ -110,9 +124,24 @@ exports.default = {
     save_btn: function save_btn() {
       var $dom = this.$refs["content"];
       var html = $dom.innerHTML;
+      $article.content = html;
+      delete $article.update_time;
+      delete $article.t;
       ajax({
-        type: 'post',
-        url: 'houshu/'
+        type: "post",
+        data: $article,
+        url: "/huoshu/public/index/article/save",
+        before: function before() {
+          var index = layer.load(1, {
+            shade: [0.1, "#fff"] //0.1透明度的白色背景
+          });
+        },
+        success: function success(jsonReturn) {
+          //   debugger;
+          layer.closeAll();
+          layer.msg("保存完毕");
+          $article = JSON.parse(jsonReturn);
+        }
       });
     }
   }
@@ -348,7 +377,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  background: #eeee;\r\n  letter-spacing: 1px;\n}\n.editer .padding10 {\r\n  padding: 10px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/edite_article.vue"],"names":[],"mappings":";AACA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,kBAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA","file":"edite_article.vue","sourcesContent":["<style>\r\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  background: #eeee;\r\n  letter-spacing: 1px;\r\n}\r\n.editer .padding10 {\r\n  padding: 10px;\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n</style>\r\n\r\n<template>\r\n    <div class=\"editer \">\r\n        <div class=\"container\">\r\n            <div class=\"title\">\r\n                <input type=\"text\" class=\"form-control\" v-model=\"article.title\">\r\n                <div class=\"padding10 right\">\r\n                    <button class=\"btn btn-success\" id=\"save_btn\" @click=\"save_btn\">保存</button>\r\n                </div>\r\n            </div>\r\n            <div class=\"content\">\r\n                <div v-html=\"article.content\" contenteditable=\"true\" ref=\"content\"> </div>\r\n            </div>\r\n            <pre>\r\n                {{article}}\r\n            </pre>\r\n        </div>\r\n\r\n    </div>\r\n</template>\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      article: $article\r\n    };\r\n  },\r\n  created() {},\r\n  methods: {\r\n    save_btn() {\r\n      var $dom = this.$refs[\"content\"];\r\n      var html = $dom.innerHTML;\r\n      ajax({\r\n          type:'post',\r\n          url:'houshu/'\r\n      })\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  background: #eeee;\r\n  letter-spacing: 1px;\n}\n.editer .padding10 {\r\n  padding: 10px;\n}\n.right {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.content1 {\r\n  min-height: 40px;\n}\n.label_all {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  font-size: 12px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/edite_article.vue"],"names":[],"mappings":";AACA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,kBAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,gBAAA;CACA","file":"edite_article.vue","sourcesContent":["<style>\r\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  background: #eeee;\r\n  letter-spacing: 1px;\r\n}\r\n.editer .padding10 {\r\n  padding: 10px;\r\n}\r\n.right {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n.content1 {\r\n  min-height: 40px;\r\n}\r\n.label_all {\r\n  display: flex;\r\n  font-size: 12px;\r\n}\r\n</style>\r\n\r\n<template>\r\n  <div class=\"editer \">\r\n    <div class=\"container\">\r\n      <div class=\"title\">\r\n        <input type=\"text\" class=\"form-control\" v-model=\"article.title\">\r\n        <div class=\"label_all padding10\">\r\n          <span class=\"label_title\">更新时间：</span>\r\n          <span class=\"label_content\">{{article.update_time}}</span>\r\n        </div>\r\n        <div class=\"padding10 right\">\r\n          <button class=\"btn btn-primary\" id=\"preview_btn\" @click=\"save_btn\">预览</button>\r\n          <button class=\"btn btn-success\" id=\"save_btn\" @click=\"save_btn\">保存</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"content\">\r\n        <div class=\"content1\" v-html=\"article.content\" contenteditable=\"true\" ref=\"content\"> </div>\r\n      </div>\r\n      <!-- <pre> -->\r\n      <!-- {{article}} -->\r\n      <!-- </pre> -->\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      article: $article\r\n    };\r\n  },\r\n  created() {},\r\n  methods: {\r\n    save_btn() {\r\n      var $dom = this.$refs[\"content\"];\r\n      var html = $dom.innerHTML;\r\n      $article.content = html;\r\n      delete $article.update_time;\r\n      delete $article.t;\r\n      ajax({\r\n        type: \"post\",\r\n        data: $article,\r\n        url: \"/huoshu/public/index/article/save\",\r\n        before() {\r\n          var index = layer.load(1, {\r\n            shade: [0.1, \"#fff\"] //0.1透明度的白色背景\r\n          });\r\n        },\r\n        success(jsonReturn) {\r\n          //   debugger;\r\n          layer.closeAll();\r\n          layer.msg(\"保存完毕\");\r\n          $article = JSON.parse(jsonReturn);\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -388,7 +417,25 @@ var render = function() {
           }
         }),
         _vm._v(" "),
+        _c("div", { staticClass: "label_all padding10" }, [
+          _c("span", { staticClass: "label_title" }, [_vm._v("更新时间：")]),
+          _vm._v(" "),
+          _c("span", { staticClass: "label_content" }, [
+            _vm._v(_vm._s(_vm.article.update_time))
+          ])
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "padding10 right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary",
+              attrs: { id: "preview_btn" },
+              on: { click: _vm.save_btn }
+            },
+            [_vm._v("预览")]
+          ),
+          _vm._v(" "),
           _c(
             "button",
             {
@@ -404,12 +451,11 @@ var render = function() {
       _c("div", { staticClass: "content" }, [
         _c("div", {
           ref: "content",
+          staticClass: "content1",
           attrs: { contenteditable: "true" },
           domProps: { innerHTML: _vm._s(_vm.article.content) }
         })
-      ]),
-      _vm._v(" "),
-      _c("pre", [_vm._v("            " + _vm._s(_vm.article) + "\n        ")])
+      ])
     ])
   ])
 }
