@@ -1,5 +1,4 @@
-# huoshu
-# huoshu
+# (活书)huoshu
 ```
 这是一个关于记录生活的的系统（blog）
 过去就让他过去
