@@ -4,7 +4,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use app\index\model\Article as ArticleDao;
-
+use app\index\model\Comment;
 class Article extends Controller
 {
     public function index()
@@ -65,6 +65,15 @@ class Article extends Controller
         }
     }
 
+
+    public function add_comment(){
+        $data=input('post.');
+        $comment['article_id']=json_decode( $data['article'])->id;
+        $comment['user_id']=json_decode($data['user'])->id;
+        $comment['comment']=$data['comment'];
+        $infor=Comment::create( $comment);
+        return json($infor);
+    }
     public function update_a()
     {
         $params_a = input('post.a/a');
