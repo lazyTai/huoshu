@@ -75,11 +75,6 @@ exports.default = {
 //
 //
 //
-//
-//
-//
-//
-//
 
 /***/ }),
 /* 9 */,
@@ -770,7 +765,7 @@ var render = function() {
     { attrs: { id: "app" } },
     [
       _c("Nav", { attrs: { setResult: _vm.setResult } }),
-      _vm._v(" "),
+      _vm._v(" asdasdasd\n  "),
       _c("Badge"),
       _vm._v(" "),
       _c("List", {
@@ -782,7 +777,7 @@ var render = function() {
           changeResultAndPage: _vm.changeResultAndPage
         }
       }),
-      _vm._v("\n" + _vm._s(_vm.msg) + "\n")
+      _vm._v(" " + _vm._s(_vm.msg) + "\n")
     ],
     1
   )

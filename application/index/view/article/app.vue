@@ -4,8 +4,7 @@
 <template>
   <div id="app">
     <Nav :setResult="setResult" />
-    <Article />
-
+    <Article /> 
     <Comments />
 
   </div>
@@ -14,7 +13,7 @@
 <script>
 import Header from "../components/Header.vue";
 import Article from "./article.vue";
-import Comments from "./Comments.vue"
+import Comments from "./Comments.vue";
 export default {
   data() {
     return {

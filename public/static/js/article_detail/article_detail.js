@@ -55,7 +55,6 @@ exports.default = {
 //
 //
 //
-//
 
 /***/ }),
 
@@ -268,13 +267,51 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
     return {
       user: $user,
       page: 1,
-      comments: []
+      comments: [],
+      loadding: false,
+      countPage: 0
     };
   },
   created: function created() {
@@ -293,13 +330,18 @@ exports.default = {
         url: "/huoshu/public/index/comment/read",
         data: data,
         before: function before() {
-          layer.load(1);
+          self.loadding = true;
         },
         success: function success(returnJson) {
-          layer.closeAll();
-          self.$data.comments = JSON.parse(returnJson);
+          self.loadding = false;
+          self.$data.comments = JSON.parse(returnJson)["data"];
+          self.$data.countPage = JSON.parse(returnJson)["count"];
         }
       });
+    },
+    page_click: function page_click(page1) {
+      this.$data.page = page1;
+      this.init();
     },
     ok_btn: function ok_btn() {
       var html = this.$refs["comment"].value;
@@ -308,6 +350,7 @@ exports.default = {
         user: (0, _stringify2.default)($user),
         comment: html
       };
+      var self = this;
       ajax({
         type: "post",
         url: "/huoshu/public/index/article/add_comment",
@@ -318,6 +361,7 @@ exports.default = {
         success: function success(returnJson) {
           layer.closeAll();
           layer.msg("保存成功");
+          self.init();
         }
       });
     }
@@ -759,7 +803,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n#comments {\r\n  margin-bottom: 50px;\n}\n.commet .content {\r\n  padding: 10px;\r\n  background: #eee;\r\n  margin-bottom: 29px;\n}\n.commet .commeter_info {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.commet .name_time {\r\n  font-size: 12px;\r\n  padding-top: 10px;\r\n  line-height: 20px;\n}\n.show_commonets .title {\r\n  border-bottom: 1px solid #eee;\r\n  padding-bottom: 5px;\n}\n.show_commonets .title small {\r\n  font-size: 12px;\r\n  cursor: pointer;\n}\n.show_commonets .title .right {\r\n  text-align: right;\r\n  float: right;\n}\n.ok_btn {\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.edit_place {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.image_url {\r\n  margin: 5px;\r\n  width: 50px;\r\n  height: 50px;\r\n  border-radius: 50%;\r\n  border: 1px solid #eee;\n}\n.commonet_edit {\r\n  border: 1px solid #eee;\r\n  background: #eee;\r\n  width: 100%;\n}\n.btn_place {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.name_time_like {\r\n  line-height: 26px;\n}\n.time_like {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.time_like .like {\r\n  padding: 0 10 0 0;\n}\n.time_like .time {\r\n  padding: 0 10;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/application/index/view/article/Comments.vue"],"names":[],"mappings":";AACA;EACA,oBAAA;CACA;AACA;EACA,cAAA;EACA,iBAAA;EACA,oBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,gBAAA;EACA,kBAAA;EACA,kBAAA;CACA;AACA;EACA,8BAAA;EACA,oBAAA;CACA;AACA;EACA,gBAAA;EACA,gBAAA;CACA;AACA;EACA,kBAAA;EACA,aAAA;CACA;AACA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,YAAA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;CACA;AACA;EACA,uBAAA;EACA,iBAAA;EACA,YAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,kBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,kBAAA;CACA;AACA;EACA,cAAA;CACA","file":"Comments.vue","sourcesContent":["<style>\r\n#comments {\r\n  margin-bottom: 50px;\r\n}\r\n.commet .content {\r\n  padding: 10px;\r\n  background: #eee;\r\n  margin-bottom: 29px;\r\n}\r\n.commet .commeter_info {\r\n  display: flex;\r\n}\r\n.commet .name_time {\r\n  font-size: 12px;\r\n  padding-top: 10px;\r\n  line-height: 20px;\r\n}\r\n.show_commonets .title {\r\n  border-bottom: 1px solid #eee;\r\n  padding-bottom: 5px;\r\n}\r\n.show_commonets .title small {\r\n  font-size: 12px;\r\n  cursor: pointer;\r\n}\r\n.show_commonets .title .right {\r\n  text-align: right;\r\n  float: right;\r\n}\r\n.ok_btn {\r\n  justify-content: flex-end;\r\n}\r\n.edit_place {\r\n  display: flex;\r\n}\r\n.image_url {\r\n  margin: 5px;\r\n  width: 50px;\r\n  height: 50px;\r\n  border-radius: 50%;\r\n  border: 1px solid #eee;\r\n}\r\n.commonet_edit {\r\n  border: 1px solid #eee;\r\n  background: #eee;\r\n  width: 100%;\r\n}\r\n.btn_place {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n.name_time_like {\r\n  line-height: 26px;\r\n}\r\n.time_like {\r\n  display: flex;\r\n}\r\n.time_like .like {\r\n  padding: 0 10 0 0;\r\n}\r\n.time_like .time {\r\n  padding: 0 10;\r\n}\r\n</style>\r\n<template>\r\n  <div id=\"comments\">\r\n    <div class=\"container\">\r\n      <div class=\"edit_place \">\r\n        <img :src=\"user.image_url\" alt=\"\" class=\"image_url\">\r\n        <textarea name=\"\" id=\"\" class=\"commonet_edit\" rows=\"5\" ref=\"comment\"></textarea>\r\n      </div>\r\n      <div style=\"padding:5px;\" class=\" btn_place\">\r\n        <button class=\"btn btn-success ok_btn\" @click=\"ok_btn\">发表</button>\r\n      </div>\r\n\r\n      <div class=\"show_commonets\">\r\n        <div class=\"title\">\r\n          <span>1条评论 </span>\r\n          <span class=\"right\">\r\n            <small>按喜欢排序 </small>\r\n            <small>按时间正序</small>\r\n            <small>按时间倒序</small>\r\n          </span>\r\n        </div>\r\n\r\n        <div class=\"commet\" v-for=\"comment_item in comments\">\r\n          <div class=\"commeter_info\">\r\n            <img :src=\"comment_item.user_image_url\" alt=\"\" class=\"image_url\" />\r\n            <div class=\"name_time_like\">\r\n              <div class=\"name\">{{comment_item.user_name}}</div>\r\n              <div class=\"time_like\">\r\n                <div class=\"like\">like:{{comment_item.like_num}}</div>\r\n                <div class=\"time\">{{comment_item.update_time}}</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"content\">\r\n            {{comment_item.comment}}\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n\r\n\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      user: $user,\r\n      page: 1,\r\n      comments: []\r\n    };\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    init() {\r\n      var self = this;\r\n      var data = {\r\n        page: self.$data.page,\r\n        article_id: $article[\"id\"]\r\n      };\r\n      ajax({\r\n        type: \"post\",\r\n        url: \"/huoshu/public/index/comment/read\",\r\n        data,\r\n        before() {\r\n          layer.load(1);\r\n        },\r\n        success(returnJson) {\r\n          layer.closeAll();\r\n          self.$data.comments = JSON.parse(returnJson);\r\n        }\r\n      });\r\n    },\r\n    ok_btn() {\r\n      var html = this.$refs[\"comment\"].value;\r\n      var data = {\r\n        article: JSON.stringify($article),\r\n        user: JSON.stringify($user),\r\n        comment: html\r\n      };\r\n      ajax({\r\n        type: \"post\",\r\n        url: \"/huoshu/public/index/article/add_comment\",\r\n        data,\r\n        before() {\r\n          layer.load(1);\r\n        },\r\n        success(returnJson) {\r\n          layer.closeAll();\r\n          layer.msg(\"保存成功\");\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n#comments {\r\n  margin-bottom: 50px;\n}\n.glyphicon {\r\n  cursor: pointer;\n}\n.commet {\r\n  border-bottom: 1px solid #eee;\r\n  padding: 10px 0;\n}\n.commet .content {\r\n  padding: 10px;\r\n  background: #eee;\n}\n.commet .commeter_info {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.commet .name_time {\r\n  font-size: 12px;\r\n  padding-top: 10px;\r\n  line-height: 20px;\n}\n.show_commonets .title {\r\n  border-bottom: 1px solid #eee;\r\n  padding-bottom: 5px;\n}\n.show_commonets .title small {\r\n  font-size: 12px;\r\n  cursor: pointer;\n}\n.show_commonets .title .right {\r\n  text-align: right;\r\n  float: right;\n}\n.ok_btn {\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.edit_place {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.image_url {\r\n  margin: 5px;\r\n  width: 50px;\r\n  height: 50px;\r\n  border-radius: 50%;\r\n  border: 1px solid #eee;\n}\n.commonet_edit {\r\n  border: 1px solid #eee;\r\n  background: #eee;\r\n  width: 100%;\n}\n.btn_place {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.name_time_like {\r\n  line-height: 26px;\n}\n.time_like {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  font-size: 12px;\n}\n.time_like .like {\r\n  padding: 0 5 0 0;\n}\n.time_like .time {\r\n  padding: 0 5;\n}\n.load {\r\n  text-align: center;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/application/index/view/article/Comments.vue"],"names":[],"mappings":";AACA;EACA,oBAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,8BAAA;EACA,gBAAA;CACA;AACA;EACA,cAAA;EACA,iBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,gBAAA;EACA,kBAAA;EACA,kBAAA;CACA;AACA;EACA,8BAAA;EACA,oBAAA;CACA;AACA;EACA,gBAAA;EACA,gBAAA;CACA;AACA;EACA,kBAAA;EACA,aAAA;CACA;AACA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,YAAA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;CACA;AACA;EACA,uBAAA;EACA,iBAAA;EACA,YAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,kBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,gBAAA;CACA;AACA;EACA,iBAAA;CACA;AACA;EACA,aAAA;CACA;AACA;EACA,mBAAA;CACA","file":"Comments.vue","sourcesContent":["<style>\r\n#comments {\r\n  margin-bottom: 50px;\r\n}\r\n.glyphicon {\r\n  cursor: pointer;\r\n}\r\n.commet {\r\n  border-bottom: 1px solid #eee;\r\n  padding: 10px 0;\r\n}\r\n.commet .content {\r\n  padding: 10px;\r\n  background: #eee;\r\n}\r\n.commet .commeter_info {\r\n  display: flex;\r\n}\r\n.commet .name_time {\r\n  font-size: 12px;\r\n  padding-top: 10px;\r\n  line-height: 20px;\r\n}\r\n.show_commonets .title {\r\n  border-bottom: 1px solid #eee;\r\n  padding-bottom: 5px;\r\n}\r\n.show_commonets .title small {\r\n  font-size: 12px;\r\n  cursor: pointer;\r\n}\r\n.show_commonets .title .right {\r\n  text-align: right;\r\n  float: right;\r\n}\r\n.ok_btn {\r\n  justify-content: flex-end;\r\n}\r\n.edit_place {\r\n  display: flex;\r\n}\r\n.image_url {\r\n  margin: 5px;\r\n  width: 50px;\r\n  height: 50px;\r\n  border-radius: 50%;\r\n  border: 1px solid #eee;\r\n}\r\n.commonet_edit {\r\n  border: 1px solid #eee;\r\n  background: #eee;\r\n  width: 100%;\r\n}\r\n.btn_place {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n.name_time_like {\r\n  line-height: 26px;\r\n}\r\n.time_like {\r\n  display: flex;\r\n  font-size: 12px;\r\n}\r\n.time_like .like {\r\n  padding: 0 5 0 0;\r\n}\r\n.time_like .time {\r\n  padding: 0 5;\r\n}\r\n.load {\r\n  text-align: center;\r\n}\r\n</style>\r\n<template>\r\n  <div id=\"comments\">\r\n    <div class=\"container\">\r\n      <div class=\"edit_place \">\r\n        <img :src=\"user.image_url\" alt=\"\" class=\"image_url\">\r\n        <textarea name=\"\" id=\"\" class=\"commonet_edit\" rows=\"5\" ref=\"comment\"></textarea>\r\n      </div>\r\n      <div style=\"padding:5px;\" class=\" btn_place\">\r\n        <button class=\"btn btn-success ok_btn\" @click=\"ok_btn\">发表</button>\r\n      </div>\r\n\r\n      <div class=\"show_commonets\">\r\n        <div class=\"title\">\r\n          <span>1条评论 </span>\r\n          <span class=\"right\">\r\n            <small>按喜欢排序 </small>\r\n            <small>按时间正序</small>\r\n            <small>按时间倒序</small>\r\n          </span>\r\n        </div>\r\n\r\n        <div class=\"load\" v-show=\"loadding\">\r\n          <img src=\"/huoshu/public/static/layer/theme/default/loading-1.gif\" alt=\"\"> loading\r\n        </div>\r\n        <div class=\"commet\" v-for=\"comment_item in comments\" v-show=\"!loadding\">\r\n          <div class=\"commeter_info\">\r\n            <img :src=\"comment_item.user_image_url\" alt=\"\" class=\"image_url\" />\r\n            <div class=\"name_time_like\">\r\n              <div class=\"name\">{{comment_item.user_name}}</div>\r\n              <div class=\"time_like\">\r\n                <div class=\"like\">like:{{comment_item.like_num}}\r\n                  <span class=\"glyphicon glyphicon-thumbs-up\"></span>\r\n                  <span class=\"glyphicon glyphicon-thumbs-down\"></span>\r\n                </div>\r\n                <div class=\"time\">\r\n                  <span class=\"glyphicon glyphicon-time\"></span>\r\n                  {{comment_item.update_time}}</div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"content\">\r\n            {{comment_item.comment}}\r\n          </div>\r\n        </div>\r\n\r\n        <nav aria-label=\"Page navigation\" v-show=\"!loadding\">\r\n          <ul class=\"pagination\">\r\n            <li>\r\n              <a href=\"#\" aria-label=\"Previous\">\r\n                <span aria-hidden=\"true\">&laquo;</span>\r\n              </a>\r\n            </li>\r\n            <li v-for=\"item in countPage\" @click=\"page_click(item)\" :class=\"item==page?'active':'none'\">\r\n              <a href=\"#\">{{item}}</a>\r\n            </li>\r\n            <li>\r\n              <a href=\"#\" aria-label=\"Next\">\r\n                <span aria-hidden=\"true\">&raquo;</span>\r\n              </a>\r\n            </li>\r\n          </ul>\r\n        </nav>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n\r\n\r\n<script>\r\nexport default {\r\n  data() {\r\n    return {\r\n      user: $user,\r\n      page: 1,\r\n      comments: [],\r\n      loadding: false,\r\n      countPage: 0\r\n    };\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    init() {\r\n      var self = this;\r\n      var data = {\r\n        page: self.$data.page,\r\n        article_id: $article[\"id\"]\r\n      };\r\n      ajax({\r\n        type: \"post\",\r\n        url: \"/huoshu/public/index/comment/read\",\r\n        data,\r\n        before() {\r\n          self.loadding = true;\r\n        },\r\n        success(returnJson) {\r\n          self.loadding = false;\r\n          self.$data.comments = JSON.parse(returnJson)[\"data\"];\r\n          self.$data.countPage = JSON.parse(returnJson)[\"count\"];\r\n        }\r\n      });\r\n    },\r\n    page_click(page1) {\r\n      this.$data.page = page1;\r\n      this.init();\r\n    },\r\n    ok_btn() {\r\n      var html = this.$refs[\"comment\"].value;\r\n      var data = {\r\n        article: JSON.stringify($article),\r\n        user: JSON.stringify($user),\r\n        comment: html\r\n      };\r\n      var self = this;\r\n      ajax({\r\n        type: \"post\",\r\n        url: \"/huoshu/public/index/article/add_comment\",\r\n        data,\r\n        before() {\r\n          layer.load(1);\r\n        },\r\n        success(returnJson) {\r\n          layer.closeAll();\r\n          layer.msg(\"保存成功\");\r\n          self.init();\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -810,38 +854,138 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
+          _c(
+            "div",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.loadding,
+                  expression: "loadding"
+                }
+              ],
+              staticClass: "load"
+            },
+            [
+              _c("img", {
+                attrs: {
+                  src:
+                    "/huoshu/public/static/layer/theme/default/loading-1.gif",
+                  alt: ""
+                }
+              }),
+              _vm._v(" loading\n      ")
+            ]
+          ),
+          _vm._v(" "),
           _vm._l(_vm.comments, function(comment_item) {
-            return _c("div", { staticClass: "commet" }, [
-              _c("div", { staticClass: "commeter_info" }, [
-                _c("img", {
-                  staticClass: "image_url",
-                  attrs: { src: comment_item.user_image_url, alt: "" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "name_time_like" }, [
-                  _c("div", { staticClass: "name" }, [
-                    _vm._v(_vm._s(comment_item.user_name))
-                  ]),
+            return _c(
+              "div",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: !_vm.loadding,
+                    expression: "!loadding"
+                  }
+                ],
+                staticClass: "commet"
+              },
+              [
+                _c("div", { staticClass: "commeter_info" }, [
+                  _c("img", {
+                    staticClass: "image_url",
+                    attrs: { src: comment_item.user_image_url, alt: "" }
+                  }),
                   _vm._v(" "),
-                  _c("div", { staticClass: "time_like" }, [
-                    _c("div", { staticClass: "like" }, [
-                      _vm._v("like:" + _vm._s(comment_item.like_num))
+                  _c("div", { staticClass: "name_time_like" }, [
+                    _c("div", { staticClass: "name" }, [
+                      _vm._v(_vm._s(comment_item.user_name))
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "time" }, [
-                      _vm._v(_vm._s(comment_item.update_time))
+                    _c("div", { staticClass: "time_like" }, [
+                      _c("div", { staticClass: "like" }, [
+                        _vm._v(
+                          "like:" +
+                            _vm._s(comment_item.like_num) +
+                            "\n                "
+                        ),
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-thumbs-up"
+                        }),
+                        _vm._v(" "),
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-thumbs-down"
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "time" }, [
+                        _c("span", { staticClass: "glyphicon glyphicon-time" }),
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(comment_item.update_time)
+                        )
+                      ])
                     ])
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "content" }, [
+                  _vm._v(
+                    "\n          " + _vm._s(comment_item.comment) + "\n        "
+                  )
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "content" }, [
-                _vm._v(
-                  "\n          " + _vm._s(comment_item.comment) + "\n        "
-                )
-              ])
-            ])
-          })
+              ]
+            )
+          }),
+          _vm._v(" "),
+          _c(
+            "nav",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: !_vm.loadding,
+                  expression: "!loadding"
+                }
+              ],
+              attrs: { "aria-label": "Page navigation" }
+            },
+            [
+              _c(
+                "ul",
+                { staticClass: "pagination" },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.countPage, function(item) {
+                    return _c(
+                      "li",
+                      {
+                        class: item == _vm.page ? "active" : "none",
+                        on: {
+                          click: function($event) {
+                            _vm.page_click(item)
+                          }
+                        }
+                      },
+                      [
+                        _c("a", { attrs: { href: "#" } }, [
+                          _vm._v(_vm._s(item))
+                        ])
+                      ]
+                    )
+                  }),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ],
+                2
+              )
+            ]
+          )
         ],
         2
       )
@@ -862,6 +1006,26 @@ var staticRenderFns = [
         _c("small", [_vm._v("按时间正序")]),
         _vm._v(" "),
         _c("small", [_vm._v("按时间倒序")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#", "aria-label": "Previous" } }, [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#", "aria-label": "Next" } }, [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")])
       ])
     ])
   }

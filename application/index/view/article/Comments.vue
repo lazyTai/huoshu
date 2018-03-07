@@ -2,10 +2,16 @@
 #comments {
   margin-bottom: 50px;
 }
+.glyphicon {
+  cursor: pointer;
+}
+.commet {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
 .commet .content {
   padding: 10px;
   background: #eee;
-  margin-bottom: 29px;
 }
 .commet .commeter_info {
   display: flex;
@@ -54,12 +60,16 @@
 }
 .time_like {
   display: flex;
+  font-size: 12px;
 }
 .time_like .like {
-  padding: 0 10 0 0;
+  padding: 0 5 0 0;
 }
 .time_like .time {
-  padding: 0 10;
+  padding: 0 5;
+}
+.load {
+  text-align: center;
 }
 </style>
 <template>
@@ -83,14 +93,22 @@
           </span>
         </div>
 
-        <div class="commet" v-for="comment_item in comments">
+        <div class="load" v-show="loadding">
+          <img src="/huoshu/public/static/layer/theme/default/loading-1.gif" alt=""> loading
+        </div>
+        <div class="commet" v-for="comment_item in comments" v-show="!loadding">
           <div class="commeter_info">
             <img :src="comment_item.user_image_url" alt="" class="image_url" />
             <div class="name_time_like">
               <div class="name">{{comment_item.user_name}}</div>
               <div class="time_like">
-                <div class="like">like:{{comment_item.like_num}}</div>
-                <div class="time">{{comment_item.update_time}}</div>
+                <div class="like">like:{{comment_item.like_num}}
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                </div>
+                <div class="time">
+                  <span class="glyphicon glyphicon-time"></span>
+                  {{comment_item.update_time}}</div>
               </div>
             </div>
           </div>
@@ -99,6 +117,24 @@
             {{comment_item.comment}}
           </div>
         </div>
+
+        <nav aria-label="Page navigation" v-show="!loadding">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li v-for="item in countPage" @click="page_click(item)" :class="item==page?'active':'none'">
+              <a href="#">{{item}}</a>
+            </li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
 
@@ -112,7 +148,9 @@ export default {
     return {
       user: $user,
       page: 1,
-      comments: []
+      comments: [],
+      loadding: false,
+      countPage: 0
     };
   },
   created() {
@@ -130,13 +168,18 @@ export default {
         url: "/huoshu/public/index/comment/read",
         data,
         before() {
-          layer.load(1);
+          self.loadding = true;
         },
         success(returnJson) {
-          layer.closeAll();
-          self.$data.comments = JSON.parse(returnJson);
+          self.loadding = false;
+          self.$data.comments = JSON.parse(returnJson)["data"];
+          self.$data.countPage = JSON.parse(returnJson)["count"];
         }
       });
+    },
+    page_click(page1) {
+      this.$data.page = page1;
+      this.init();
     },
     ok_btn() {
       var html = this.$refs["comment"].value;
@@ -145,6 +188,7 @@ export default {
         user: JSON.stringify($user),
         comment: html
       };
+      var self = this;
       ajax({
         type: "post",
         url: "/huoshu/public/index/article/add_comment",
@@ -155,6 +199,7 @@ export default {
         success(returnJson) {
           layer.closeAll();
           layer.msg("保存成功");
+          self.init();
         }
       });
     }

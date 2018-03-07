@@ -19,7 +19,7 @@ $_config = [
     // 应用调试模式
     'app_debug' => true,
     // 应用Trace
-    'app_trace' => true,
+    'app_trace' => false,
     'trace' => [
         // 在当前Html页面显示Trace信息
         'type' => 'console',

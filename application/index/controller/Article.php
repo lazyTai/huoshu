@@ -71,6 +71,7 @@ class Article extends Controller
         $comment['article_id']=json_decode( $data['article'])->id;
         $comment['user_id']=json_decode($data['user'])->id;
         $comment['comment']=$data['comment'];
+        $comment['like_num']=0;
         $infor=Comment::create( $comment);
         return json($infor);
     }
