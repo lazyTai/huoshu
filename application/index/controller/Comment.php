@@ -12,13 +12,13 @@ class Comment extends Controller{
     // CommentDao::get([""])
      return json("index ");
  }
- public function read($article_id,$page=1){
+ public function read($article_id,$page=1,$order="like_num",$asc='desc'){
     $comments= Db::view('User',['id'=>'user_id','name'=>'user_name'])
     ->view('Profile',['image_url'=>"user_image_url"],'Profile.user_id=User.id')
     ->view('Comment','id,article_id,comment,update_time,like_num','Comment.article_id=User.id')
     ->where('article_id', '=', $article_id)
     ->page($page,5)
-    ->order(['like_num'=>'desc', 'update_time'=>'desc'])
+    ->order([$order=>$asc])
     ->select();
 
     $count=Db::view('User',['id'=>'user_id','name'=>'user_name'])

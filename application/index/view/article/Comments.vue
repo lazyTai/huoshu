@@ -87,9 +87,9 @@
         <div class="title">
           <span>1条评论 </span>
           <span class="right">
-            <small>按喜欢排序 </small>
-            <small>按时间正序</small>
-            <small>按时间倒序</small>
+            <small @click="init('like_num','desc')">按喜欢排序 </small>
+            <small @click="init('update_time','desc')">按时间正序</small>
+            <small @click="init('update_time','asc')">按时间倒序</small>
           </span>
         </div>
 
@@ -160,11 +160,13 @@ export default {
     this.init();
   },
   methods: {
-    init() {
+    init(order='like_num',asc='desc') {
       var self = this;
       var data = {
         page: self.$data.page,
-        article_id: $article["id"]
+        article_id: $article["id"],
+        order,
+        asc
       };
       ajax({
         type: "post",
@@ -187,9 +189,17 @@ export default {
         comment_id
       };
       ajax({
-        type:'post',
+        type: "post",
         url: "/huoshu/public/index/comment/like",
-        data
+        data,
+        success(returnJsonStr) {
+          var returnJson = JSON.parse(returnJsonStr);
+          if (returnJson.success) {
+            self.loadding = true;
+            self.init();
+          }
+          layer.msg(returnJson.message);
+        }
       });
     },
     like_up(comment_id) {
