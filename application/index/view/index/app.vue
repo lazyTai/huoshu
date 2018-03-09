@@ -3,7 +3,7 @@
 </style>
 <template>
   <div id="app">
-    <Nav :setResult="setResult" /> asdasdasd
+    <Nav :setResult="setResult" /> 
     <Badge />
     <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage" :changeResultAndPage='changeResultAndPage' /> {{msg}}
   </div>

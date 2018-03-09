@@ -37,13 +37,19 @@ class Article extends Controller
        
         return $this->fetch();
     }
+   
     public function detail($id){
         $article=ArticleDao::get($id);
         $this->assign("article", $article);
         if(input("session.ext_user")){
             $this->assign("user", json_encode(input("session.ext_user")));
         }else{
-            $this->error("没有登陆","/huoshu/public/index");
+            $this->assign("user", json_encode(
+                [
+                    "status"=>'0',
+                    "name"=>"游客","image_url"=>"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1520488358095&di=c43dcafc8db461399179de61bf883f24&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ftranslate%2F20171011%2F0AiL-fymviyp0227644.jpg"]
+            ));
+            // $this->error("没有登陆","/huoshu/public/index");
         }
        
         return $this->fetch();

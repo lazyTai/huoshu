@@ -30,4 +30,64 @@ class Comment extends Controller{
     $json['count']= ceil($count/5);
     return json($json);
  }
+
+ public function like(){
+    $params=input('post.');
+    $returnJson=['success'=>false,'message'=>''];
+    Db::startTrans();
+    try{
+        if($this->check_like()['success']){
+            $comment=CommentDao::get(['id'=>$params['comment_id']]);
+            $comment->like_num= $comment->like_num+1;
+            $comment->save();
+            $returnJson['message']='点赞成功';
+            $returnJson['success']=true;
+        }else{
+            $returnJson['message']="已经存在，不能like";
+            return json($returnJson);
+        } 
+        // 提交事务
+        Db::commit();    
+    } catch (\Exception $e) {
+        // 回滚事务
+        Db::rollback();
+    }
+    return json($returnJson);
+    
+ }
+
+  /* 检查评论是否点击评论 */
+  public function check_like(){
+        $returnJson=['success'=>false,'message'=>''];
+        $params=input('post.');
+        /* chenck like */
+        $check_status=Db::table('think_check_comment_like')->where([
+        'user_id'=>json_decode($params['user'])->id,
+        'comment_id'=>$params['comment_id'],
+        "status"=>1
+        ])->select();
+
+        if(count($check_status)>0){
+            // 已经存在，不能like
+            $returnJson['message']="已经存在，不能like";
+        }else{
+                $data= ['user_id'=>json_decode($params['user'])->id,
+                'comment_id'=>$params['comment_id'],
+                "status"=>1];
+                $update_info=Db::table('think_check_comment_like')
+                ->where([
+                    'user_id'=>json_decode($params['user'])->id,
+                    'comment_id'=>$params['comment_id']
+                ])
+                ->update(["status"=>1]);
+                if($update_info==0){
+                    $inert_info=Db::table('think_check_comment_like')
+                    ->insert($data);
+                }
+                // 提交事务
+                $returnJson['success']=true;
+                $returnJson['message']="添加成功";
+     }
+        return $returnJson;
+  }
 }

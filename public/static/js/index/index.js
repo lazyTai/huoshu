@@ -765,7 +765,7 @@ var render = function() {
     { attrs: { id: "app" } },
     [
       _c("Nav", { attrs: { setResult: _vm.setResult } }),
-      _vm._v(" asdasdasd\n  "),
+      _vm._v(" "),
       _c("Badge"),
       _vm._v(" "),
       _c("List", {

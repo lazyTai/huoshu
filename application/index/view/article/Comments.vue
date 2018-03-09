@@ -103,7 +103,7 @@
               <div class="name">{{comment_item.user_name}}</div>
               <div class="time_like">
                 <div class="like">like:{{comment_item.like_num}}
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                  <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
                   <span class="glyphicon glyphicon-thumbs-down"></span>
                 </div>
                 <div class="time">
@@ -143,6 +143,9 @@
 
 
 <script>
+import Toast from "vue-easy-toast";
+Vue.use(Toast);
+
 export default {
   data() {
     return {
@@ -176,6 +179,28 @@ export default {
           self.$data.countPage = JSON.parse(returnJson)["count"];
         }
       });
+    },
+    ajax_lick_up(comment_id) {
+      var self = this;
+      var data = {
+        user: JSON.stringify($user),
+        comment_id
+      };
+      ajax({
+        type:'post',
+        url: "/huoshu/public/index/comment/like",
+        data
+      });
+    },
+    like_up(comment_id) {
+      if ($user.status == 0) {
+        Vue.toast("请先登录", {
+          horizontalPosition: "center",
+          verticalPosition: "bottom"
+        });
+      } else {
+        this.ajax_lick_up(comment_id);
+      }
     },
     page_click(page1) {
       this.$data.page = page1;
