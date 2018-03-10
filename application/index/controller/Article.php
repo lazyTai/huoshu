@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\Controller;
 use app\index\model\Article as ArticleDao;
 use app\index\model\Comment;
+use think\Db;
 class Article extends Controller
 {
     public function index()
@@ -40,6 +41,15 @@ class Article extends Controller
    
     public function detail($id){
         $article=ArticleDao::get($id);
+        /* 获取喜欢num */
+        $like_num=Db::table('think_article_like')
+            ->where(['article_id'=>$id,'status'=>'1'])->count();
+        $article['like_num']=$like_num;
+        //获取评论数
+        $num_artitcle=Db::table('think_comment')
+            ->where(['article_id'=>$id])->count();
+        $article['num_artitcle']=$num_artitcle;
+
         $this->assign("article", $article);
         if(input("session.ext_user")){
             $this->assign("user", json_encode(input("session.ext_user")));

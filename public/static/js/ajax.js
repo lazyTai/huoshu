@@ -56,7 +56,7 @@ function ajax(options) {
         if (oAjax.readyState == 4) {
             if (oAjax.status >= 200 && oAjax.status < 300 || oAjax.status == 304) {
                 clearInterval(timer);
-                options.success && options.success(oAjax.responseText)
+                // options.success && options.success(oAjax.responseText)
             } else {
                 options.error && options.error(oAjax.status);
             }

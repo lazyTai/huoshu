@@ -104,7 +104,7 @@
               <div class="time_like">
                 <div class="like">like:{{comment_item.like_num}}
                   <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                  <span class="glyphicon glyphicon-thumbs-down" @click="like_down(comment_item.id)"></span>
                 </div>
                 <div class="time">
                   <span class="glyphicon glyphicon-time"></span>
@@ -160,7 +160,7 @@ export default {
     this.init();
   },
   methods: {
-    init(order='like_num',asc='desc') {
+    init(order = "like_num", asc = "desc") {
       var self = this;
       var data = {
         page: self.$data.page,
@@ -182,6 +182,27 @@ export default {
         }
       });
     },
+    ajax_click_down(comment_id) {
+      var self = this;
+      var data = {
+        user: JSON.stringify($user),
+        comment_id
+      };
+      ajax({
+        type: "post",
+        url: "/huoshu/public/index/comment/like_down",
+        data,
+        success(returnJsonStr) {
+          var returnJson = JSON.parse(returnJsonStr);
+          layer.msg(returnJson.message);
+          Vue.toast(returnJson.message);
+          if (returnJson.success) {
+            self.loadding = true;
+            self.init();
+          }
+        }
+      });
+    },
     ajax_lick_up(comment_id) {
       var self = this;
       var data = {
@@ -194,13 +215,24 @@ export default {
         data,
         success(returnJsonStr) {
           var returnJson = JSON.parse(returnJsonStr);
+          layer.msg(returnJson.message);
+          Vue.toast(returnJson.message);
           if (returnJson.success) {
             self.loadding = true;
             self.init();
           }
-          layer.msg(returnJson.message);
         }
       });
+    },
+    like_down(comment_id) {
+      if ($user.status == 0) {
+        Vue.toast("请先登录", {
+          horizontalPosition: "center",
+          verticalPosition: "bottom"
+        });
+      } else {
+        this.ajax_click_down(comment_id);
+      }
     },
     like_up(comment_id) {
       if ($user.status == 0) {
