@@ -1,7 +1,7 @@
 <style>
 ._media_object_wrapper {
-  max-width:200px;
-  max-height: 200;
+  max-width: 200px;
+  max-height: 200px;
   display: inline-block;
 }
 ._media_object {
@@ -22,10 +22,34 @@
   height: 48px;
   overflow: hidden;
 }
+.icon_fire {
+  padding: 5px 0px 5px 0px;
+  margin: 0 5px 0 5px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+}
+.icon_fire .icon {
+  font-size: 30px;
+}
+.icon_fire::after {
+  content: "";
+  width: 104px;
+  height: 1px;
+  position: absolute;
+  background: orange;
+  top: 39px;
+  left: 0px;
+}
 </style>
 <template>
   <div class="list_all">
-    <div class="media _media" v-for="(item,index) in  list">
+    <div class="icon_fire">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-huoyan"></use>
+      </svg>
+      7天排行版
+    </div>
+    <div class="media _media" v-bind:key='index' v-for="(item,index) in  list">
       <div class="media-left">
         <a href="#" class="_media_object_wrapper">
           <img class="media-object _media_object" :src="item.image_src" />

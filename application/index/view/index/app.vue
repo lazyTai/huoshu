@@ -1,17 +1,25 @@
 <style>
-
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 </style>
 <template>
   <div id="app">
-    <Nav :setResult="setResult" /> 
-    <Badge />
+    <Header1 />
+    <!-- 分类 -->
+    <IndexType />
+    <!-- 7天列表 -->
     <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage" :changeResultAndPage='changeResultAndPage' /> {{msg}}
   </div>
 </template>
 
 <script>
-import Header from "../components/Header.vue";
-import Badge from "./badge.vue";
+import Header1 from "./Header.vue";
+import IndexType from "./IndexType.vue";
 import List from "./list.vue";
 export default {
   data() {
@@ -24,9 +32,9 @@ export default {
   },
   created() {},
   components: {
-    Nav: Header,
-    Badge,
-    List
+    Header1,
+    List,
+    IndexType
   },
   methods: {
     setResult(result) {

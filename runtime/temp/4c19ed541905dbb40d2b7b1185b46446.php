@@ -1,22 +1,18 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\index\index.html";i:1520840490;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:71:"D:\phpStudy\WWW\huoshu\public/../application/index\view\type\index.html";i:1520833980;}*/ ?>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>活书</title>
+    <title>大千世界</title>
 </head>
 
 <body>
     <script>
         var $result = <?php echo $result; ?>;
-        var $page = <?php echo $page; ?>;
-        var $type = <?php echo $type; ?>;
-        var $user=<?php echo $user; ?>;
     </script>
     <div id="root">
-
         <div>
             活书
         </div>
@@ -33,8 +29,9 @@
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/index/index.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_7te6g0i8p2b7qfr.js"></script>
+    <script src="/huoshu/public/static/js/type/type.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_h7blsdel7tbotj4i.js"></script>
+
 </body>
 
 </html>
