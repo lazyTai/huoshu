@@ -15,6 +15,9 @@
   padding-top: 10px;
   border-bottom: 1px solid #eee;
 }
+._media:last-child {
+  border-bottom: none;
+}
 .page_all {
   text-align: center;
 }
@@ -63,27 +66,11 @@
       </div>
     </div>
 
-    <!-- 分页 -->
-    <nav class="page_all" aria-label="Page navigation">
-      <ul class="pagination">
-        <li v-show="!show_prev">
-          <a href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li v-for='item in page' :class="{active:currentPage==item}">
-          <a href="#" @click="pageItemClick(item)">{{item}}</a>
-        </li>
-        <li v-show="!show_next">
-          <a href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
 </template>
 <script>
+import _ from "underscore";
+import { get_index_list } from "../util/fetch";
 export default {
   props: {
     list: Array,
@@ -109,27 +96,45 @@ export default {
       return false;
     }
   },
-  created() {},
+  created() {
+    this.init();
+  },
   methods: {
-    getList() {
+    init() {
       var self = this;
-      ajax({
-        url: "http://localhost/huoshu/public/index/index/getList",
-        type: "post",
+      window.addEventListener(
+        "scroll",
+        _.throttle(function() {
+          // console.log("底部必读");
+          if (
+            window.pageYOffset + window.innerHeight >=
+            document.documentElement.scrollHeight
+          ) {
+            console.log("底部必读");
+            self.scroll_bottom();
+          }
+        }, 200),
+        false
+      );
+    },
+    scroll_bottom() {
+      var self = this;
+      this.getList(self.currentPage + 1);
+    },
+    getList(currentPage) {
+      var self = this;
+      get_index_list({
         data: {
-          currentPage: this.currentPage
-        },
-        before() {
-          var index = layer.load(1, {
-            shade: [0.1, "#fff"] //0.1透明度的白色背景
-          });
+          currentPage
         },
         success(result) {
-          layer.closeAll();
-          self.changeResultAndPage(
-            JSON.parse(result)["result"],
-            JSON.parse(result)["page"]
-          );
+          var jsonResult = JSON.parse(result);
+          if (jsonResult["result"].length > 0) {
+            self.list.concat(jsonResult["result"]);
+            self.changeResultAndPage(self.list, JSON.parse(result)["page"]);
+          } else {
+            layer.msg("这回真的没有了");
+          }
         }
       });
     },
@@ -137,7 +142,7 @@ export default {
       var self = this;
       this.changePage(currentPage);
       this.$nextTick(() => {
-        self.getList();
+        self.getList(self.currentPage);
       });
     }
   }

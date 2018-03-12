@@ -13,7 +13,8 @@
     <!-- 分类 -->
     <IndexType />
     <!-- 7天列表 -->
-    <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage" :changeResultAndPage='changeResultAndPage' /> {{msg}}
+    <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage"
+     :changeResultAndPage='changeResultAndPage' /> {{msg}}
   </div>
 </template>
 
