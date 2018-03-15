@@ -13,7 +13,7 @@
 }
 .index_header .flip {
   width: 50%;
-  height: 35px;
+  height: 45px;
   display: flex;
 }
 .index_header .item {

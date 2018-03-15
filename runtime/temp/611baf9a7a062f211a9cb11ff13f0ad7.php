@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\index\index.html";i:1521010989;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\phpStudy\WWW\huoshu\public/../application/index\view\user\setting.html";i:1521085342;}*/ ?>
 <html lang="en">
 
 <head>
@@ -6,18 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/huoshu/public/static/common/tai.png" type="image/x-icon" />
-    <title>活书</title>
+    <title>大千世界</title>
 </head>
 
 <body>
     <script>
-        var $result = <?php echo $result; ?>;
-        var $page = <?php echo $page; ?>;
-        var $type = <?php echo $type; ?>;
-        var $user = <?php echo $user; ?>;
+        var $user=<?php echo $user; ?>;
     </script>
     <div id="root">
-
         <div>
             活书
         </div>
@@ -34,8 +30,17 @@
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/index/index.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_3lgx1w7oeqfo5hfr.js"></script>
+    <script src="/huoshu/public/static/js/user/user.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_t4m7at6fknapp66r.js"></script>
+    <style>
+        .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+    }
+    </style>
 </body>
 
 </html>

@@ -9,10 +9,48 @@ module.exports = Vue;
 
 /***/ }),
 /* 4 */,
-/* 5 */,
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.uuid = uuid;
+exports.dateFtt = dateFtt;
+function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == 'x' ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+    });
+}
+/**************************************时间格式化处理************************************/
+function dateFtt(fmt, val) {
+    //author: meizz   
+    var date = new Date(val);
+    var o = {
+        "M+": date.getMonth() + 1, //月份   
+        "d+": date.getDate(), //日   
+        "h+": date.getHours(), //小时   
+        "m+": date.getMinutes(), //分   
+        "s+": date.getSeconds(), //秒   
+        "q+": Math.floor((date.getMonth() + 3) / 3), //季度   
+        "S": date.getMilliseconds() //毫秒   
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o) {
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+    }return fmt;
+}
+
+/***/ }),
 /* 6 */,
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22,19 +60,46 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Header = __webpack_require__(32);
+var _Header = __webpack_require__(36);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _IndexType = __webpack_require__(36);
+var _IndexType = __webpack_require__(40);
 
 var _IndexType2 = _interopRequireDefault(_IndexType);
 
-var _list = __webpack_require__(40);
+var _list = __webpack_require__(44);
 
 var _list2 = _interopRequireDefault(_list);
 
+var _Bottom = __webpack_require__(49);
+
+var _Bottom2 = _interopRequireDefault(_Bottom);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
@@ -50,7 +115,8 @@ exports.default = {
   components: {
     Header1: _Header2.default,
     List: _list2.default,
-    IndexType: _IndexType2.default
+    IndexType: _IndexType2.default,
+    Bottom: _Bottom2.default
   },
   methods: {
     setResult: function setResult(result) {
@@ -64,29 +130,10 @@ exports.default = {
       this.page = page;
     }
   }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -130,7 +177,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {};
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -140,7 +187,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _fetch = __webpack_require__(11);
+var _fetch = __webpack_require__(12);
 
 exports.default = {
   data: function data() {
@@ -202,7 +249,7 @@ exports.default = {
 //
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -245,7 +292,7 @@ function get_index_list(opt) {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -255,84 +302,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _underscore = __webpack_require__(43);
+var _util = __webpack_require__(5);
+
+var _underscore = __webpack_require__(47);
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-var _fetch = __webpack_require__(11);
+var _fetch = __webpack_require__(12);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
   props: {
@@ -365,6 +343,7 @@ exports.default = {
   },
 
   methods: {
+    dateFtt: _util.dateFtt,
     init: function init() {
       var self = this;
       window.addEventListener("scroll", _underscore2.default.throttle(function () {
@@ -404,11 +383,187 @@ exports.default = {
       });
     }
   }
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
-/* 13 */,
-/* 14 */,
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {};
+
+/***/ }),
 /* 15 */,
 /* 16 */,
 /* 17 */,
@@ -421,7 +576,11 @@ exports.default = {
 /* 24 */,
 /* 25 */,
 /* 26 */,
-/* 27 */
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -431,7 +590,7 @@ var _vue = __webpack_require__(3);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _app = __webpack_require__(28);
+var _app = __webpack_require__(32);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -446,19 +605,19 @@ new _vue2.default({
 });
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_4d4c9384_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_4d4c9384_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(53);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(29)
+  __webpack_require__(33)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -504,13 +663,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 29 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(30);
+var content = __webpack_require__(34);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -530,7 +689,7 @@ if(false) {
 }
 
 /***/ }),
-/* 30 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -538,26 +697,26 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.icon {\r\n  width: 1em;\r\n  height: 1em;\r\n  vertical-align: -0.15em;\r\n  fill: currentColor;\r\n  overflow: hidden;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/app.vue"],"names":[],"mappings":";AACA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,mBAAA;EACA,iBAAA;CACA","file":"app.vue","sourcesContent":["<style>\r\n.icon {\r\n  width: 1em;\r\n  height: 1em;\r\n  vertical-align: -0.15em;\r\n  fill: currentColor;\r\n  overflow: hidden;\r\n}\r\n</style>\r\n<template>\r\n  <div id=\"app\">\r\n    <Header1 />\r\n    <!-- 分类 -->\r\n    <IndexType />\r\n    <!-- 7天列表 -->\r\n    <List :list='result' :page=\"page\" :currentPage=\"currentPage\" :changePage=\"changePage\"\r\n     :changeResultAndPage='changeResultAndPage' /> {{msg}}\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header1 from \"./Header.vue\";\r\nimport IndexType from \"./IndexType.vue\";\r\nimport List from \"./list.vue\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      result: $result,\r\n      page: $page,\r\n      currentPage: 1,\r\n      msg: \"\"\r\n    };\r\n  },\r\n  created() {},\r\n  components: {\r\n    Header1,\r\n    List,\r\n    IndexType\r\n  },\r\n  methods: {\r\n    setResult(result) {\r\n      this.result = result;\r\n    },\r\n    changePage(currentPage) {\r\n      this.currentPage = currentPage;\r\n    },\r\n    changeResultAndPage(result, page) {\r\n      this.result = result;\r\n      this.page = page;\r\n    }\r\n  }\r\n};\r\n</script>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.icon {\r\n  width: 1em;\r\n  height: 1em;\r\n  vertical-align: -0.15em;\r\n  fill: currentColor;\r\n  overflow: hidden;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/app.vue"],"names":[],"mappings":";AACA;EACA,WAAA;EACA,YAAA;EACA,wBAAA;EACA,mBAAA;EACA,iBAAA;CACA","file":"app.vue","sourcesContent":["<style>\r\n.icon {\r\n  width: 1em;\r\n  height: 1em;\r\n  vertical-align: -0.15em;\r\n  fill: currentColor;\r\n  overflow: hidden;\r\n}\r\n</style>\r\n<template>\r\n  <div id=\"app\">\r\n    <Header1 />\r\n    <!-- 分类 -->\r\n    <IndexType />\r\n    <!-- 7天列表 -->\r\n    <List :list='result' :page=\"page\" :currentPage=\"currentPage\" :changePage=\"changePage\" :changeResultAndPage='changeResultAndPage' /> {{msg}}\r\n\r\n    <!-- bottom -->\r\n    <Bottom />\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header1 from \"./Header.vue\";\r\nimport IndexType from \"./IndexType.vue\";\r\nimport List from \"./list.vue\";\r\nimport Bottom from \"./Bottom.vue\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      result: $result,\r\n      page: $page,\r\n      currentPage: 1,\r\n      msg: \"\"\r\n    };\r\n  },\r\n  created() {},\r\n  components: {\r\n    Header1,\r\n    List,\r\n    IndexType,\r\n    Bottom\r\n  },\r\n  methods: {\r\n    setResult(result) {\r\n      this.result = result;\r\n    },\r\n    changePage(currentPage) {\r\n      this.currentPage = currentPage;\r\n    },\r\n    changeResultAndPage(result, page) {\r\n      this.result = result;\r\n      this.page = page;\r\n    }\r\n  }\r\n};\r\n</script>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 31 */,
-/* 32 */
+/* 35 */,
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Header_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_1d40bb9a_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_Header_vue__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_1d40bb9a_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_Header_vue__ = __webpack_require__(39);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(33)
+  __webpack_require__(37)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -603,13 +762,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 33 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(34);
+var content = __webpack_require__(38);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -629,7 +788,7 @@ if(false) {
 }
 
 /***/ }),
-/* 34 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -637,13 +796,13 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.index_header {\r\n  background: #0099cc;\r\n  color: #fff;\n}\n.index_header .flip {\r\n  width: 50%;\r\n  height: 35px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.index_header .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-align-content: center;\r\n          align-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  cursor: pointer;\n}\n.index_header .item.active {\r\n  border-bottom: 2px solid orange;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/Header.vue"],"names":[],"mappings":";AASA;EACA,oBAAA;EACA,YAAA;CACA;AACA;EACA,WAAA;EACA,aAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,8BAAA;UAAA,sBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,gBAAA;CACA;AACA;EACA,gCAAA;CACA","file":"Header.vue","sourcesContent":["<template>\r\n  <div class=\"index_header\">\r\n    <div class=\"flip\">\r\n      <div class=\"item active\">活书</div>\r\n      <div class=\"item\">辑本</div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<style>\r\n.index_header {\r\n  background: #0099cc;\r\n  color: #fff;\r\n}\r\n.index_header .flip {\r\n  width: 50%;\r\n  height: 35px;\r\n  display: flex;\r\n}\r\n.index_header .item {\r\n  flex: 1;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-content: center;\r\n  align-items: center;\r\n  cursor: pointer;\r\n}\r\n.index_header .item.active {\r\n  border-bottom: 2px solid orange;\r\n}\r\n</style>\r\n\r\n<script>\r\nexport default {};\r\n</script>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.index_header {\r\n  background: #0099cc;\r\n  color: #fff;\n}\n.index_header .flip {\r\n  width: 50%;\r\n  height: 45px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.index_header .item {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-align-content: center;\r\n          align-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  cursor: pointer;\n}\n.index_header .item.active {\r\n  border-bottom: 2px solid orange;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/Header.vue"],"names":[],"mappings":";AASA;EACA,oBAAA;EACA,YAAA;CACA;AACA;EACA,WAAA;EACA,aAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,8BAAA;UAAA,sBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,gBAAA;CACA;AACA;EACA,gCAAA;CACA","file":"Header.vue","sourcesContent":["<template>\r\n  <div class=\"index_header\">\r\n    <div class=\"flip\">\r\n      <div class=\"item active\">活书</div>\r\n      <div class=\"item\">辑本</div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<style>\r\n.index_header {\r\n  background: #0099cc;\r\n  color: #fff;\r\n}\r\n.index_header .flip {\r\n  width: 50%;\r\n  height: 45px;\r\n  display: flex;\r\n}\r\n.index_header .item {\r\n  flex: 1;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-content: center;\r\n  align-items: center;\r\n  cursor: pointer;\r\n}\r\n.index_header .item.active {\r\n  border-bottom: 2px solid orange;\r\n}\r\n</style>\r\n\r\n<script>\r\nexport default {};\r\n</script>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 35 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -678,19 +837,19 @@ if (false) {
 }
 
 /***/ }),
-/* 36 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_IndexType_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_5faf5aaf_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_IndexType_vue__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_5faf5aaf_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_IndexType_vue__ = __webpack_require__(43);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(37)
+  __webpack_require__(41)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -736,13 +895,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 37 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(38);
+var content = __webpack_require__(42);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -762,7 +921,7 @@ if(false) {
 }
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -776,7 +935,7 @@ exports.push([module.i, "\n.icon {\r\n  width: 1em;\r\n  height: 1em;\r\n  verti
 
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -859,19 +1018,19 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_list_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_697f6e4b_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_list_vue__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_697f6e4b_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_list_vue__ = __webpack_require__(48);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(41)
+  __webpack_require__(45)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -917,13 +1076,13 @@ if (false) {(function () {
 
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(42);
+var content = __webpack_require__(46);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -943,7 +1102,7 @@ if(false) {
 }
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -951,13 +1110,13 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n._media_object_wrapper {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\n}\n._media_object {\r\n  max-width: 200;\r\n  max-height: 200;\n}\n._media {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\n}\n._media:last-child {\r\n  border-bottom: none;\n}\n.page_all {\r\n  text-align: center;\n}\n.content_show {\r\n  height: 48px;\r\n  overflow: hidden;\n}\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\n}\n.icon_fire .icon {\r\n  font-size: 30px;\n}\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/list.vue"],"names":[],"mappings":";AACA;EACA,iBAAA;EACA,kBAAA;EACA,sBAAA;CACA;AACA;EACA,eAAA;EACA,gBAAA;CACA;AAEA;EACA,WAAA;EACA,qBAAA;EACA,kBAAA;EACA,8BAAA;CACA;AACA;EACA,oBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,aAAA;EACA,iBAAA;CACA;AACA;EACA,yBAAA;EACA,oBAAA;EACA,mBAAA;EACA,8BAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EACA,mBAAA;EACA,mBAAA;EACA,UAAA;EACA,UAAA;CACA","file":"list.vue","sourcesContent":["<style>\r\n._media_object_wrapper {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\r\n}\r\n._media_object {\r\n  max-width: 200;\r\n  max-height: 200;\r\n}\r\n\r\n._media {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n._media:last-child {\r\n  border-bottom: none;\r\n}\r\n.page_all {\r\n  text-align: center;\r\n}\r\n.content_show {\r\n  height: 48px;\r\n  overflow: hidden;\r\n}\r\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n.icon_fire .icon {\r\n  font-size: 30px;\r\n}\r\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\r\n}\r\n</style>\r\n<template>\r\n  <div class=\"list_all\">\r\n    <div class=\"icon_fire\">\r\n      <svg class=\"icon\" aria-hidden=\"true\">\r\n        <use xlink:href=\"#icon-huoyan\"></use>\r\n      </svg>\r\n      7天排行版\r\n    </div>\r\n    <div class=\"media _media\" v-bind:key='index' v-for=\"(item,index) in  list\">\r\n      <div class=\"media-left\">\r\n        <a href=\"#\" class=\"_media_object_wrapper\">\r\n          <img class=\"media-object _media_object\" :src=\"item.image_src\" />\r\n        </a>\r\n      </div>\r\n      <div class=\"media-body\">\r\n        <h4 class=\"media-heading\">\r\n          <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\">{{item.title}}</a>\r\n        </h4>\r\n        <div v-html=\"item.content\" class=\"content_show\"></div>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n<script>\r\nimport _ from \"underscore\";\r\nimport { get_index_list } from \"../util/fetch\";\r\nexport default {\r\n  props: {\r\n    list: Array,\r\n    page: Number,\r\n    currentPage: Number,\r\n    changePage: Function,\r\n    changeResultAndPage: Function\r\n  },\r\n  data() {\r\n    return {};\r\n  },\r\n  computed: {\r\n    show_prev: function() {\r\n      if (this.currentPage) {\r\n        return this.currentPage - 1 <= 0;\r\n      }\r\n      return false;\r\n    },\r\n    show_next: function() {\r\n      if (this.currentPage && this.page) {\r\n        return this.currentPage >= this.page;\r\n      }\r\n      return false;\r\n    }\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    init() {\r\n      var self = this;\r\n      window.addEventListener(\r\n        \"scroll\",\r\n        _.throttle(function() {\r\n          // console.log(\"底部必读\");\r\n          if (\r\n            window.pageYOffset + window.innerHeight >=\r\n            document.documentElement.scrollHeight\r\n          ) {\r\n            console.log(\"底部必读\");\r\n            self.scroll_bottom();\r\n          }\r\n        }, 200),\r\n        false\r\n      );\r\n    },\r\n    scroll_bottom() {\r\n      var self = this;\r\n      this.getList(self.currentPage + 1);\r\n    },\r\n    getList(currentPage) {\r\n      var self = this;\r\n      get_index_list({\r\n        data: {\r\n          currentPage\r\n        },\r\n        success(result) {\r\n          var jsonResult = JSON.parse(result);\r\n          if (jsonResult[\"result\"].length > 0) {\r\n            self.list.concat(jsonResult[\"result\"]);\r\n            self.changeResultAndPage(self.list, JSON.parse(result)[\"page\"]);\r\n          } else {\r\n            layer.msg(\"这回真的没有了\");\r\n          }\r\n        }\r\n      });\r\n    },\r\n    pageItemClick(currentPage) {\r\n      var self = this;\r\n      this.changePage(currentPage);\r\n      this.$nextTick(() => {\r\n        self.getList(self.currentPage);\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>"],"sourceRoot":""}]);
+exports.push([module.i, "\n._media_object_wrapper {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\n}\n._media_object {\r\n  max-width: 200;\r\n  max-height: 200;\n}\n._media {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\n}\n._media:last-child {\r\n  border-bottom: none;\n}\n.page_all {\r\n  text-align: center;\n}\n.content_show {\r\n  height: 48px;\r\n  overflow: hidden;\n}\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\n}\n.icon_fire .icon {\r\n  font-size: 30px;\n}\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\n}\n.user_infor {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding-bottom: 5px;\n}\n.user_infor .header_image_url {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .header_image_url img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .user_name {\r\n  font-size: 14px;\r\n  padding-left: 8px;\n}\n.media-right {\r\n  margin-left: -20px;\n}\n.media-right ._media_object_wrapper {\r\n  width: 50%;\r\n  height: 80%;\n}\n.content_show {\r\n  margin-bottom: 8px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/list.vue"],"names":[],"mappings":";AACA;EACA,iBAAA;EACA,kBAAA;EACA,sBAAA;CACA;AACA;EACA,eAAA;EACA,gBAAA;CACA;AAEA;EACA,WAAA;EACA,qBAAA;EACA,kBAAA;EACA,8BAAA;CACA;AACA;EACA,oBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,aAAA;EACA,iBAAA;CACA;AACA;EACA,yBAAA;EACA,oBAAA;EACA,mBAAA;EACA,8BAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EACA,mBAAA;EACA,mBAAA;EACA,UAAA;EACA,UAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,oBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,gBAAA;EACA,kBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,WAAA;EACA,YAAA;CACA;AACA;EACA,mBAAA;CACA","file":"list.vue","sourcesContent":["<style>\r\n._media_object_wrapper {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\r\n}\r\n._media_object {\r\n  max-width: 200;\r\n  max-height: 200;\r\n}\r\n\r\n._media {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n._media:last-child {\r\n  border-bottom: none;\r\n}\r\n.page_all {\r\n  text-align: center;\r\n}\r\n.content_show {\r\n  height: 48px;\r\n  overflow: hidden;\r\n}\r\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n.icon_fire .icon {\r\n  font-size: 30px;\r\n}\r\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\r\n}\r\n.user_infor {\r\n  display: flex;\r\n  align-items: center;\r\n  padding-bottom: 5px;\r\n}\r\n.user_infor .header_image_url {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .header_image_url img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .user_name {\r\n  font-size: 14px;\r\n  padding-left: 8px;\r\n}\r\n.media-right {\r\n  margin-left: -20px;\r\n}\r\n.media-right ._media_object_wrapper {\r\n  width: 50%;\r\n  height: 80%;\r\n}\r\n.content_show {\r\n  margin-bottom: 8px;\r\n}\r\n</style>\r\n<template>\r\n  <div class=\"list_all\">\r\n    <div class=\"icon_fire\">\r\n      <svg class=\"icon\" aria-hidden=\"true\">\r\n        <use xlink:href=\"#icon-huoyan\"></use>\r\n      </svg>\r\n      7天排行版\r\n    </div>\r\n    <div class=\"media _media\" v-bind:key='index' v-for=\"(item,index) in  list\">\r\n      <div class=\"user_infor\">\r\n        <div class=\"header_image_url\">\r\n          <img :src=\"item.head_image_url\" alt=\"\" />\r\n        </div>\r\n        <div class=\"user_name\">\r\n          {{item.user_name}}\r\n        </div>\r\n      </div>\r\n      <div class=\"media-body\">\r\n        <h4 class=\"media-heading\">\r\n          <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\">{{item.title}}</a>\r\n        </h4>\r\n        <div v-html=\"item.content\" class=\"content_show\"></div>\r\n        <div class=\"like_show\">\r\n          <svg class=\"icon\" aria-hidden=\"true\">\r\n            <use xlink:href=\"#icon-heart-copy\"></use>\r\n          </svg>\r\n          {{item.like_num}}\r\n          <svg class=\"icon\" aria-hidden=\"true\">\r\n            <use xlink:href=\"#icon-shijian\"></use>\r\n          </svg>\r\n          <small>\r\n            {{dateFtt(\"yyyy-MM-dd \",item.update_time)}}\r\n          </small>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"media-right\">\r\n        <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\"\r\n         class=\"_media_object_wrapper\">\r\n          <img class=\"media-object _media_object\" :src=\"item.image_src\" />\r\n        </a>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n<script>\r\nimport { dateFtt } from \"../util/util\";\r\nimport _ from \"underscore\";\r\nimport { get_index_list } from \"../util/fetch\";\r\nexport default {\r\n  props: {\r\n    list: Array,\r\n    page: Number,\r\n    currentPage: Number,\r\n    changePage: Function,\r\n    changeResultAndPage: Function\r\n  },\r\n  data() {\r\n    return {};\r\n  },\r\n  computed: {\r\n    show_prev: function() {\r\n      if (this.currentPage) {\r\n        return this.currentPage - 1 <= 0;\r\n      }\r\n      return false;\r\n    },\r\n    show_next: function() {\r\n      if (this.currentPage && this.page) {\r\n        return this.currentPage >= this.page;\r\n      }\r\n      return false;\r\n    }\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    dateFtt,\r\n    init() {\r\n      var self = this;\r\n      window.addEventListener(\r\n        \"scroll\",\r\n        _.throttle(function() {\r\n          // console.log(\"底部必读\");\r\n          if (\r\n            window.pageYOffset + window.innerHeight >=\r\n            document.documentElement.scrollHeight\r\n          ) {\r\n            console.log(\"底部必读\");\r\n            self.scroll_bottom();\r\n          }\r\n        }, 200),\r\n        false\r\n      );\r\n    },\r\n    scroll_bottom() {\r\n      var self = this;\r\n      this.getList(self.currentPage + 1);\r\n    },\r\n    getList(currentPage) {\r\n      var self = this;\r\n      get_index_list({\r\n        data: {\r\n          currentPage\r\n        },\r\n        success(result) {\r\n          var jsonResult = JSON.parse(result);\r\n          if (jsonResult[\"result\"].length > 0) {\r\n            self.list.concat(jsonResult[\"result\"]);\r\n            self.changeResultAndPage(self.list, JSON.parse(result)[\"page\"]);\r\n          } else {\r\n            layer.msg(\"这回真的没有了\");\r\n          }\r\n        }\r\n      });\r\n    },\r\n    pageItemClick(currentPage) {\r\n      var self = this;\r\n      this.changePage(currentPage);\r\n      this.$nextTick(() => {\r\n        self.getList(self.currentPage);\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
-/* 43 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -2512,7 +2671,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 
 /***/ }),
-/* 44 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2533,17 +2692,14 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.list, function(item, index) {
         return _c("div", { key: index, staticClass: "media _media" }, [
-          _c("div", { staticClass: "media-left" }, [
-            _c(
-              "a",
-              { staticClass: "_media_object_wrapper", attrs: { href: "#" } },
-              [
-                _c("img", {
-                  staticClass: "media-object _media_object",
-                  attrs: { src: item.image_src }
-                })
-              ]
-            )
+          _c("div", { staticClass: "user_infor" }, [
+            _c("div", { staticClass: "header_image_url" }, [
+              _c("img", { attrs: { src: item.head_image_url, alt: "" } })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "user_name" }, [
+              _vm._v("\n        " + _vm._s(item.user_name) + "\n      ")
+            ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "media-body" }, [
@@ -2562,7 +2718,47 @@ var render = function() {
             _c("div", {
               staticClass: "content_show",
               domProps: { innerHTML: _vm._s(item.content) }
-            })
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "like_show" }, [
+              _c(
+                "svg",
+                { staticClass: "icon", attrs: { "aria-hidden": "true" } },
+                [_c("use", { attrs: { "xlink:href": "#icon-heart-copy" } })]
+              ),
+              _vm._v("\n        " + _vm._s(item.like_num) + "\n        "),
+              _c(
+                "svg",
+                { staticClass: "icon", attrs: { "aria-hidden": "true" } },
+                [_c("use", { attrs: { "xlink:href": "#icon-shijian" } })]
+              ),
+              _vm._v(" "),
+              _c("small", [
+                _vm._v(
+                  "\n          " +
+                    _vm._s(_vm.dateFtt("yyyy-MM-dd ", item.update_time)) +
+                    "\n        "
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "media-right" }, [
+            _c(
+              "a",
+              {
+                staticClass: "_media_object_wrapper",
+                attrs: {
+                  href: "/huoshu/public/index/article/detail?id=" + item.id
+                }
+              },
+              [
+                _c("img", {
+                  staticClass: "media-object _media_object",
+                  attrs: { src: item.image_src }
+                })
+              ]
+            )
           ])
         ])
       })
@@ -2582,7 +2778,173 @@ if (false) {
 }
 
 /***/ }),
-/* 45 */
+/* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_43187438_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_Bottom_vue__ = __webpack_require__(52);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(50)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-43187438"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_Bottom_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_43187438_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_Bottom_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "application\\index\\view\\index\\Bottom.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-43187438", Component.options)
+  } else {
+    hotAPI.reload("data-v-43187438", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(51);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("b01f14aa", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/_css-loader@0.28.10@css-loader/index.js?sourceMap!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43187438\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./Bottom.vue", function() {
+     var newContent = require("!!../../../../node_modules/_css-loader@0.28.10@css-loader/index.js?sourceMap!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43187438\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/_vue-loader@13.7.1@vue-loader/lib/selector.js?type=styles&index=0!./Bottom.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(true);
+// imports
+
+
+// module
+exports.push([module.i, "\n.bottom[data-v-43187438] {\r\n  height: 55px;\r\n  background: #fff;\r\n  border-top: 1px solid #eee;\r\n  position: fixed;\r\n  bottom: 0px;\r\n  width: 100%;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.bottom .item a[data-v-43187438] {\r\n  -webkit-text-emphasis: none;\r\n          text-emphasis: none;\r\n  text-decoration: none;\n}\n.bottom .item a[data-v-43187438]:link {\r\n  color: #222;\n} /*未访问颜色*/\n.bottom .item[data-v-43187438] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  text-align: center;\r\n  -webkit-align-self: center;\r\n          align-self: center;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\n}\n.bottom .item .icon[data-v-43187438] {\r\n  font-size: 30px;\n}\n.add[data-v-43187438] {\r\n  width: 20%;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  text-align: center;\r\n  -webkit-align-self: center;\r\n          align-self: center;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/Bottom.vue"],"names":[],"mappings":";AA+CA;EACA,aAAA;EACA,iBAAA;EACA,2BAAA;EACA,gBAAA;EACA,YAAA;EACA,YAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,4BAAA;UAAA,oBAAA;EACA,sBAAA;CACA;AACA;EACA,YAAA;CACA,CAAA,SAAA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,mBAAA;EACA,2BAAA;UAAA,mBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,6BAAA;EAAA,8BAAA;EAAA,+BAAA;UAAA,uBAAA;CACA;AACA;EACA,gBAAA;CACA;AAEA;EACA,WAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,mBAAA;EACA,2BAAA;UAAA,mBAAA;CACA","file":"Bottom.vue","sourcesContent":["<template>\r\n    <div class=\"bottom\">\r\n        <div class=\"item\">\r\n            <a href=\"/huoshu/public/index\">\r\n                <div>\r\n                    <svg class=\"icon\" aria-hidden=\"true\">\r\n                        <use xlink:href=\"#icon-home\"></use>\r\n                    </svg>\r\n                </div>\r\n                <div>首页</div>\r\n            </a>\r\n        </div>\r\n        <div class=\"item\">\r\n            <a href=\"/huoshu/public/index/article/add\">\r\n                <div>\r\n                    <svg class=\"icon\" aria-hidden=\"true\">\r\n                        <use xlink:href=\"#icon-add\"></use>\r\n                    </svg>\r\n                </div>\r\n            </a>\r\n        </div>\r\n        <div class=\"item\">\r\n            <a href=\"/huoshu/public/index/article/search\">\r\n                <div>\r\n                    <svg class=\"icon\" aria-hidden=\"true\">\r\n                        <use xlink:href=\"#icon-Magnifier\"></use>\r\n                    </svg>\r\n                </div>\r\n                <div>搜索</div>\r\n            </a>\r\n        </div>\r\n        <div class=\"item\">\r\n            <a href=\"/huoshu/public/index/user/setting\">\r\n                <div>\r\n                    <svg class=\"icon\" aria-hidden=\"true\">\r\n                        <use xlink:href=\"#icon-setting\"></use>\r\n                    </svg>\r\n                </div>\r\n                <div>我的</div>\r\n            </a>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\nexport default {};\r\n</script>\r\n<style scoped>\r\n.bottom {\r\n  height: 55px;\r\n  background: #fff;\r\n  border-top: 1px solid #eee;\r\n  position: fixed;\r\n  bottom: 0px;\r\n  width: 100%;\r\n  display: flex;\r\n}\r\n.bottom .item a {\r\n  text-emphasis: none;\r\n  text-decoration: none;\r\n}\r\n.bottom .item a:link {\r\n  color: #222;\r\n} /*未访问颜色*/\r\n.bottom .item {\r\n  flex: 1;\r\n  justify-content: center;\r\n  text-align: center;\r\n  align-self: center;\r\n  display: flex;\r\n  flex-direction: column;\r\n}\r\n.bottom .item .icon {\r\n  font-size: 30px;\r\n}\r\n\r\n.add {\r\n  width: 20%;\r\n  justify-content: center;\r\n  text-align: center;\r\n  align-self: center;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+
+// exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "bottom" }, [
+    _c("div", { staticClass: "item" }, [
+      _c("a", { attrs: { href: "/huoshu/public/index" } }, [
+        _c("div", [
+          _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
+            _c("use", { attrs: { "xlink:href": "#icon-home" } })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [_vm._v("首页")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "item" }, [
+      _c("a", { attrs: { href: "/huoshu/public/index/article/add" } }, [
+        _c("div", [
+          _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
+            _c("use", { attrs: { "xlink:href": "#icon-add" } })
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "item" }, [
+      _c("a", { attrs: { href: "/huoshu/public/index/article/search" } }, [
+        _c("div", [
+          _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
+            _c("use", { attrs: { "xlink:href": "#icon-Magnifier" } })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [_vm._v("搜索")])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "item" }, [
+      _c("a", { attrs: { href: "/huoshu/public/index/user/setting" } }, [
+        _c("div", [
+          _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
+            _c("use", { attrs: { "xlink:href": "#icon-setting" } })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [_vm._v("我的")])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-43187438", esExports)
+  }
+}
+
+/***/ }),
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2607,7 +2969,9 @@ var render = function() {
           changeResultAndPage: _vm.changeResultAndPage
         }
       }),
-      _vm._v(" " + _vm._s(_vm.msg) + "\n")
+      _vm._v(" " + _vm._s(_vm.msg) + "\n\n  "),
+      _vm._v(" "),
+      _c("Bottom")
     ],
     1
   )
@@ -2624,5 +2988,5 @@ if (false) {
 }
 
 /***/ })
-],[27]);
+],[31]);
 //# sourceMappingURL=index.js.map

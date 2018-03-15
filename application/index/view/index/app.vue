@@ -13,8 +13,10 @@
     <!-- 分类 -->
     <IndexType />
     <!-- 7天列表 -->
-    <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage"
-     :changeResultAndPage='changeResultAndPage' /> {{msg}}
+    <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage" :changeResultAndPage='changeResultAndPage' /> {{msg}}
+
+    <!-- bottom -->
+    <Bottom />
   </div>
 </template>
 
@@ -22,6 +24,7 @@
 import Header1 from "./Header.vue";
 import IndexType from "./IndexType.vue";
 import List from "./list.vue";
+import Bottom from "./Bottom.vue";
 export default {
   data() {
     return {
@@ -35,7 +38,8 @@ export default {
   components: {
     Header1,
     List,
-    IndexType
+    IndexType,
+    Bottom
   },
   methods: {
     setResult(result) {

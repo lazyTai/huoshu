@@ -43,6 +43,37 @@
   top: 39px;
   left: 0px;
 }
+.user_infor {
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;
+}
+.user_infor .header_image_url {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #eee;
+  border-radius: 50%;
+}
+.user_infor .header_image_url img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #eee;
+  border-radius: 50%;
+}
+.user_infor .user_name {
+  font-size: 14px;
+  padding-left: 8px;
+}
+.media-right {
+  margin-left: -20px;
+}
+.media-right ._media_object_wrapper {
+  width: 50%;
+  height: 80%;
+}
+.content_show {
+  margin-bottom: 8px;
+}
 </style>
 <template>
   <div class="list_all">
@@ -53,22 +84,45 @@
       7天排行版
     </div>
     <div class="media _media" v-bind:key='index' v-for="(item,index) in  list">
-      <div class="media-left">
-        <a href="#" class="_media_object_wrapper">
-          <img class="media-object _media_object" :src="item.image_src" />
-        </a>
+      <div class="user_infor">
+        <div class="header_image_url">
+          <img :src="item.head_image_url" alt="" />
+        </div>
+        <div class="user_name">
+          {{item.user_name}}
+        </div>
       </div>
       <div class="media-body">
         <h4 class="media-heading">
           <a :href="'/huoshu/public/index/article/detail?id='+item.id">{{item.title}}</a>
         </h4>
         <div v-html="item.content" class="content_show"></div>
+        <div class="like_show">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-heart-copy"></use>
+          </svg>
+          {{item.like_num}}
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-shijian"></use>
+          </svg>
+          <small>
+            {{dateFtt("yyyy-MM-dd ",item.update_time)}}
+          </small>
+        </div>
+      </div>
+
+      <div class="media-right">
+        <a :href="'/huoshu/public/index/article/detail?id='+item.id"
+         class="_media_object_wrapper">
+          <img class="media-object _media_object" :src="item.image_src" />
+        </a>
       </div>
     </div>
 
   </div>
 </template>
 <script>
+import { dateFtt } from "../util/util";
 import _ from "underscore";
 import { get_index_list } from "../util/fetch";
 export default {
@@ -100,6 +154,7 @@ export default {
     this.init();
   },
   methods: {
+    dateFtt,
     init() {
       var self = this;
       window.addEventListener(
