@@ -1,6 +1,10 @@
 
 function ajaxForm(options) {
     options.data = options.data;
+    var formData = new FormData();
+    for (var i = 0; i < options.data.length; i++) {
+        formData.append('files[]', options.data[i])
+    }
     options.success = options.success || function () { };
     options.url = options.url || "";
     options.error = options.error || function () { }
@@ -42,7 +46,7 @@ function ajaxForm(options) {
     /* 下面的url一定要改成你要发送文件的服务器url */
     xhr.open("POST", options.url);
     // xhr.setRequestHeader("Content-Type", "multipart/form-data");
-    xhr.send(options.data);
+    xhr.send(formData);
 }
 
 window.ajaxForm = ajaxForm;

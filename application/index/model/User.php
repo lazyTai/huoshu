@@ -29,6 +29,7 @@ class User extends Model
         return $user;
     }
 
+
     public static function updates($userId, $user, $profile)
     {
         Db::startTrans();

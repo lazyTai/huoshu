@@ -113,6 +113,9 @@ class Article extends Controller
         } else {
             $this->error("修改失败");
         }
+    }
 
+    public function add(){
+        return $this->fetch();
     }
 }

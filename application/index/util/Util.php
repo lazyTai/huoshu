@@ -16,4 +16,27 @@ class Util
         }
         return $array;
     }
+
+    public static function upload_one($files=[]){
+            foreach($files as $file){
+                $info = $file->
+                validate(['ext'=>'jpg,png,gif'])
+                ->move(ROOT_PATH . 'public' . DS . 'uploads');
+                if($info){
+                    // 成功上传后 获取上传信息
+                    // 输出 jpg
+                    // 输出 42a79759f284b767dfcb2a0197904287.jpg
+                    return [
+                        'success'=>true,
+                        'message'=>'/huoshu/public/uploads/'.$info->getSaveName()
+                    ];
+                }else{
+                    // 上传失败获取错误信息
+                    return [
+                        'success'=>false,
+                        'message'=>$file->getError()
+                    ] ;
+                }    
+            }
+    }
 }

@@ -1,15 +1,21 @@
 <template>
   <div class="user">
     <Header_back :title="'设置'" />
-    <div class="img_name_login">
+    <div class="login_register" v-show="user.status==0">
+      <a href="/huoshu/public/index/login">登陆</a>
+      <a href="/huoshu/public/index/register">注册</a>
+    </div>
+    <div class="img_name_login" v-show="user.status!=0">
       <div class="image">
         <img :src="user.image_url" alt="">
       </div>
       <div class="name">
-        {{user.name}}
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-icon_edit"></use>
-        </svg>
+        <a href="/huoshu/public/index/user/edit_user">
+          {{user.name}}
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-icon_edit"></use>
+          </svg>
+        </a>
       </div>
     </div>
 
@@ -20,7 +26,7 @@
             <use xlink:href="#icon-chun"></use>
           </svg>
         </div>
-        <div class="list_item_title">10</div>
+        <div class="list_item_title">{{user.article_like_num}}</div>
         <div class="list_item_sub_title">收藏</div>
       </div>
 
@@ -30,11 +36,11 @@
             <use xlink:href="#icon-CSS"></use>
           </svg>
         </div>
-        <div class="list_item_title">10</div>
+        <div class="list_item_title">{{user.my_article_num}}</div>
         <div class="list_item_sub_title">公开文字</div>
       </div>
 
-      <div class="list_item">
+      <!-- <div class="list_item">
         <div class="list_item_icon">
           <svg class="icon" aria-hidden="true">
             <use xlink:href="#icon-35chuanyue2"></use>
@@ -42,7 +48,7 @@
         </div>
         <div class="list_item_title">10</div>
         <div class="list_item_sub_title">秘密文字</div>
-      </div>
+      </div> -->
 
       <div class="list_item">
         <div class="list_item_icon">
@@ -50,7 +56,7 @@
             <use xlink:href="#icon-badge"></use>
           </svg>
         </div>
-        <div class="list_item_title">10</div>
+        <div class="list_item_title">{{user.ablum_like_num}}</div>
         <div class="list_item_sub_title">关注辑本</div>
       </div>
     </div>
@@ -58,7 +64,7 @@
     <Bottom />
   </div>
 </template>
-<style scroped>
+<style scoped>
 .list {
   border-top: 1px solid #eee;
   margin: 20px 10px;
@@ -104,6 +110,12 @@
 .img_name_login .name {
   font-size: 19px;
   padding: 8px;
+  cursor: pointer;
+}
+.login_register {
+  height: 40px;
+  text-align: center;
+  padding: 10px;
 }
 </style>
 <script>

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"D:\phpStudy\WWW\huoshu\public/../application/index\view\user\setting.html";i:1521161423;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\phpStudy\WWW\huoshu\public/../application/index\view\user\edit_user.html";i:1521194589;}*/ ?>
 <html lang="en">
 
 <head>
@@ -11,7 +11,7 @@
 
 <body>
     <script>
-        var $user=<?php echo $user; ?>;
+        var $user=<?php echo $user; ?>
     </script>
     <div id="root">
         <div>
@@ -29,17 +29,18 @@
     <script src="/huoshu/public/static/layer/layer.js"></script>
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
+    <script src="/huoshu/public/static/js/ajaxForm.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/user/user.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_t4m7at6fknapp66r.js"></script>
+    <script src="/huoshu/public/static/js/edit_user/edit_user.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_8tkh8cg92tmiy66r.js"></script>
     <style>
         .icon {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-    }
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
     </style>
 </body>
 

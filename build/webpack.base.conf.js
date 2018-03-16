@@ -17,7 +17,10 @@ module.exports = {
         type: path.resolve(__dirname,
             '../application/index/view/type/index.js'),
         user: path.resolve(__dirname,
-                '../application/index/view/user/index.js'),
+            '../application/index/view/user/index.js'),
+        edit_user: path.resolve(__dirname,
+            '../application/index/view/user/edit_user/index.js'),
+
     },
     output: {
         path: path.resolve(__dirname, '../public/static/js/'),
