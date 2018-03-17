@@ -41,12 +41,32 @@
   margin-bottom: 100px;
   padding: 10px;
 }
+.artitcle .title {
+  box-shadow: 0px -1px 5px #eee;
+}
+.cover_image {
+  width: 100%;
+  height: 100px;
+}
+.cover_image img {
+  width: 100%;
+  height: 100%;
+}
+.add_cover {
+  position: absolute;
+  width: 100%;
+  top: 80px;
+  opacity: 0.6;
+}
 </style>
 <template>
   <div id="app">
     <Header_back />
     <!-- {{user}} -->
 
+    <div class="cover_image">
+      <img :src="$store.state.articel.cover_image_url" v-show="$store.state.articel.cover_image_url" alt="">
+    </div>
     <div class="add_cover" @click="click_upload_cover">
       <Icon :icon="'shubenshuqian'" /> 添加封面
     </div>
@@ -99,7 +119,11 @@ export default {
         data: files,
         success(json) {
           var jsonReturn = JSON.parse(json);
-          debugger;
+          if (jsonReturn.success) {
+            self.$store.dispatch(set_cover_image_url, {
+              cover_image_url: jsonReturn.message
+            });
+          }
         }
       });
     };
@@ -124,7 +148,7 @@ export default {
       });
     },
     click_upload_cover() {
-      this.dom_file.click()
+      this.dom_file.click();
     }
   }
 };

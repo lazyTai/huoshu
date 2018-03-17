@@ -7,12 +7,12 @@
       <div class="item_font">图片</div>
     </div>
 
-    <div class="item"  >
+    <router-link to="/type" class="item">
       <div>
         <Icon :icon="'tag'" />
       </div>
       <div class="item_font">分类</div>
-    </div>
+    </router-link>
 
     <div class="item" @click="click_save">
       <div>
@@ -35,12 +35,16 @@ export default {
     click_file() {
       this.dom_file.click();
     },
-    click_save(){
-       var { articel } = this.$store.state;
-       if(articel.title==""||articel.content==""||articel.cover_image_url==""){
-         layer.msg("还有没有填！")
-         return false;
-       }
+    click_save() {
+      var { articel } = this.$store.state;
+      if (
+        articel.title == "" ||
+        articel.content == "" ||
+        articel.cover_image_url == ""
+      ) {
+        layer.msg("还有没有填！");
+        return false;
+      }
     }
   },
   mounted() {

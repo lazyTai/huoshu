@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521273082;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521324059;}*/ ?>
 <html lang="en">
 
 <head>
@@ -14,10 +14,11 @@
         $user = <?php echo $user; ?>
     </script>
     <div id="root">
-
-        <div>
-            活书
-        </div>
+        <router-view>
+            <div>
+                活书
+            </div>
+        </router-view>
     </div>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="/huoshu/public/static/common/jquery.min.js"></script>
