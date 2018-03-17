@@ -17,7 +17,7 @@ export default {
   },
   components: {
     Header: require("../components/Header.vue").default,
-    Infor:require('./info').default
+    Infor: require("./info").default
   }
 };
 </script>

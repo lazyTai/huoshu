@@ -1,101 +1,6 @@
 webpackJsonp([9],{
 
-/***/ 3:
-/***/ (function(module, exports) {
-
-module.exports = Vue;
-
-/***/ }),
-
-/***/ 31:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-  data: function data() {
-    return {
-      msg: "fuck",
-      name: "",
-      password: ""
-    };
-  },
-
-  methods: {
-    login: function login() {
-      var self = this;
-      ajax({
-        url: "/huoshu/public/index/Login/logining",
-        type: "post",
-        data: {
-          name: self.$data.name,
-          password: self.$data.password
-        },
-        success: function success(json) {
-          var $result = JSON.parse(json);
-          if ($result["success"]) {
-            layer.msg($result["result"]);
-            location.href = "/huoshu/public/index";
-          } else {
-            layer.msg($result["result"]);
-          }
-        }
-      });
-    }
-  },
-  components: {
-    Header: __webpack_require__(16).default
-  }
-};
-
-/***/ }),
-
-/***/ 83:
+/***/ 101:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105,7 +10,7 @@ var _vue = __webpack_require__(3);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _app = __webpack_require__(84);
+var _app = __webpack_require__(102);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -121,19 +26,19 @@ new _vue2.default({
 
 /***/ }),
 
-/***/ 84:
+/***/ 102:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_34a259ca_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_34a259ca_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(105);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(85)
+  __webpack_require__(103)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -180,13 +85,13 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 85:
+/***/ 103:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(86);
+var content = __webpack_require__(104);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -207,7 +112,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 86:
+/***/ 104:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -222,7 +127,7 @@ exports.push([module.i, "\n._form {\r\n  margin: 100px auto;\r\n  width: 400px;\
 
 /***/ }),
 
-/***/ 87:
+/***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -325,7 +230,102 @@ if (false) {
   }
 }
 
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports) {
+
+module.exports = Vue;
+
+/***/ }),
+
+/***/ 49:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  data: function data() {
+    return {
+      msg: "fuck",
+      name: "",
+      password: ""
+    };
+  },
+
+  methods: {
+    login: function login() {
+      var self = this;
+      ajax({
+        url: "/huoshu/public/index/Login/logining",
+        type: "post",
+        data: {
+          name: self.$data.name,
+          password: self.$data.password
+        },
+        success: function success(json) {
+          var $result = JSON.parse(json);
+          if ($result["success"]) {
+            layer.msg($result["result"]);
+            location.href = "/huoshu/public/index";
+          } else {
+            layer.msg($result["result"]);
+          }
+        }
+      });
+    }
+  },
+  components: {
+    Header: __webpack_require__(22).default
+  }
+};
+
 /***/ })
 
-},[83]);
+},[101]);
 //# sourceMappingURL=login.js.map

@@ -146,7 +146,7 @@ CREATE TABLE `think_profile` (
 
 /*Data for the table `think_profile` */
 
-insert  into `think_profile`(`id`,`address`,`user_id`,`image_url`,`update_time`) values (1,'这是我的家，尼玛币',1,'/huoshu/public/uploads/20180317\\b06e574fee1e7a997583cb9ab2ae649a.png','2018-03-17 11:28:07');
+insert  into `think_profile`(`id`,`address`,`user_id`,`image_url`,`update_time`) values (1,'这是我的家，尼玛币',1,'/huoshu/public/uploads/20180317\\391b1947cac3288c9c37cb1fa1e1a265.jpg','2018-03-17 16:54:09');
 
 /*Table structure for table `think_sub_type` */
 

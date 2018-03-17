@@ -6,6 +6,7 @@ use think\Controller;
 use app\index\model\Article as ArticleDao;
 use app\index\model\Comment;
 use think\Db;
+use app\index\util\Util;
 class Article extends Controller
 {
     public function index()
@@ -116,7 +117,19 @@ class Article extends Controller
     }
 
     public function add(){
-        $this->assign('user',input('session.ext_user'));
-        return $this->fetch();
+        $ext_user=input('session.ext_user');
+        if($ext_user==''){
+            return $this->error("请登录",'index/index');
+        }else{
+            $this->assign('user',$ext_user);
+            return $this->fetch();
+        }
+      
+    }
+
+    public function upload_image(){
+       $files=  request()->file('files');
+       $infor= Util::upload_one( $files);
+       return json($infor);
     }
 }

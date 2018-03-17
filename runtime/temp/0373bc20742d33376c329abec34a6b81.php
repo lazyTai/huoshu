@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521258443;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521273082;}*/ ?>
 <html lang="en">
 
 <head>
@@ -30,9 +30,10 @@
     <script src="/huoshu/public/static/layer/layer.js"></script>
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
+    <script src="/huoshu/public/static/js/ajaxform.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
     <script src="/huoshu/public/static/js/article_add/article_add.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_8tkh8cg92tmiy66r.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_hfd2hlamt0cw61or.js"></script>
     <style>
         .icon {
             width: 1em;
