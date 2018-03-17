@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521257894;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\add.html";i:1521258443;}*/ ?>
 <html lang="en">
 
 <head>
@@ -11,7 +11,7 @@
 
 <body>
     <script>
-           $user = <?php echo $user; ?>
+        $user = <?php echo $user; ?>
     </script>
     <div id="root">
 
@@ -32,6 +32,16 @@
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
     <script src="/huoshu/public/static/js/article_add/article_add.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_8tkh8cg92tmiy66r.js"></script>
+    <style>
+        .icon {
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.15em;
+            fill: currentColor;
+            overflow: hidden;
+        }
+    </style>
 </body>
 
 </html>

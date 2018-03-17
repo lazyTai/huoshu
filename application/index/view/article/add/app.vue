@@ -3,11 +3,13 @@
 </style>
 <template>
   <div id="app">
-    {{user}}
+    <Header_back />
+    <!-- {{user}} -->
   </div>
 </template>
 
 <script>
+import Header_back from "../../components/Header_back.vue";
 export default {
   data() {
     return {
@@ -16,7 +18,7 @@ export default {
     };
   },
   created() {},
-  components: {},
+  components: { Header_back },
   methods: {
     setResult(result) {
       this.result = result;
