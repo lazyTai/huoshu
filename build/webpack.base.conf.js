@@ -20,6 +20,8 @@ module.exports = {
             '../application/index/view/user/index.js'),
         edit_user: path.resolve(__dirname,
             '../application/index/view/user/edit_user/index.js'),
+        article_add:path.resolve(__dirname,
+            '../application/index/view/article/add/index.js'),
 
     },
     output: {

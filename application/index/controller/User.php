@@ -9,7 +9,7 @@ use app\index\model\Profile as ProfileDao;
 use app\index\model\User as UserDao;
 class User extends Controller{
     public function setting(){
-        $ext_user=input('session.ext_user');
+        $ext_user=json_decode(input('session.ext_user'),true);
         if(isset($ext_user)){
             $result1=Db::query('SELECT COUNT(*) AS  like_num FROM think_article_like la 
             WHERE la.user_id=1');
@@ -39,7 +39,7 @@ class User extends Controller{
     }
 
     public function edit_user_name($name){
-            $ext_user =input('session.ext_user');
+            $ext_user =json_decode(input('session.ext_user'),tidy_get_error_buffer);
             if(isset( $ext_user)){
                $user= new UserDao;
                $infor=$user->save(
@@ -55,7 +55,7 @@ class User extends Controller{
     }
 
     public function edit_user(){
-        $ext_user =input('session.ext_user');
+        $ext_user =json_decode(input('session.ext_user'),true);
         if(isset( $ext_user)){
             $this->assign('user',json_encode($ext_user));
             return  $this->fetch();
@@ -65,7 +65,7 @@ class User extends Controller{
     }
 
     public function upload_head(){
-        $user=input('session.ext_user');
+        $user=json_decode( input('session.ext_user'),true);
         $files=request()->file('files');
         $infor=Util::upload_one($files);
         if($infor['success']){

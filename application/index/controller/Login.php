@@ -41,7 +41,11 @@ class Login extends Controller
         $exitUser = User::login($name, $password);
 
         if (count($exitUser)) {
-            Session::set('ext_user', $exitUser);
+            Session::set('ext_user', json_encode([
+                "name"=>$exitUser['name'],
+                "id"=>$exitUser['id'],
+                "image_url"=>$exitUser['image_url'],
+                ]));
             return json([
                 "success" => true,
                 "result" => "登录成功"

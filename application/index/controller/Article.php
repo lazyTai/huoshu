@@ -116,6 +116,7 @@ class Article extends Controller
     }
 
     public function add(){
+        $this->assign('user',input('session.ext_user'));
         return $this->fetch();
     }
 }
