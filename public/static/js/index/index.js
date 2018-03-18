@@ -3472,6 +3472,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 var set_result_list_current_page = exports.set_result_list_current_page = "set_result_list_current_page";
 var set_current_page = exports.set_current_page = "set_current_page";
+var set_all_page = exports.set_all_page = "set_all_page";
 
 /***/ }),
 /* 46 */,
@@ -3733,6 +3734,121 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
   data: function data() {
@@ -3767,12 +3883,16 @@ exports.default = {
     },
     scroll_bottom: function scroll_bottom() {
       var self = this;
-      var currentPage = this.$store.state.currentPage;
+      var _$store$state = this.$store.state,
+          currentPage = _$store$state.currentPage,
+          page = _$store$state.page;
       var dispatch = this.$store.dispatch;
-      /* 滚动的时候，加页数 */
 
-      dispatch(_actionTypes.set_current_page, { currentPage: currentPage + 1 });
-      self.getList();
+      if (currentPage <= page) {
+        /* 滚动的时候，加页数 */
+        dispatch(_actionTypes.set_current_page, { currentPage: currentPage + 1 });
+        self.getList();
+      }
     },
     getList: function getList() {
       var self = this;
@@ -3788,7 +3908,7 @@ exports.default = {
         success: function success(json) {
           var jsonResult = JSON.parse(json);
           if (jsonResult["result"].length > 0) {
-            result.concat(jsonResult["result"]);
+            result = result.concat(jsonResult["result"]);
             dispatch(_actionTypes.set_result_list_current_page, {
               currentPage: currentPage,
               result: result
@@ -4335,7 +4455,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.list_all[data-v-697f6e4b] {\r\n  margin-bottom: 50px;\n}\n._media_object_wrapper[data-v-697f6e4b] {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\n}\n._media_object[data-v-697f6e4b] {\r\n  max-width: 200;\r\n  max-height: 200;\n}\n._media[data-v-697f6e4b] {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\n}\n._media[data-v-697f6e4b]:last-child {\r\n  border-bottom: none;\n}\n.page_all[data-v-697f6e4b] {\r\n  text-align: center;\n}\n.content_show[data-v-697f6e4b] {\r\n  height: 48px;\r\n  overflow: hidden;\n}\n.icon_fire[data-v-697f6e4b] {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\n}\n.icon_fire .icon[data-v-697f6e4b] {\r\n  font-size: 30px;\n}\n.icon_fire[data-v-697f6e4b]::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\n}\n.user_infor[data-v-697f6e4b] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding-bottom: 5px;\n}\n.user_infor .header_image_url[data-v-697f6e4b] {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .header_image_url img[data-v-697f6e4b] {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .user_name[data-v-697f6e4b] {\r\n  font-size: 14px;\r\n  padding-left: 8px;\n}\n.media-right[data-v-697f6e4b] {\r\n  margin-left: -20px;\n}\n.media-right ._media_object_wrapper[data-v-697f6e4b] {\r\n  width: 50%;\r\n  height: 80%;\n}\n.content_show[data-v-697f6e4b] {\r\n  margin-bottom: 8px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/list.vue"],"names":[],"mappings":";AA2IA;EACA,oBAAA;CACA;AACA;EACA,iBAAA;EACA,kBAAA;EACA,sBAAA;CACA;AACA;EACA,eAAA;EACA,gBAAA;CACA;AAEA;EACA,WAAA;EACA,qBAAA;EACA,kBAAA;EACA,8BAAA;CACA;AACA;EACA,oBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,aAAA;EACA,iBAAA;CACA;AACA;EACA,yBAAA;EACA,oBAAA;EACA,mBAAA;EACA,8BAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EACA,mBAAA;EACA,mBAAA;EACA,UAAA;EACA,UAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,oBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,gBAAA;EACA,kBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,WAAA;EACA,YAAA;CACA;AACA;EACA,mBAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n  <div class=\"list_all\">\r\n    <div class=\"icon_fire\">\r\n      <svg class=\"icon\" aria-hidden=\"true\">\r\n        <use xlink:href=\"#icon-huoyan\"></use>\r\n      </svg>\r\n      7天排行版\r\n    </div>\r\n    <div class=\"media _media\" v-bind:key='index' v-for=\"(item,index) in  $store.state.result\">\r\n      <div class=\"user_infor\">\r\n        <div class=\"header_image_url\">\r\n          <img :src=\"item.head_image_url\" alt=\"\" />\r\n        </div>\r\n        <div class=\"user_name\">\r\n          {{item.user_name}}\r\n        </div>\r\n      </div>\r\n      <div class=\"media-body\">\r\n        <h4 class=\"media-heading\">\r\n          <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\">{{item.title}}</a>\r\n        </h4>\r\n        <div v-html=\"item.content\" class=\"content_show\"></div>\r\n        <div class=\"like_show\">\r\n          <svg class=\"icon\" aria-hidden=\"true\">\r\n            <use xlink:href=\"#icon-heart-copy\"></use>\r\n          </svg>\r\n          {{item.like_num}}\r\n          <svg class=\"icon\" aria-hidden=\"true\">\r\n            <use xlink:href=\"#icon-shijian\"></use>\r\n          </svg>\r\n          <small>\r\n            {{dateFtt(\"yyyy-MM-dd \",item.update_time)}}\r\n          </small>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"media-right\">\r\n        <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\" class=\"_media_object_wrapper\">\r\n          <img class=\"media-object _media_object\" :src=\"item.image_src\" />\r\n        </a>\r\n      </div>\r\n    </div>\r\n\r\n  </div>\r\n</template>\r\n<script>\r\nimport { dateFtt } from \"../util/util\";\r\nimport _ from \"underscore\";\r\nimport { get_index_list } from \"../util/fetch\";\r\nimport {\r\n  set_result_list_current_page,\r\n  set_current_page\r\n} from \"./vuex/actionTypes\";\r\n\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    dateFtt,\r\n    init() {\r\n      var self = this;\r\n      window.addEventListener(\r\n        \"scroll\",\r\n        _.throttle(function() {\r\n          // console.log(\"底部必读\");\r\n          // console.log(\"window.pageYOffset\", window.pageYOffset);\r\n          // console.log(\"window.innerHeight \", window.innerHeight);\r\n          // console.log(\r\n          //   \"   document.documentElement.scrollHeight \",\r\n          //   document.documentElement.scrollHeight\r\n          // );\r\n          // console.log(\r\n          //   \"  window.pageYOffset + window.innerHeight >=  document.documentElement.scrollHeight \",\r\n          //   window.pageYOffset + window.innerHeight >=\r\n          //     document.documentElement.scrollHeight-10\r\n          // );\r\n          if (\r\n            window.pageYOffset + window.innerHeight >=\r\n            document.documentElement.scrollHeight-10\r\n          ) {\r\n            console.log(\"底部必读\");\r\n            self.scroll_bottom();\r\n          }\r\n        }, 200),\r\n        false\r\n      );\r\n    },\r\n    scroll_bottom() {\r\n      var self = this;\r\n      var { currentPage } = this.$store.state;\r\n      var { dispatch } = this.$store;\r\n      /* 滚动的时候，加页数 */\r\n      dispatch(set_current_page, { currentPage: currentPage + 1 });\r\n      self.getList();\r\n    },\r\n    getList() {\r\n      var self = this;\r\n      var { currentPage, result } = self.$store.state;\r\n      var { dispatch } = self.$store;\r\n      get_index_list({\r\n        data: {\r\n          currentPage\r\n        },\r\n        success(json) {\r\n          var jsonResult = JSON.parse(json);\r\n          if (jsonResult[\"result\"].length > 0) {\r\n            result.concat(jsonResult[\"result\"]);\r\n            dispatch(set_result_list_current_page, {\r\n              currentPage: currentPage,\r\n              result: result\r\n            });\r\n          } else {\r\n            console.log(\"这回真的没有了\");\r\n            let toast = self.$toasted.show(\"这回真的没有了 !!\", {\r\n              theme: \"primary\",\r\n              position: \"top-center\",\r\n              duration: 1000\r\n            });\r\n          }\r\n        }\r\n      });\r\n    },\r\n    pageItemClick(currentPage) {\r\n      var self = this;\r\n      this.changePage(currentPage);\r\n      this.$nextTick(() => {\r\n        self.getList(self.currentPage);\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.list_all {\r\n  margin-bottom: 50px;\r\n}\r\n._media_object_wrapper {\r\n  max-width: 200px;\r\n  max-height: 200px;\r\n  display: inline-block;\r\n}\r\n._media_object {\r\n  max-width: 200;\r\n  max-height: 200;\r\n}\r\n\r\n._media {\r\n  margin: 10;\r\n  padding-bottom: 10px;\r\n  padding-top: 10px;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n._media:last-child {\r\n  border-bottom: none;\r\n}\r\n.page_all {\r\n  text-align: center;\r\n}\r\n.content_show {\r\n  height: 48px;\r\n  overflow: hidden;\r\n}\r\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n.icon_fire .icon {\r\n  font-size: 30px;\r\n}\r\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\r\n}\r\n.user_infor {\r\n  display: flex;\r\n  align-items: center;\r\n  padding-bottom: 5px;\r\n}\r\n.user_infor .header_image_url {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .header_image_url img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .user_name {\r\n  font-size: 14px;\r\n  padding-left: 8px;\r\n}\r\n.media-right {\r\n  margin-left: -20px;\r\n}\r\n.media-right ._media_object_wrapper {\r\n  width: 50%;\r\n  height: 80%;\r\n}\r\n.content_show {\r\n  margin-bottom: 8px;\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.icon_fire[data-v-697f6e4b] {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\n}\n.icon_fire .icon[data-v-697f6e4b] {\r\n  font-size: 30px;\n}\n.icon_fire[data-v-697f6e4b]::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\n}\n.user_infor[data-v-697f6e4b] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  padding-bottom: 5px;\n}\n.user_infor .header_image_url[data-v-697f6e4b] {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .header_image_url img[data-v-697f6e4b] {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\n}\n.user_infor .user_name[data-v-697f6e4b] {\r\n  font-size: 14px;\r\n  padding-left: 8px;\n}\n.media-right[data-v-697f6e4b] {\r\n  margin-left: -20px;\n}\n.media-right ._media_object_wrapper[data-v-697f6e4b] {\r\n  width: 50%;\r\n  height: 80%;\n}\n.content_show[data-v-697f6e4b] {\r\n  margin-bottom: 8px;\n}\n.list[data-v-697f6e4b] {\r\n  padding: 10px;\n}\n.list .list_item[data-v-697f6e4b] {\r\n  padding: 10px;\r\n  border-bottom: 1px solid #eee;\n}\n.list .list_item .user_info[data-v-697f6e4b] {\r\n  padding-bottom: 10px;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\n}\n.list .list_item .user_info .list_item_user_image[data-v-697f6e4b] {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\n}\n.list .list_item .user_info .list_item_user_image img[data-v-697f6e4b] {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\n}\n.list .list_item .user_info .list_item_user_name[data-v-697f6e4b] {\r\n  padding-left: 10px;\n}\n.list .list_item .down[data-v-697f6e4b] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\n}\n.list .list_item .down .list_left[data-v-697f6e4b] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\n}\n.list_left .list_item_articel_title[data-v-697f6e4b] {\r\n  padding-bottom: 10px;\n}\n.list_left .list_item_articel_content[data-v-697f6e4b] {\r\n  padding-bottom: 10px;\r\n  min-height: 50px;\r\n  max-height: 80px;\r\n  overflow: hidden;\n}\n.list_right .ariticel_cover[data-v-697f6e4b] {\r\n  width: 100px;\r\n  height: 100px;\n}\n.list_right .ariticel_cover img[data-v-697f6e4b] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.list_all[data-v-697f6e4b] {\r\n  margin-bottom: 50px;\n}\n[data-v-697f6e4b].list_item_articel_content img {\r\n  width: 0px;\r\n  height: 0px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/index/application/index/view/index/list.vue"],"names":[],"mappings":";AAEA;EACA,yBAAA;EACA,oBAAA;EACA,mBAAA;EACA,8BAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,YAAA;EACA,mBAAA;EACA,mBAAA;EACA,UAAA;EACA,UAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,oBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;CACA;AACA;EACA,gBAAA;EACA,kBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,WAAA;EACA,YAAA;CACA;AACA;EACA,mBAAA;CACA;AAEA;EACA,cAAA;CACA;AACA;EACA,cAAA;EACA,8BAAA;CACA;AACA;EACA,qBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,mBAAA;CACA;AACA;EACA,mBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;CACA;AACA;EACA,qBAAA;CACA;AACA;EACA,qBAAA;EACA,iBAAA;EACA,iBAAA;EACA,iBAAA;CACA;AACA;EACA,aAAA;EACA,cAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,oBAAA;CACA;AACA;EACA,WAAA;EACA,YAAA;CACA","file":"list.vue","sourcesContent":["\r\n<style scoped>\r\n.icon_fire {\r\n  padding: 5px 0px 5px 0px;\r\n  margin: 0 5px 0 5px;\r\n  position: relative;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n.icon_fire .icon {\r\n  font-size: 30px;\r\n}\r\n.icon_fire::after {\r\n  content: \"\";\r\n  width: 104px;\r\n  height: 1px;\r\n  position: absolute;\r\n  background: orange;\r\n  top: 39px;\r\n  left: 0px;\r\n}\r\n.user_infor {\r\n  display: flex;\r\n  align-items: center;\r\n  padding-bottom: 5px;\r\n}\r\n.user_infor .header_image_url {\r\n  width: 30px;\r\n  height: 30px;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .header_image_url img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border: 1px solid #eee;\r\n  border-radius: 50%;\r\n}\r\n.user_infor .user_name {\r\n  font-size: 14px;\r\n  padding-left: 8px;\r\n}\r\n.media-right {\r\n  margin-left: -20px;\r\n}\r\n.media-right ._media_object_wrapper {\r\n  width: 50%;\r\n  height: 80%;\r\n}\r\n.content_show {\r\n  margin-bottom: 8px;\r\n}\r\n\r\n.list {\r\n  padding: 10px;\r\n}\r\n.list .list_item {\r\n  padding: 10px;\r\n  border-bottom: 1px solid #eee;\r\n}\r\n.list .list_item .user_info {\r\n  padding-bottom: 10px;\r\n  display: flex;\r\n  align-items: center;\r\n}\r\n.list .list_item .user_info .list_item_user_image {\r\n  width: 40px;\r\n  height: 40px;\r\n  border-radius: 50%;\r\n}\r\n.list .list_item .user_info .list_item_user_image img {\r\n  width: 100%;\r\n  height: 100%;\r\n  border-radius: 50%;\r\n}\r\n.list .list_item .user_info .list_item_user_name {\r\n  padding-left: 10px;\r\n}\r\n.list .list_item .down {\r\n  display: flex;\r\n}\r\n.list .list_item .down .list_left {\r\n  flex: 1;\r\n}\r\n.list_left .list_item_articel_title {\r\n  padding-bottom: 10px;\r\n}\r\n.list_left .list_item_articel_content {\r\n  padding-bottom: 10px;\r\n  min-height: 50px;\r\n  max-height: 80px;\r\n  overflow: hidden;\r\n}\r\n.list_right .ariticel_cover {\r\n  width: 100px;\r\n  height: 100px;\r\n}\r\n.list_right .ariticel_cover img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n.list_all {\r\n  margin-bottom: 50px;\r\n}\r\n:global(.list_item_articel_content img) {\r\n  width: 0px;\r\n  height: 0px;\r\n}\r\n</style>\r\n<template>\r\n  <div class=\"list_all\">\r\n    <div class=\"icon_fire\">\r\n      <svg class=\"icon\" aria-hidden=\"true\">\r\n        <use xlink:href=\"#icon-huoyan\"></use>\r\n      </svg>\r\n      7天排行版\r\n    </div>\r\n    <div class=\"list\">\r\n      <div class=\"list_item\" v-bind:key='index' v-for=\"(item,index) in  $store.state.result\">\r\n        <div class=\"user_info\">\r\n          <div class=\"list_item_user_image\">\r\n            <img :src=\"item.head_image_url\" alt=\"\">\r\n          </div>\r\n          <div class=\"list_item_user_name\">\r\n            {{item.user_name}}\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"down\">\r\n          <div class=\"list_left\">\r\n            <div class=\"list_item_articel_title\">\r\n              <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\">\r\n                {{item.title}}</a>\r\n            </div>\r\n            <div class=\"list_item_articel_content\" v-html=\"item.content\">\r\n            </div>\r\n            <div class=\"list_item_articel_like_num_update_time\">\r\n              <svg class=\"icon\" aria-hidden=\"true\">\r\n                <use xlink:href=\"#icon-heart-copy\"></use>\r\n              </svg>\r\n              {{item.like_num}}\r\n              <svg class=\"icon\" aria-hidden=\"true\">\r\n                <use xlink:href=\"#icon-shijian\"></use>\r\n              </svg>\r\n              <small>\r\n                {{dateFtt(\"yyyy-MM-dd \",item.update_time)}}\r\n              </small>\r\n            </div>\r\n          </div>\r\n\r\n          <div class=\"list_right\">\r\n            <div class=\"ariticel_cover\">\r\n              <a :href=\"'/huoshu/public/index/article/detail?id='+item.id\" class=\"_media_object_wrapper\">\r\n                <img :src=\"item.image_src\" />\r\n              </a>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</template>\r\n<script>\r\nimport { dateFtt } from \"../util/util\";\r\nimport _ from \"underscore\";\r\nimport { get_index_list } from \"../util/fetch\";\r\nimport {\r\n  set_result_list_current_page,\r\n  set_current_page\r\n} from \"./vuex/actionTypes\";\r\n\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  created() {\r\n    this.init();\r\n  },\r\n  methods: {\r\n    dateFtt,\r\n    init() {\r\n      var self = this;\r\n      window.addEventListener(\r\n        \"scroll\",\r\n        _.throttle(function() {\r\n          // console.log(\"底部必读\");\r\n          // console.log(\"window.pageYOffset\", window.pageYOffset);\r\n          // console.log(\"window.innerHeight \", window.innerHeight);\r\n          // console.log(\r\n          //   \"   document.documentElement.scrollHeight \",\r\n          //   document.documentElement.scrollHeight\r\n          // );\r\n          // console.log(\r\n          //   \"  window.pageYOffset + window.innerHeight >=  document.documentElement.scrollHeight \",\r\n          //   window.pageYOffset + window.innerHeight >=\r\n          //     document.documentElement.scrollHeight-10\r\n          // );\r\n          if (\r\n            window.pageYOffset + window.innerHeight >=\r\n            document.documentElement.scrollHeight - 10\r\n          ) {\r\n            console.log(\"底部必读\");\r\n            self.scroll_bottom();\r\n          }\r\n        }, 200),\r\n        false\r\n      );\r\n    },\r\n    scroll_bottom() {\r\n      var self = this;\r\n      var { currentPage, page } = this.$store.state;\r\n      var { dispatch } = this.$store;\r\n      if (currentPage <= page) {\r\n        /* 滚动的时候，加页数 */\r\n        dispatch(set_current_page, { currentPage: currentPage + 1 });\r\n        self.getList();\r\n      }\r\n    },\r\n    getList() {\r\n      var self = this;\r\n      var { currentPage, result } = self.$store.state;\r\n      var { dispatch } = self.$store;\r\n      get_index_list({\r\n        data: {\r\n          currentPage\r\n        },\r\n        success(json) {\r\n          var jsonResult = JSON.parse(json);\r\n          if (jsonResult[\"result\"].length > 0) {\r\n            result = result.concat(jsonResult[\"result\"]);\r\n            dispatch(set_result_list_current_page, {\r\n              currentPage: currentPage,\r\n              result: result\r\n            });\r\n          } else {\r\n            console.log(\"这回真的没有了\");\r\n            let toast = self.$toasted.show(\"这回真的没有了 !!\", {\r\n              theme: \"primary\",\r\n              position: \"top-center\",\r\n              duration: 1000\r\n            });\r\n          }\r\n        }\r\n      });\r\n    },\r\n    pageItemClick(currentPage) {\r\n      var self = this;\r\n      this.changePage(currentPage);\r\n      this.$nextTick(() => {\r\n        self.getList(self.currentPage);\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -4349,92 +4469,96 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "list_all" },
-    [
-      _c("div", { staticClass: "icon_fire" }, [
-        _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
-          _c("use", { attrs: { "xlink:href": "#icon-huoyan" } })
-        ]),
-        _vm._v("\n    7天排行版\n  ")
+  return _c("div", { staticClass: "list_all" }, [
+    _c("div", { staticClass: "icon_fire" }, [
+      _c("svg", { staticClass: "icon", attrs: { "aria-hidden": "true" } }, [
+        _c("use", { attrs: { "xlink:href": "#icon-huoyan" } })
       ]),
-      _vm._v(" "),
+      _vm._v("\n    7天排行版\n  ")
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "list" },
       _vm._l(_vm.$store.state.result, function(item, index) {
-        return _c("div", { key: index, staticClass: "media _media" }, [
-          _c("div", { staticClass: "user_infor" }, [
-            _c("div", { staticClass: "header_image_url" }, [
+        return _c("div", { key: index, staticClass: "list_item" }, [
+          _c("div", { staticClass: "user_info" }, [
+            _c("div", { staticClass: "list_item_user_image" }, [
               _c("img", { attrs: { src: item.head_image_url, alt: "" } })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "user_name" }, [
-              _vm._v("\n        " + _vm._s(item.user_name) + "\n      ")
+            _c("div", { staticClass: "list_item_user_name" }, [
+              _vm._v("\n          " + _vm._s(item.user_name) + "\n        ")
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "media-body" }, [
-            _c("h4", { staticClass: "media-heading" }, [
+          _c("div", { staticClass: "down" }, [
+            _c("div", { staticClass: "list_left" }, [
+              _c("div", { staticClass: "list_item_articel_title" }, [
+                _c(
+                  "a",
+                  {
+                    attrs: {
+                      href: "/huoshu/public/index/article/detail?id=" + item.id
+                    }
+                  },
+                  [_vm._v("\n              " + _vm._s(item.title))]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "list_item_articel_content",
+                domProps: { innerHTML: _vm._s(item.content) }
+              }),
+              _vm._v(" "),
               _c(
-                "a",
-                {
-                  attrs: {
-                    href: "/huoshu/public/index/article/detail?id=" + item.id
-                  }
-                },
-                [_vm._v(_vm._s(item.title))]
+                "div",
+                { staticClass: "list_item_articel_like_num_update_time" },
+                [
+                  _c(
+                    "svg",
+                    { staticClass: "icon", attrs: { "aria-hidden": "true" } },
+                    [_c("use", { attrs: { "xlink:href": "#icon-heart-copy" } })]
+                  ),
+                  _vm._v(
+                    "\n            " + _vm._s(item.like_num) + "\n            "
+                  ),
+                  _c(
+                    "svg",
+                    { staticClass: "icon", attrs: { "aria-hidden": "true" } },
+                    [_c("use", { attrs: { "xlink:href": "#icon-shijian" } })]
+                  ),
+                  _vm._v(" "),
+                  _c("small", [
+                    _vm._v(
+                      "\n              " +
+                        _vm._s(_vm.dateFtt("yyyy-MM-dd ", item.update_time)) +
+                        "\n            "
+                    )
+                  ])
+                ]
               )
             ]),
             _vm._v(" "),
-            _c("div", {
-              staticClass: "content_show",
-              domProps: { innerHTML: _vm._s(item.content) }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "like_show" }, [
-              _c(
-                "svg",
-                { staticClass: "icon", attrs: { "aria-hidden": "true" } },
-                [_c("use", { attrs: { "xlink:href": "#icon-heart-copy" } })]
-              ),
-              _vm._v("\n        " + _vm._s(item.like_num) + "\n        "),
-              _c(
-                "svg",
-                { staticClass: "icon", attrs: { "aria-hidden": "true" } },
-                [_c("use", { attrs: { "xlink:href": "#icon-shijian" } })]
-              ),
-              _vm._v(" "),
-              _c("small", [
-                _vm._v(
-                  "\n          " +
-                    _vm._s(_vm.dateFtt("yyyy-MM-dd ", item.update_time)) +
-                    "\n        "
+            _c("div", { staticClass: "list_right" }, [
+              _c("div", { staticClass: "ariticel_cover" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "_media_object_wrapper",
+                    attrs: {
+                      href: "/huoshu/public/index/article/detail?id=" + item.id
+                    }
+                  },
+                  [_c("img", { attrs: { src: item.image_src } })]
                 )
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "media-right" }, [
-            _c(
-              "a",
-              {
-                staticClass: "_media_object_wrapper",
-                attrs: {
-                  href: "/huoshu/public/index/article/detail?id=" + item.id
-                }
-              },
-              [
-                _c("img", {
-                  staticClass: "media-object _media_object",
-                  attrs: { src: item.image_src }
-                })
-              ]
-            )
           ])
         ])
       })
-    ],
-    2
-  )
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4588,6 +4712,10 @@ exports.default = (_set_result_list_curr = {}, (0, _defineProperty3.default)(_se
     var currentPage = _ref2.currentPage;
 
     state.currentPage = currentPage;
+}), (0, _defineProperty3.default)(_set_result_list_curr, _actionTypes.set_all_page, function (state, _ref3) {
+    var all_page = _ref3.all_page;
+
+    state.currentPage = all_page;
 }), _set_result_list_curr);
 
 /***/ }),

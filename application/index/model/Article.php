@@ -44,7 +44,7 @@ class Article extends Model
         think_profile p
         ON u.id=p.user_id
         ORDER BY like_num DESC
-        limit '.$currentPage*$pageSize.',10');
+        limit '.($currentPage)*$pageSize.',10');
 
         $count = Db::table('think_article')->where($where)->count();
         return [
