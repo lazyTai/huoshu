@@ -4,3 +4,4 @@ export const set_articel_content = "set_articel_content";
 export const set_dom_content = "set_dom_content";
 export const push_select_array = "push_select_array";
 export const remove_sub_type_in_selected = "remove_sub_type_in_selected";
+export const set_dom_title = "set_dom_title";

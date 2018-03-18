@@ -7,12 +7,12 @@
       <div class="item_font">图片</div>
     </div>
 
-    <router-link to="/type" class="item">
+    <div @click="click_type" class="item">
       <div>
         <Icon :icon="'tag'" />
       </div>
       <div class="item_font">分类</div>
-    </router-link>
+    </div>
 
     <div class="item" @click="click_save">
       <div>
@@ -25,7 +25,7 @@
 </template>
 <script>
 import { upload_image_in_artitle, articel_add } from "../../util/fetch";
-import { set_articel_content } from "./vuex/actionTypes";
+import { set_articel_title, set_articel_content } from "./vuex/actionTypes";
 import Icon from "../../components/icon.vue";
 export default {
   data() {
@@ -35,8 +35,21 @@ export default {
     click_file() {
       this.dom_file.click();
     },
+    click_type() {
+      this.save_articel_before();
+      this.$router.push({ path: "type" });
+    },
+    save_articel_before() {
+      /* 保存现有的操作 */
+      var { articel, haved_selected, dom } = this.$store.state;
+      var { dispatch } = this.$store;
+      dispatch(set_articel_content, { content: dom.$content.innerHTML });
+      dispatch(set_articel_title, { title: dom.$title.value });
+    },
     click_save() {
-      var { articel, haved_selected } = this.$store.state;
+      /* 保存现有的操作 */
+      var { articel, haved_selected, dom } = this.$store.state;
+      this.save_articel_before();
       if (
         articel.title == "" ||
         articel.content == "" ||
@@ -56,7 +69,6 @@ export default {
         },
         success(json) {
           var jsonReturn = JSON.parse(json);
-          debugger;
         }
       });
     }

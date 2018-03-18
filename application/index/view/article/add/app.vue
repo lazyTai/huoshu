@@ -33,7 +33,8 @@ import {
   set_cover_image_url,
   set_articel_title,
   set_articel_content,
-  set_dom_content
+  set_dom_content,
+  set_dom_title
 } from "./vuex/actionTypes";
 export default {
   data() {
@@ -52,6 +53,7 @@ export default {
     this.dom_title = this.$refs["title"];
     this.dom_file = this.$refs["file"];
     this.$store.dispatch(set_dom_content, { dom: this.dom_content });
+    this.$store.dispatch(set_dom_title, { dom: this.dom_title });
     this.dom_file.onchange = () => {
       var files = self.dom_file.files;
       upload_image_in_artitle({

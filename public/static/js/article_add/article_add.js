@@ -824,6 +824,7 @@ var set_articel_content = exports.set_articel_content = "set_articel_content";
 var set_dom_content = exports.set_dom_content = "set_dom_content";
 var push_select_array = exports.push_select_array = "push_select_array";
 var remove_sub_type_in_selected = exports.remove_sub_type_in_selected = "remove_sub_type_in_selected";
+var set_dom_title = exports.set_dom_title = "set_dom_title";
 
 /***/ }),
 /* 40 */
@@ -3875,6 +3876,7 @@ exports.default = {
     this.dom_title = this.$refs["title"];
     this.dom_file = this.$refs["file"];
     this.$store.dispatch(_actionTypes.set_dom_content, { dom: this.dom_content });
+    this.$store.dispatch(_actionTypes.set_dom_title, { dom: this.dom_title });
     this.dom_file.onchange = function () {
       var files = self.dom_file.files;
       (0, _fetch.upload_image_in_artitle)({
@@ -4037,11 +4039,29 @@ exports.default = {
     click_file: function click_file() {
       this.dom_file.click();
     },
-    click_save: function click_save() {
+    click_type: function click_type() {
+      this.save_articel_before();
+      this.$router.push({ path: "type" });
+    },
+    save_articel_before: function save_articel_before() {
+      /* 保存现有的操作 */
       var _$store$state = this.$store.state,
           articel = _$store$state.articel,
-          haved_selected = _$store$state.haved_selected;
+          haved_selected = _$store$state.haved_selected,
+          dom = _$store$state.dom;
+      var dispatch = this.$store.dispatch;
 
+      dispatch(_actionTypes.set_articel_content, { content: dom.$content.innerHTML });
+      dispatch(_actionTypes.set_articel_title, { title: dom.$title.value });
+    },
+    click_save: function click_save() {
+      /* 保存现有的操作 */
+      var _$store$state2 = this.$store.state,
+          articel = _$store$state2.articel,
+          haved_selected = _$store$state2.haved_selected,
+          dom = _$store$state2.dom;
+
+      this.save_articel_before();
       if (articel.title == "" || articel.content == "" || articel.cover_image_url == "") {
         layer.msg("还有没有填！");
         return false;
@@ -4057,7 +4077,6 @@ exports.default = {
         },
         success: function success(json) {
           var jsonReturn = JSON.parse(json);
-          debugger;
         }
       });
     }
@@ -4404,8 +4423,8 @@ var store = new _vuex2.default.Store({
     state: {
         count: 0,
         articel: {
-            title: 'titletitle',
-            content: 'contentcontent',
+            title: '',
+            content: '',
             cover_image_url: ''
         },
         haved_selected: [],
@@ -4488,8 +4507,12 @@ exports.default = (_set_cover_image_url$ = {}, (0, _defineProperty3.default)(_se
     var dom = _ref4.dom;
 
     state.dom.$content = dom;
-}), (0, _defineProperty3.default)(_set_cover_image_url$, _actionTypes.remove_sub_type_in_selected, function (state, _ref5) {
-    var sub_type = _ref5.sub_type;
+}), (0, _defineProperty3.default)(_set_cover_image_url$, _actionTypes.set_dom_title, function (state, _ref5) {
+    var dom = _ref5.dom;
+
+    state.dom.$title = dom;
+}), (0, _defineProperty3.default)(_set_cover_image_url$, _actionTypes.remove_sub_type_in_selected, function (state, _ref6) {
+    var sub_type = _ref6.sub_type;
 
     var index = null;
     state.haved_selected.forEach(function (element, key) {
@@ -4500,8 +4523,8 @@ exports.default = (_set_cover_image_url$ = {}, (0, _defineProperty3.default)(_se
     if (index != null) {
         state.haved_selected.splice(index, 1);
     }
-}), (0, _defineProperty3.default)(_set_cover_image_url$, _actionTypes.push_select_array, function (state, _ref6) {
-    var sub_type = _ref6.sub_type;
+}), (0, _defineProperty3.default)(_set_cover_image_url$, _actionTypes.push_select_array, function (state, _ref7) {
+    var sub_type = _ref7.sub_type;
 
     var isHave = false;
     state.haved_selected.forEach(function (element) {
@@ -7242,7 +7265,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.add_cover[data-v-3c086aa6] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  height: 35px;\r\n  background: #eee;\r\n  line-height: 35px;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  text-align: center;\r\n  cursor: pointer;\n}\n.icon[data-v-3c086aa6] {\n}\n.title[data-v-3c086aa6] {\n}\n.title input[data-v-3c086aa6] {\r\n  width: 100%;\r\n  border: #eee;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  text-align: center;\n}\n.content[data-v-3c086aa6] {\r\n  width: 100%;\r\n  background: #eee;\r\n  min-height: 100%;\n}\n[data-v-3c086aa6].content .content_image {\r\n  max-height: 200px;\r\n  width: 100%;\r\n  padding: 10px;\n}\n[data-v-3c086aa6].content .content_image img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.artitcle[data-v-3c086aa6] {\r\n  margin-bottom: 100px;\r\n  padding: 10px;\n}\n.artitcle .title[data-v-3c086aa6] {\r\n  box-shadow: 0px -1px 5px #eee;\n}\n.cover_image[data-v-3c086aa6] {\r\n  width: 100%;\r\n  height: 100px;\n}\n.cover_image img[data-v-3c086aa6] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.add_cover[data-v-3c086aa6] {\r\n  position: absolute;\r\n  width: 100%;\r\n  top: 80px;\r\n  opacity: 0.6;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/add/application/index/view/article/add/app.vue"],"names":[],"mappings":";AAgGA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,aAAA;EACA,iBAAA;EACA,kBAAA;EACA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,mBAAA;EACA,gBAAA;CACA;AAEA;CACA;AACA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,iBAAA;EACA,iBAAA;CACA;AACA;EACA,kBAAA;EACA,YAAA;EACA,cAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AAEA;EACA,qBAAA;EACA,cAAA;CACA;AACA;EACA,8BAAA;CACA;AACA;EACA,YAAA;EACA,cAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,mBAAA;EACA,YAAA;EACA,UAAA;EACA,aAAA;CACA","file":"app.vue","sourcesContent":["<template>\r\n  <div id=\"app\">\r\n    <Header_back />\r\n    <!-- {{user}} -->\r\n\r\n    <div class=\"cover_image\">\r\n      <img :src=\"$store.state.articel.cover_image_url\" v-show=\"$store.state.articel.cover_image_url\" alt=\"\">\r\n    </div>\r\n    <div class=\"add_cover\" @click=\"click_upload_cover\">\r\n      <Icon :icon=\"'shubenshuqian'\" /> 添加封面\r\n    </div>\r\n\r\n    <div class=\"artitcle\">\r\n      <div class=\"title\">\r\n        <input type=\"text\" placeholder=\"输入标题\" :value=\"$store.state.articel.title\" ref='title'>\r\n      </div>\r\n      <div class=\"content\" ref=\"content\" contenteditable=\"true\" v-html=\"$store.state.articel.content\"></div>\r\n    </div>\r\n\r\n    <input type=\"file\" ref=\"file\" v-show=\"false\">\r\n    <Bottom/>\r\n\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header_back from \"../../components/Header_back.vue\";\r\nimport Icon from \"../../components/icon.vue\";\r\nimport { upload_image_in_artitle } from \"../../util/fetch\";\r\nimport { changeCursorPos } from \"../../util/util\";\r\nimport Bottom from \"./bottom.vue\";\r\nimport {\r\n  set_cover_image_url,\r\n  set_articel_title,\r\n  set_articel_content,\r\n  set_dom_content\r\n} from \"./vuex/actionTypes\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      msg: \"deital\",\r\n      user: $user\r\n    };\r\n  },\r\n  created() {},\r\n  updated() {\r\n    changeCursorPos(this.dom_content, this.dom_content.innerHTML.length);\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_content = this.$refs[\"content\"];\r\n    this.dom_title = this.$refs[\"title\"];\r\n    this.dom_file = this.$refs[\"file\"];\r\n    this.$store.dispatch(set_dom_content, { dom: this.dom_content });\r\n    this.dom_file.onchange = () => {\r\n      var files = self.dom_file.files;\r\n      upload_image_in_artitle({\r\n        data: files,\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n          if (jsonReturn.success) {\r\n            self.$store.dispatch(set_cover_image_url, {\r\n              cover_image_url: jsonReturn.message\r\n            });\r\n          }\r\n        }\r\n      });\r\n    };\r\n  },\r\n  components: {\r\n    Header_back,\r\n    Icon,\r\n    Bottom\r\n  },\r\n  methods: {\r\n    setResult(result) {\r\n      this.result = result;\r\n    },\r\n    input_title(event) {\r\n      this.$store.dispatch(set_articel_title, {\r\n        title: event.target.value\r\n      });\r\n    },\r\n    input_content(event) {\r\n      this.$store.dispatch(set_articel_content, {\r\n        content: event.target.innerHTML\r\n      });\r\n    },\r\n    click_upload_cover() {\r\n      this.dom_file.click();\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.add_cover {\r\n  display: flex;\r\n  height: 35px;\r\n  background: #eee;\r\n  line-height: 35px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  text-align: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.icon {\r\n}\r\n.title {\r\n}\r\n.title input {\r\n  width: 100%;\r\n  border: #eee;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  text-align: center;\r\n}\r\n.content {\r\n  width: 100%;\r\n  background: #eee;\r\n  min-height: 100%;\r\n}\r\n:global(.content .content_image) {\r\n  max-height: 200px;\r\n  width: 100%;\r\n  padding: 10px;\r\n}\r\n:global(.content .content_image img) {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.artitcle {\r\n  margin-bottom: 100px;\r\n  padding: 10px;\r\n}\r\n.artitcle .title {\r\n  box-shadow: 0px -1px 5px #eee;\r\n}\r\n.cover_image {\r\n  width: 100%;\r\n  height: 100px;\r\n}\r\n.cover_image img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n.add_cover {\r\n  position: absolute;\r\n  width: 100%;\r\n  top: 80px;\r\n  opacity: 0.6;\r\n}\r\n</style>"],"sourceRoot":""}]);
+exports.push([module.i, "\n.add_cover[data-v-3c086aa6] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  height: 35px;\r\n  background: #eee;\r\n  line-height: 35px;\r\n  display: flex;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  text-align: center;\r\n  cursor: pointer;\n}\n.icon[data-v-3c086aa6] {\n}\n.title[data-v-3c086aa6] {\n}\n.title input[data-v-3c086aa6] {\r\n  width: 100%;\r\n  border: #eee;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  text-align: center;\n}\n.content[data-v-3c086aa6] {\r\n  width: 100%;\r\n  background: #eee;\r\n  min-height: 100%;\n}\n[data-v-3c086aa6].content .content_image {\r\n  max-height: 200px;\r\n  width: 100%;\r\n  padding: 10px;\n}\n[data-v-3c086aa6].content .content_image img {\r\n  width: 100%;\r\n  height: 100%;\n}\n.artitcle[data-v-3c086aa6] {\r\n  margin-bottom: 100px;\r\n  padding: 10px;\n}\n.artitcle .title[data-v-3c086aa6] {\r\n  box-shadow: 0px -1px 5px #eee;\n}\n.cover_image[data-v-3c086aa6] {\r\n  width: 100%;\r\n  height: 100px;\n}\n.cover_image img[data-v-3c086aa6] {\r\n  width: 100%;\r\n  height: 100%;\n}\n.add_cover[data-v-3c086aa6] {\r\n  position: absolute;\r\n  width: 100%;\r\n  top: 80px;\r\n  opacity: 0.6;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/add/application/index/view/article/add/app.vue"],"names":[],"mappings":";AAkGA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,aAAA;EACA,iBAAA;EACA,kBAAA;EACA,cAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,mBAAA;EACA,gBAAA;CACA;AAEA;CACA;AACA;CACA;AACA;EACA,YAAA;EACA,aAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;CACA;AACA;EACA,YAAA;EACA,iBAAA;EACA,iBAAA;CACA;AACA;EACA,kBAAA;EACA,YAAA;EACA,cAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AAEA;EACA,qBAAA;EACA,cAAA;CACA;AACA;EACA,8BAAA;CACA;AACA;EACA,YAAA;EACA,cAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,mBAAA;EACA,YAAA;EACA,UAAA;EACA,aAAA;CACA","file":"app.vue","sourcesContent":["<template>\r\n  <div id=\"app\">\r\n    <Header_back />\r\n    <!-- {{user}} -->\r\n\r\n    <div class=\"cover_image\">\r\n      <img :src=\"$store.state.articel.cover_image_url\" v-show=\"$store.state.articel.cover_image_url\" alt=\"\">\r\n    </div>\r\n    <div class=\"add_cover\" @click=\"click_upload_cover\">\r\n      <Icon :icon=\"'shubenshuqian'\" /> 添加封面\r\n    </div>\r\n\r\n    <div class=\"artitcle\">\r\n      <div class=\"title\">\r\n        <input type=\"text\" placeholder=\"输入标题\" :value=\"$store.state.articel.title\" ref='title'>\r\n      </div>\r\n      <div class=\"content\" ref=\"content\" contenteditable=\"true\" v-html=\"$store.state.articel.content\"></div>\r\n    </div>\r\n\r\n    <input type=\"file\" ref=\"file\" v-show=\"false\">\r\n    <Bottom/>\r\n\r\n  </div>\r\n</template>\r\n\r\n<script>\r\nimport Header_back from \"../../components/Header_back.vue\";\r\nimport Icon from \"../../components/icon.vue\";\r\nimport { upload_image_in_artitle } from \"../../util/fetch\";\r\nimport { changeCursorPos } from \"../../util/util\";\r\nimport Bottom from \"./bottom.vue\";\r\nimport {\r\n  set_cover_image_url,\r\n  set_articel_title,\r\n  set_articel_content,\r\n  set_dom_content,\r\n  set_dom_title\r\n} from \"./vuex/actionTypes\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      msg: \"deital\",\r\n      user: $user\r\n    };\r\n  },\r\n  created() {},\r\n  updated() {\r\n    changeCursorPos(this.dom_content, this.dom_content.innerHTML.length);\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_content = this.$refs[\"content\"];\r\n    this.dom_title = this.$refs[\"title\"];\r\n    this.dom_file = this.$refs[\"file\"];\r\n    this.$store.dispatch(set_dom_content, { dom: this.dom_content });\r\n    this.$store.dispatch(set_dom_title, { dom: this.dom_title });\r\n    this.dom_file.onchange = () => {\r\n      var files = self.dom_file.files;\r\n      upload_image_in_artitle({\r\n        data: files,\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n          if (jsonReturn.success) {\r\n            self.$store.dispatch(set_cover_image_url, {\r\n              cover_image_url: jsonReturn.message\r\n            });\r\n          }\r\n        }\r\n      });\r\n    };\r\n  },\r\n  components: {\r\n    Header_back,\r\n    Icon,\r\n    Bottom\r\n  },\r\n  methods: {\r\n    setResult(result) {\r\n      this.result = result;\r\n    },\r\n    input_title(event) {\r\n      this.$store.dispatch(set_articel_title, {\r\n        title: event.target.value\r\n      });\r\n    },\r\n    input_content(event) {\r\n      this.$store.dispatch(set_articel_content, {\r\n        content: event.target.innerHTML\r\n      });\r\n    },\r\n    click_upload_cover() {\r\n      this.dom_file.click();\r\n    }\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.add_cover {\r\n  display: flex;\r\n  height: 35px;\r\n  background: #eee;\r\n  line-height: 35px;\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n  text-align: center;\r\n  cursor: pointer;\r\n}\r\n\r\n.icon {\r\n}\r\n.title {\r\n}\r\n.title input {\r\n  width: 100%;\r\n  border: #eee;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  text-align: center;\r\n}\r\n.content {\r\n  width: 100%;\r\n  background: #eee;\r\n  min-height: 100%;\r\n}\r\n:global(.content .content_image) {\r\n  max-height: 200px;\r\n  width: 100%;\r\n  padding: 10px;\r\n}\r\n:global(.content .content_image img) {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n.artitcle {\r\n  margin-bottom: 100px;\r\n  padding: 10px;\r\n}\r\n.artitcle .title {\r\n  box-shadow: 0px -1px 5px #eee;\r\n}\r\n.cover_image {\r\n  width: 100%;\r\n  height: 100px;\r\n}\r\n.cover_image img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n.add_cover {\r\n  position: absolute;\r\n  width: 100%;\r\n  top: 80px;\r\n  opacity: 0.6;\r\n}\r\n</style>"],"sourceRoot":""}]);
 
 // exports
 
@@ -7404,7 +7427,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.bottom[data-v-5e4aa44f] {\r\n  border-top: 1px solid #eee;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\n}\n.item[data-v-5e4aa44f] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  cursor: pointer;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\n}\n.item_font[data-v-5e4aa44f] {\r\n  font-size: 12px;\r\n  padding: 0px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/add/application/index/view/article/add/bottom.vue"],"names":[],"mappings":";AA6FA;EACA,2BAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,iBAAA;EACA,YAAA;EACA,gBAAA;EACA,UAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,gBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,6BAAA;EAAA,8BAAA;EAAA,+BAAA;UAAA,uBAAA;EACA,aAAA;EACA,aAAA;CACA;AACA;EACA,gBAAA;EACA,aAAA;CACA","file":"bottom.vue","sourcesContent":["<template>\r\n  <div class=\"bottom\">\r\n    <div class=\"item\" @click=\"click_file\">\r\n      <div>\r\n        <Icon :icon=\"'tupian'\" />\r\n      </div>\r\n      <div class=\"item_font\">图片</div>\r\n    </div>\r\n\r\n    <router-link to=\"/type\" class=\"item\">\r\n      <div>\r\n        <Icon :icon=\"'tag'\" />\r\n      </div>\r\n      <div class=\"item_font\">分类</div>\r\n    </router-link>\r\n\r\n    <div class=\"item\" @click=\"click_save\">\r\n      <div>\r\n        <Icon :icon=\"'save'\" />\r\n      </div>\r\n      <div class=\"item_font\">保存</div>\r\n    </div>\r\n    <input type=\"file\" v-show=\"false\" ref=\"file\">\r\n  </div>\r\n</template>\r\n<script>\r\nimport { upload_image_in_artitle, articel_add } from \"../../util/fetch\";\r\nimport { set_articel_content } from \"./vuex/actionTypes\";\r\nimport Icon from \"../../components/icon.vue\";\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  methods: {\r\n    click_file() {\r\n      this.dom_file.click();\r\n    },\r\n    click_save() {\r\n      var { articel, haved_selected } = this.$store.state;\r\n      if (\r\n        articel.title == \"\" ||\r\n        articel.content == \"\" ||\r\n        articel.cover_image_url == \"\"\r\n      ) {\r\n        layer.msg(\"还有没有填！\");\r\n        return false;\r\n      }\r\n      if (haved_selected.length <= 0) {\r\n        layer.msg(\"请选择分类\");\r\n        return false;\r\n      }\r\n      articel_add({\r\n        data: {\r\n          articel: JSON.stringify(articel),\r\n          haved_selected: JSON.stringify(haved_selected)\r\n        },\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n          debugger;\r\n        }\r\n      });\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_file = this.$refs[\"file\"];\r\n    var { dom } = this.$store.state;\r\n    this.dom_file.onchange = () => {\r\n      upload_image_in_artitle({\r\n        data: self.dom_file.files,\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n          if (jsonReturn.success) {\r\n            dom.$content.innerHTML += `\r\n            <div class=\"content_image\">\r\n              <img \r\n              src=\"${jsonReturn.message}\"/>\r\n            </div><br/>\r\n            `;\r\n            self.$store.dispatch(set_articel_content, {\r\n              content: dom.$content.innerHTML\r\n            });\r\n          }\r\n        }\r\n      });\r\n    };\r\n  },\r\n  components: {\r\n    Icon\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.bottom {\r\n  border-top: 1px solid #eee;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\r\n}\r\n.item {\r\n  flex: 1;\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\r\n}\r\n.item_font {\r\n  font-size: 12px;\r\n  padding: 0px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bottom[data-v-5e4aa44f] {\r\n  border-top: 1px solid #eee;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\n}\n.item[data-v-5e4aa44f] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  cursor: pointer;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\n}\n.item_font[data-v-5e4aa44f] {\r\n  font-size: 12px;\r\n  padding: 0px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/add/application/index/view/article/add/bottom.vue"],"names":[],"mappings":";AAyGA;EACA,2BAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,iBAAA;EACA,YAAA;EACA,gBAAA;EACA,UAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,gBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,6BAAA;EAAA,8BAAA;EAAA,+BAAA;UAAA,uBAAA;EACA,aAAA;EACA,aAAA;CACA;AACA;EACA,gBAAA;EACA,aAAA;CACA","file":"bottom.vue","sourcesContent":["<template>\r\n  <div class=\"bottom\">\r\n    <div class=\"item\" @click=\"click_file\">\r\n      <div>\r\n        <Icon :icon=\"'tupian'\" />\r\n      </div>\r\n      <div class=\"item_font\">图片</div>\r\n    </div>\r\n\r\n    <div @click=\"click_type\" class=\"item\">\r\n      <div>\r\n        <Icon :icon=\"'tag'\" />\r\n      </div>\r\n      <div class=\"item_font\">分类</div>\r\n    </div>\r\n\r\n    <div class=\"item\" @click=\"click_save\">\r\n      <div>\r\n        <Icon :icon=\"'save'\" />\r\n      </div>\r\n      <div class=\"item_font\">保存</div>\r\n    </div>\r\n    <input type=\"file\" v-show=\"false\" ref=\"file\">\r\n  </div>\r\n</template>\r\n<script>\r\nimport { upload_image_in_artitle, articel_add } from \"../../util/fetch\";\r\nimport { set_articel_title, set_articel_content } from \"./vuex/actionTypes\";\r\nimport Icon from \"../../components/icon.vue\";\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  methods: {\r\n    click_file() {\r\n      this.dom_file.click();\r\n    },\r\n    click_type() {\r\n      this.save_articel_before();\r\n      this.$router.push({ path: \"type\" });\r\n    },\r\n    save_articel_before() {\r\n      /* 保存现有的操作 */\r\n      var { articel, haved_selected, dom } = this.$store.state;\r\n      var { dispatch } = this.$store;\r\n      dispatch(set_articel_content, { content: dom.$content.innerHTML });\r\n      dispatch(set_articel_title, { title: dom.$title.value });\r\n    },\r\n    click_save() {\r\n      /* 保存现有的操作 */\r\n      var { articel, haved_selected, dom } = this.$store.state;\r\n      this.save_articel_before();\r\n      if (\r\n        articel.title == \"\" ||\r\n        articel.content == \"\" ||\r\n        articel.cover_image_url == \"\"\r\n      ) {\r\n        layer.msg(\"还有没有填！\");\r\n        return false;\r\n      }\r\n      if (haved_selected.length <= 0) {\r\n        layer.msg(\"请选择分类\");\r\n        return false;\r\n      }\r\n      articel_add({\r\n        data: {\r\n          articel: JSON.stringify(articel),\r\n          haved_selected: JSON.stringify(haved_selected)\r\n        },\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n        }\r\n      });\r\n    }\r\n  },\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_file = this.$refs[\"file\"];\r\n    var { dom } = this.$store.state;\r\n    this.dom_file.onchange = () => {\r\n      upload_image_in_artitle({\r\n        data: self.dom_file.files,\r\n        success(json) {\r\n          var jsonReturn = JSON.parse(json);\r\n          if (jsonReturn.success) {\r\n            dom.$content.innerHTML += `\r\n            <div class=\"content_image\">\r\n              <img \r\n              src=\"${jsonReturn.message}\"/>\r\n            </div><br/>\r\n            `;\r\n            self.$store.dispatch(set_articel_content, {\r\n              content: dom.$content.innerHTML\r\n            });\r\n          }\r\n        }\r\n      });\r\n    };\r\n  },\r\n  components: {\r\n    Icon\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.bottom {\r\n  border-top: 1px solid #eee;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\r\n}\r\n.item {\r\n  flex: 1;\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\r\n}\r\n.item_font {\r\n  font-size: 12px;\r\n  padding: 0px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -7418,38 +7441,33 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "bottom" },
-    [
-      _c("div", { staticClass: "item", on: { click: _vm.click_file } }, [
-        _c("div", [_c("Icon", { attrs: { icon: "tupian" } })], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "item_font" }, [_vm._v("图片")])
-      ]),
+  return _c("div", { staticClass: "bottom" }, [
+    _c("div", { staticClass: "item", on: { click: _vm.click_file } }, [
+      _c("div", [_c("Icon", { attrs: { icon: "tupian" } })], 1),
       _vm._v(" "),
-      _c("router-link", { staticClass: "item", attrs: { to: "/type" } }, [
-        _c("div", [_c("Icon", { attrs: { icon: "tag" } })], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "item_font" }, [_vm._v("分类")])
-      ]),
+      _c("div", { staticClass: "item_font" }, [_vm._v("图片")])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "item", on: { click: _vm.click_type } }, [
+      _c("div", [_c("Icon", { attrs: { icon: "tag" } })], 1),
       _vm._v(" "),
-      _c("div", { staticClass: "item", on: { click: _vm.click_save } }, [
-        _c("div", [_c("Icon", { attrs: { icon: "save" } })], 1),
-        _vm._v(" "),
-        _c("div", { staticClass: "item_font" }, [_vm._v("保存")])
-      ]),
+      _c("div", { staticClass: "item_font" }, [_vm._v("分类")])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "item", on: { click: _vm.click_save } }, [
+      _c("div", [_c("Icon", { attrs: { icon: "save" } })], 1),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          { name: "show", rawName: "v-show", value: false, expression: "false" }
-        ],
-        ref: "file",
-        attrs: { type: "file" }
-      })
-    ],
-    1
-  )
+      _c("div", { staticClass: "item_font" }, [_vm._v("保存")])
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        { name: "show", rawName: "v-show", value: false, expression: "false" }
+      ],
+      ref: "file",
+      attrs: { type: "file" }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

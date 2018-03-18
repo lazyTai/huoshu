@@ -5,8 +5,8 @@ const store = new Vuex.Store({
     state: {
         count: 0,
         articel: {
-            title: 'titletitle',
-            content: 'contentcontent',
+            title: '',
+            content: '',
             cover_image_url: '',
         },
         haved_selected: [],

@@ -1,6 +1,7 @@
 import {
     set_cover_image_url, set_articel_title, set_articel_content,
-    set_dom_content, push_select_array, remove_sub_type_in_selected
+    set_dom_content, push_select_array, remove_sub_type_in_selected,
+    set_dom_title
 } from './actionTypes'
 
 export default {
@@ -15,6 +16,9 @@ export default {
     },
     [set_dom_content](state, { dom }) {
         state.dom.$content = dom
+    },
+    [set_dom_title](state, { dom }) {
+        state.dom.$title = dom
     },
     [remove_sub_type_in_selected](state, { sub_type }) {
         var index = null;

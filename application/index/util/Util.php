@@ -20,7 +20,7 @@ class Util
     public static function upload_one($files=[]){
             foreach($files as $file){
                 $info = $file->
-                validate(['ext'=>'jpg,png,gif'])
+                validate(['size'=>(1048576/2),'ext'=>'jpg,png,gif'])
                 ->move(ROOT_PATH . 'public' . DS . 'uploads');
                 if($info){
                     // 成功上传后 获取上传信息
