@@ -1,20 +1,10 @@
-<style>
-.icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
-</style>
 <template>
   <div id="app">
     <Header1 />
     <!-- 分类 -->
     <IndexType />
     <!-- 7天列表 -->
-    <List :list='result' :page="page" :currentPage="currentPage" :changePage="changePage" :changeResultAndPage='changeResultAndPage' /> {{msg}}
-
+    <List/>
     <!-- bottom -->
     <Bottom />
   </div>
@@ -27,12 +17,7 @@ import List from "./list.vue";
 import Bottom from "./Bottom.vue";
 export default {
   data() {
-    return {
-      result: $result,
-      page: $page,
-      currentPage: 1,
-      msg: ""
-    };
+    return {};
   },
   created() {},
   components: {

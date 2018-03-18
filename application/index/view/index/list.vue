@@ -1,4 +1,134 @@
-<style>
+
+<template>
+  <div class="list_all">
+    <div class="icon_fire">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-huoyan"></use>
+      </svg>
+      7天排行版
+    </div>
+    <div class="media _media" v-bind:key='index' v-for="(item,index) in  $store.state.result">
+      <div class="user_infor">
+        <div class="header_image_url">
+          <img :src="item.head_image_url" alt="" />
+        </div>
+        <div class="user_name">
+          {{item.user_name}}
+        </div>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a :href="'/huoshu/public/index/article/detail?id='+item.id">{{item.title}}</a>
+        </h4>
+        <div v-html="item.content" class="content_show"></div>
+        <div class="like_show">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-heart-copy"></use>
+          </svg>
+          {{item.like_num}}
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-shijian"></use>
+          </svg>
+          <small>
+            {{dateFtt("yyyy-MM-dd ",item.update_time)}}
+          </small>
+        </div>
+      </div>
+
+      <div class="media-right">
+        <a :href="'/huoshu/public/index/article/detail?id='+item.id" class="_media_object_wrapper">
+          <img class="media-object _media_object" :src="item.image_src" />
+        </a>
+      </div>
+    </div>
+
+  </div>
+</template>
+<script>
+import { dateFtt } from "../util/util";
+import _ from "underscore";
+import { get_index_list } from "../util/fetch";
+import {
+  set_result_list_current_page,
+  set_current_page
+} from "./vuex/actionTypes";
+
+export default {
+  data() {
+    return {};
+  },
+  created() {
+    this.init();
+  },
+  methods: {
+    dateFtt,
+    init() {
+      var self = this;
+      window.addEventListener(
+        "scroll",
+        _.throttle(function() {
+          // console.log("底部必读");
+          if (
+            window.pageYOffset + window.innerHeight >=
+            document.documentElement.scrollHeight
+          ) {
+            // console.log("底部必读");
+            self.scroll_bottom();
+          }
+        }, 200),
+        false
+      );
+    },
+    scroll_bottom() {
+      var self = this;
+      var { currentPage } = this.$store.state;
+      var { dispatch } = this.$store;
+      /* 滚动的时候，加页数 */
+      dispatch(set_current_page, { currentPage: currentPage + 1 });
+      self.getList();
+    },
+    getList() {
+      var self = this;
+      var { currentPage, result } = self.$store.state;
+      var { dispatch } = self.$store;
+      get_index_list({
+        data: {
+          currentPage
+        },
+        success(json) {
+          var jsonResult = JSON.parse(json);
+          if (jsonResult["result"].length > 0) {
+            result.concat(jsonResult["result"]);
+            dispatch(set_result_list_current_page, {
+              currentPage: currentPage,
+              result: result
+            });
+          } else {
+            console.log("这回真的没有了");
+            let toast = self.$toasted.show("这回真的没有了 !!", {
+              theme: "primary",
+              position: "top-center",
+              duration: 5000
+            });
+          }
+        }
+      });
+    },
+    pageItemClick(currentPage) {
+      var self = this;
+      this.changePage(currentPage);
+      this.$nextTick(() => {
+        self.getList(self.currentPage);
+      });
+    }
+  }
+};
+</script>
+
+<style scoped>
+.list_all {
+  margin-bottom: 50px;
+}
 ._media_object_wrapper {
   max-width: 200px;
   max-height: 200px;
@@ -75,131 +205,3 @@
   margin-bottom: 8px;
 }
 </style>
-<template>
-  <div class="list_all">
-    <div class="icon_fire">
-      <svg class="icon" aria-hidden="true">
-        <use xlink:href="#icon-huoyan"></use>
-      </svg>
-      7天排行版
-    </div>
-    <div class="media _media" v-bind:key='index' v-for="(item,index) in  list">
-      <div class="user_infor">
-        <div class="header_image_url">
-          <img :src="item.head_image_url" alt="" />
-        </div>
-        <div class="user_name">
-          {{item.user_name}}
-        </div>
-      </div>
-      <div class="media-body">
-        <h4 class="media-heading">
-          <a :href="'/huoshu/public/index/article/detail?id='+item.id">{{item.title}}</a>
-        </h4>
-        <div v-html="item.content" class="content_show"></div>
-        <div class="like_show">
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-heart-copy"></use>
-          </svg>
-          {{item.like_num}}
-          <svg class="icon" aria-hidden="true">
-            <use xlink:href="#icon-shijian"></use>
-          </svg>
-          <small>
-            {{dateFtt("yyyy-MM-dd ",item.update_time)}}
-          </small>
-        </div>
-      </div>
-
-      <div class="media-right">
-        <a :href="'/huoshu/public/index/article/detail?id='+item.id"
-         class="_media_object_wrapper">
-          <img class="media-object _media_object" :src="item.image_src" />
-        </a>
-      </div>
-    </div>
-
-  </div>
-</template>
-<script>
-import { dateFtt } from "../util/util";
-import _ from "underscore";
-import { get_index_list } from "../util/fetch";
-export default {
-  props: {
-    list: Array,
-    page: Number,
-    currentPage: Number,
-    changePage: Function,
-    changeResultAndPage: Function
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    show_prev: function() {
-      if (this.currentPage) {
-        return this.currentPage - 1 <= 0;
-      }
-      return false;
-    },
-    show_next: function() {
-      if (this.currentPage && this.page) {
-        return this.currentPage >= this.page;
-      }
-      return false;
-    }
-  },
-  created() {
-    this.init();
-  },
-  methods: {
-    dateFtt,
-    init() {
-      var self = this;
-      window.addEventListener(
-        "scroll",
-        _.throttle(function() {
-          // console.log("底部必读");
-          if (
-            window.pageYOffset + window.innerHeight >=
-            document.documentElement.scrollHeight
-          ) {
-            console.log("底部必读");
-            self.scroll_bottom();
-          }
-        }, 200),
-        false
-      );
-    },
-    scroll_bottom() {
-      var self = this;
-      this.getList(self.currentPage + 1);
-    },
-    getList(currentPage) {
-      var self = this;
-      get_index_list({
-        data: {
-          currentPage
-        },
-        success(result) {
-          var jsonResult = JSON.parse(result);
-          if (jsonResult["result"].length > 0) {
-            self.list.concat(jsonResult["result"]);
-            self.changeResultAndPage(self.list, JSON.parse(result)["page"]);
-          } else {
-            layer.msg("这回真的没有了");
-          }
-        }
-      });
-    },
-    pageItemClick(currentPage) {
-      var self = this;
-      this.changePage(currentPage);
-      this.$nextTick(() => {
-        self.getList(self.currentPage);
-      });
-    }
-  }
-};
-</script>

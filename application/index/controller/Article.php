@@ -132,13 +132,32 @@ class Article extends Controller
         $params_haved_selected=json_decode($params['haved_selected'],true);
         $ext_user=input('session.ext_user');
         if($ext_user!=''){
-            $articel           = new ArticleDao;
-            $articel->title     = $params_articel['title'];
-            $articel->content    = $params_articel['content'];
-            $articel->image_src    = $params_articel['cover_image_url'];
-            $infor=$articel->save(); 
-            $articel_id=$articel->id;
-            Db::name('sub_type_article')->insert($data);
+            Db::startTrans();
+            try{
+                $articel           = new ArticleDao;
+                $articel->title     = $params_articel['title'];
+                $articel->content    = $params_articel['content'];
+                $articel->image_src    = $params_articel['cover_image_url'];
+                $infor=$articel->save(); 
+                $articel_id=$articel->id;
+                $inserArray=[];
+                foreach ($params_haved_selected as $key => $value){
+                    $insert=[
+                        "sub_type_id"=>$value['sub_id'],
+                        "article_id"=>$articel_id
+                    ];
+                    
+                    array_push($inserArray, $insert);
+                }
+               $insert_infor= Db::name('sub_type_article')->insertAll($inserArray);
+                // 提交事务
+                Db::commit();    
+            } catch (\Exception $e) {
+                // 回滚事务
+                Db::rollback();
+            }
+          
+           return json( $insert_infor);
         }
       
     }

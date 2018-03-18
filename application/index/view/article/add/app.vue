@@ -1,64 +1,3 @@
-<style scoped>
-.add_cover {
-  display: flex;
-  height: 35px;
-  background: #eee;
-  line-height: 35px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-}
-
-.icon {
-}
-.title {
-}
-.title input {
-  width: 100%;
-  border: #eee;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-}
-.content {
-  width: 100%;
-  background: #eee;
-  min-height: 100%;
-}
-:global(.content .content_image) {
-  max-height: 200px;
-  width: 100%;
-  padding: 10px;
-}
-:global(.content .content_image img) {
-  width: 100%;
-  height: 100%;
-}
-
-.artitcle {
-  margin-bottom: 100px;
-  padding: 10px;
-}
-.artitcle .title {
-  box-shadow: 0px -1px 5px #eee;
-}
-.cover_image {
-  width: 100%;
-  height: 100px;
-}
-.cover_image img {
-  width: 100%;
-  height: 100%;
-}
-.add_cover {
-  position: absolute;
-  width: 100%;
-  top: 80px;
-  opacity: 0.6;
-}
-</style>
 <template>
   <div id="app">
     <Header_back />
@@ -153,3 +92,65 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.add_cover {
+  display: flex;
+  height: 35px;
+  background: #eee;
+  line-height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.icon {
+}
+.title {
+}
+.title input {
+  width: 100%;
+  border: #eee;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.content {
+  width: 100%;
+  background: #eee;
+  min-height: 100%;
+}
+:global(.content .content_image) {
+  max-height: 200px;
+  width: 100%;
+  padding: 10px;
+}
+:global(.content .content_image img) {
+  width: 100%;
+  height: 100%;
+}
+
+.artitcle {
+  margin-bottom: 100px;
+  padding: 10px;
+}
+.artitcle .title {
+  box-shadow: 0px -1px 5px #eee;
+}
+.cover_image {
+  width: 100%;
+  height: 100px;
+}
+.cover_image img {
+  width: 100%;
+  height: 100%;
+}
+.add_cover {
+  position: absolute;
+  width: 100%;
+  top: 80px;
+  opacity: 0.6;
+}
+</style>

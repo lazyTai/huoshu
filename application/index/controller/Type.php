@@ -61,7 +61,7 @@ class Type extends Controller{
             FROM think_sub_type_article 
             GROUP BY sub_type_id
             ORDER BY article_num DESC 
-            LIMIT  0,10
+            LIMIT  0,8
         ) AS count_sub
         ON st.id=count_sub.sub_type_id');
         return json($result);
