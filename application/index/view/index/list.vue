@@ -68,11 +68,22 @@ export default {
         "scroll",
         _.throttle(function() {
           // console.log("底部必读");
+          // console.log("window.pageYOffset", window.pageYOffset);
+          // console.log("window.innerHeight ", window.innerHeight);
+          // console.log(
+          //   "   document.documentElement.scrollHeight ",
+          //   document.documentElement.scrollHeight
+          // );
+          // console.log(
+          //   "  window.pageYOffset + window.innerHeight >=  document.documentElement.scrollHeight ",
+          //   window.pageYOffset + window.innerHeight >=
+          //     document.documentElement.scrollHeight-10
+          // );
           if (
             window.pageYOffset + window.innerHeight >=
-            document.documentElement.scrollHeight
+            document.documentElement.scrollHeight-10
           ) {
-            // console.log("底部必读");
+            console.log("底部必读");
             self.scroll_bottom();
           }
         }, 200),
@@ -108,7 +119,7 @@ export default {
             let toast = self.$toasted.show("这回真的没有了 !!", {
               theme: "primary",
               position: "top-center",
-              duration: 5000
+              duration: 1000
             });
           }
         }
