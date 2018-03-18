@@ -83,21 +83,30 @@ export default {
   methods: {
     event_scroll() {
       var self = this;
+      var beforeScrollTop = document.body.scrollTop;
       window.addEventListener(
         "scroll",
-        _.throttle(function() {
+        _.throttle(function(event) {
+          var afterScrollTop = document.body.scrollTop,
+            delta = afterScrollTop - beforeScrollTop;
+          var direction = null;
+          if (delta === 0) return false;
+          direction = delta > 0 ? "down" : "up";
+          beforeScrollTop = afterScrollTop;
+
           if (
             window.pageYOffset + window.innerHeight >=
             document.documentElement.scrollHeight - 10
           ) {
-            self.scroll_bottom();
+            self.scroll_bottom(direction);
           }
         }, 200),
         false
       );
     },
-    scroll_bottom() {
+    scroll_bottom(direction) {
       /* 加页 */
+      if (direction != "down") return false;
       var self = this;
       var { dispatch } = self.$store;
       var { currentPage, pageCount, comments } = self.$store.state;
