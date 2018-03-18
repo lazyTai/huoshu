@@ -1,9 +1,11 @@
-<style>
+<style scoped>
 .article {
 }
 .a_title {
   font-size: 30px;
   padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .user_image {
   width: 50px;
@@ -33,11 +35,15 @@
   border-radius: 50px !important;
   line-height: 38px !important;
   width: 20%;
+  font-size: 12px !important;
 }
 .article_content {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding: 30px;
   line-height: 30px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .name_update_time {
   display: flex;
@@ -47,6 +53,17 @@
   align-items: center;
   display: flex;
 }
+.right_btn {
+  text-align: right;
+}
+:global(.article_content .content_image ){
+  max-width:300px;
+  max-height: 300px;;
+}
+:global(.article_content .content_image img){
+  width:100%;
+  height: 100%;
+}
 </style>
 
 <template>
@@ -54,7 +71,9 @@
     <div class="article">
       <h1 class="a_title"> {{article.title}}</h1>
       <div class="user_info">
-        <img :src="user.image_url" alt="" class="user_image" />
+        <div class="user_image">
+          <img :src="user.image_url" alt="" />
+        </div>
         <div class="info">
           <div class="name_update_time">
             <div class="user_name">{{user.name}}</div>
@@ -66,6 +85,8 @@
             <div class="a_num_artitcle"> 评论:{{article.num_artitcle}}</div>
           </div>
         </div>
+      </div>
+      <div class="right_btn">
         <a class="btn btn-default edit_btn" :href="'/huoshu/public/index/article/edit?id='+article.id">點擊編輯</a>
       </div>
     </div>

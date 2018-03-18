@@ -136,3 +136,28 @@ export function articel_add(opt) {
         }
     })
 }
+
+function _ajax(url) {
+    var self = this;
+    return (opt) => {
+        ajax({
+            type: 'post',
+            data: opt.data,
+            url,
+            before() {
+                var index = layer.load(1, {
+                    shade: [0.1, "#fff"] //0.1透明度的白色背景
+                });
+            },
+            success(returnJson) {
+                layer.closeAll();
+                opt.success && opt.success.call(self, returnJson);
+            }
+        })
+    }
+
+}
+export const read_comment = _ajax("http://localhost/huoshu/public/index/comment/read", )
+export const comment_like_down = _ajax("http://localhost/huoshu/public/index/comment/like_down", )
+export const comment_like_up = _ajax("http://localhost/huoshu/public/index/comment/like", )
+export const add_comment = _ajax("http://localhost/huoshu/public/index/comment/add_comment", )

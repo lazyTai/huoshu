@@ -404,11 +404,7 @@ var render = function() {
   return _c(
     "div",
     { attrs: { id: "app" } },
-    [
-      _c("Nav", { attrs: { setResult: _vm.setResult } }),
-      _vm._v(" "),
-      _c("Article")
-    ],
+    [_c("Header_back"), _vm._v(" "), _c("Article")],
     1
   )
 }
@@ -442,9 +438,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Header = __webpack_require__(43);
+var _Header_back = __webpack_require__(13);
 
-var _Header2 = _interopRequireDefault(_Header);
+var _Header_back2 = _interopRequireDefault(_Header_back);
 
 var _edite_article = __webpack_require__(145);
 
@@ -452,7 +448,6 @@ var _edite_article2 = _interopRequireDefault(_edite_article);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
 //
 //
 //
@@ -474,7 +469,7 @@ exports.default = {
   created: function created() {},
 
   components: {
-    Nav: _Header2.default,
+    Header_back: _Header_back2.default,
     Article: _edite_article2.default
   },
   methods: {

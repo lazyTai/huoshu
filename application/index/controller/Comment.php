@@ -146,4 +146,21 @@ class Comment extends Controller{
      }
         return $returnJson;
   }
+
+  function add_comment(){
+      $params=input('post.');
+      $articel=json_decode($params['article'],true);
+      $user=json_decode($params['user'],true);
+      $comment=$params['comment'];
+      $infor=Db::table('think_comment')->insert([
+          'article_id'=>$articel['id'],
+          'user_id'=>$user['id'],
+          'comment'=>$comment,
+          'like_num'=>0
+      ]);
+      if( $infor>0){
+          return json(['message'=> $infor,'success'=>true]);
+      }
+      return json(['message'=> $infor,'success'=>false]);
+  }
 }

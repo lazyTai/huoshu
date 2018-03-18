@@ -1,4 +1,224 @@
-<style>
+
+<template>
+  <div id="comments">
+    <div class="container">
+      <div class="edit_place ">
+        <div class="image_url">
+          <img :src="user.image_url" alt="">
+        </div>
+
+        <textarea name="" id="" class="commonet_edit" rows="5" ref="comment"></textarea>
+      </div>
+      <div style="padding:5px;" class=" btn_place">
+        <button class="btn btn-success ok_btn" @click="ok_btn">发表</button>
+      </div>
+
+      <div class="show_commonets">
+        <div class="title">
+          <span>1条评论 </span>
+          <span class="right">
+            <small @click="init('like_num','desc')">按喜欢排序 </small>
+            <small @click="init('update_time','desc')">按时间正序</small>
+            <small @click="init('update_time','asc')">按时间倒序</small>
+          </span>
+        </div>
+
+        <div class="load" v-show="loadding">
+          <img src="/huoshu/public/static/layer/theme/default/loading-1.gif" alt=""> loading
+        </div>
+        <div class="commet" :key="key" v-for="(comment_item,key) in $store.state.comments" v-show="!loadding">
+          <div class="commeter_info">
+            <img :src="comment_item.user_image_url" alt="" class="image_url" />
+            <div class="name_time_like">
+              <div class="name">{{comment_item.user_name}}</div>
+              <div class="time_like">
+                <div class="like">like:{{comment_item.like_num}}
+                  <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
+                  <span class="glyphicon glyphicon-thumbs-down" @click="like_down(comment_item.id)"></span>
+                </div>
+                <div class="time">
+                  <span class="glyphicon glyphicon-time"></span>
+                  {{comment_item.update_time}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="content">
+            {{comment_item.comment}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</template>
+
+
+<script>
+import {
+  read_comment,
+  comment_like_down,
+  comment_like_up,
+  add_comment
+} from "../util/fetch";
+import _ from "underscore";
+import {
+  set_comments,
+  set_page_count,
+  set_current_page
+} from "./detail/vuex/actionTypes";
+
+export default {
+  data() {
+    return {
+      user: $user,
+      loadding: false
+    };
+  },
+  created() {
+    this.init();
+    this.event_scroll();
+  },
+  methods: {
+    event_scroll() {
+      var self = this;
+      window.addEventListener(
+        "scroll",
+        _.throttle(function() {
+          if (
+            window.pageYOffset + window.innerHeight >=
+            document.documentElement.scrollHeight - 10
+          ) {
+            self.scroll_bottom();
+          }
+        }, 200),
+        false
+      );
+    },
+    scroll_bottom() {
+      /* 加页 */
+      var self = this;
+      var { dispatch } = self.$store;
+      var { currentPage, pageCount, comments } = self.$store.state;
+
+      if (currentPage <= pageCount) {
+        dispatch(set_current_page, { currentPage: currentPage + 1 });
+        self.init();
+      } else {
+        Vue.toasted.show("没有评论了");
+      }
+    },
+    init(order = "like_num", asc = "desc") {
+      var self = this;
+      var { dispatch } = self.$store;
+      var { currentPage, pageCount, comments } = self.$store.state;
+      var data = {
+        page: currentPage,
+        article_id: $article["id"],
+        order,
+        asc
+      };
+
+      read_comment({
+        data,
+        before() {
+          self.loadding = true;
+        },
+        success(returnJson) {
+          self.loadding = false;
+          dispatch(set_comments, { comments: JSON.parse(returnJson)["data"] });
+          dispatch(set_page_count, {
+            pageCount: JSON.parse(returnJson)["count"]
+          });
+        }
+      });
+    },
+    ajax_click_down(comment_id) {
+      var self = this;
+      var data = {
+        user: JSON.stringify($user),
+        comment_id
+      };
+      comment_like_down({
+        data,
+        success(returnJsonStr) {
+          var returnJson = JSON.parse(returnJsonStr);
+          layer.msg(returnJson.message);
+          Vue.toast(returnJson.message);
+          if (returnJson.success) {
+            self.loadding = true;
+            self.init();
+          }
+        }
+      });
+    },
+    ajax_lick_up(comment_id) {
+      var self = this;
+      var data = {
+        user: JSON.stringify($user),
+        comment_id
+      };
+      comment_like_up({
+        data,
+        success(returnJsonStr) {
+          var returnJson = JSON.parse(returnJsonStr);
+          layer.msg(returnJson.message);
+          if (returnJson.success) {
+            self.loadding = true;
+            self.init();
+          }
+        }
+      });
+    },
+    like_down(comment_id) {
+      if ($user.status == 0) {
+        Vue.toast("请先登录", {
+          horizontalPosition: "center",
+          verticalPosition: "bottom"
+        });
+      } else {
+        this.ajax_click_down(comment_id);
+      }
+    },
+    like_up(comment_id) {
+      if ($user.status == 0) {
+        Vue.toast("请先登录", {
+          horizontalPosition: "center",
+          verticalPosition: "bottom"
+        });
+      } else {
+        this.ajax_lick_up(comment_id);
+      }
+    },
+    page_click(page1) {
+      this.$data.page = page1;
+      this.init();
+    },
+    ok_btn() {
+      var html = this.$refs["comment"].value;
+      var data = {
+        article: JSON.stringify($article),
+        user: $user,
+        comment: html
+      };
+      var self = this;
+      add_comment({
+        data,
+        before() {
+          layer.load(1);
+        },
+        success(returnJson) {
+          layer.closeAll();
+          layer.msg("保存成功");
+          self.init();
+        }
+      });
+    }
+  }
+};
+</script>
+<style scoped>
 #comments {
   margin-bottom: 50px;
 }
@@ -8,6 +228,8 @@
 .commet {
   border-bottom: 1px solid #eee;
   padding: 10px 0;
+  box-shadow: 0px 4px 5px #eee;
+  margin-bottom: 50px;
 }
 .commet .content {
   padding: 10px;
@@ -47,9 +269,9 @@
   border: 1px solid #eee;
 }
 .commonet_edit {
+  flex: 1;
   border: 1px solid #eee;
   background: #eee;
-  width: 100%;
 }
 .btn_place {
   display: flex;
@@ -72,204 +294,3 @@
   text-align: center;
 }
 </style>
-<template>
-  <div id="comments">
-    <div class="container">
-      <div class="edit_place ">
-        <img :src="user.image_url" alt="" class="image_url">
-        <textarea name="" id="" class="commonet_edit" rows="5" ref="comment"></textarea>
-      </div>
-      <div style="padding:5px;" class=" btn_place">
-        <button class="btn btn-success ok_btn" @click="ok_btn">发表</button>
-      </div>
-
-      <div class="show_commonets">
-        <div class="title">
-          <span>1条评论 </span>
-          <span class="right">
-            <small @click="init('like_num','desc')">按喜欢排序 </small>
-            <small @click="init('update_time','desc')">按时间正序</small>
-            <small @click="init('update_time','asc')">按时间倒序</small>
-          </span>
-        </div>
-
-        <div class="load" v-show="loadding">
-          <img src="/huoshu/public/static/layer/theme/default/loading-1.gif" alt=""> loading
-        </div>
-        <div class="commet" v-for="comment_item in comments" v-show="!loadding">
-          <div class="commeter_info">
-            <img :src="comment_item.user_image_url" alt="" class="image_url" />
-            <div class="name_time_like">
-              <div class="name">{{comment_item.user_name}}</div>
-              <div class="time_like">
-                <div class="like">like:{{comment_item.like_num}}
-                  <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
-                  <span class="glyphicon glyphicon-thumbs-down" @click="like_down(comment_item.id)"></span>
-                </div>
-                <div class="time">
-                  <span class="glyphicon glyphicon-time"></span>
-                  {{comment_item.update_time}}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content">
-            {{comment_item.comment}}
-          </div>
-        </div>
-
-        <nav aria-label="Page navigation" v-show="!loadding">
-          <ul class="pagination">
-            <li>
-              <a href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li v-for="item in countPage" @click="page_click(item)" :class="item==page?'active':'none'">
-              <a href="#">{{item}}</a>
-            </li>
-            <li>
-              <a href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-  </div>
-</template>
-
-
-<script>
-import Toast from "vue-easy-toast";
-Vue.use(Toast);
-
-export default {
-  data() {
-    return {
-      user: $user,
-      page: 1,
-      comments: [],
-      loadding: false,
-      countPage: 0
-    };
-  },
-  created() {
-    this.init();
-  },
-  methods: {
-    init(order = "like_num", asc = "desc") {
-      var self = this;
-      var data = {
-        page: self.$data.page,
-        article_id: $article["id"],
-        order,
-        asc
-      };
-      ajax({
-        type: "post",
-        url: "/huoshu/public/index/comment/read",
-        data,
-        before() {
-          self.loadding = true;
-        },
-        success(returnJson) {
-          self.loadding = false;
-          self.$data.comments = JSON.parse(returnJson)["data"];
-          self.$data.countPage = JSON.parse(returnJson)["count"];
-        }
-      });
-    },
-    ajax_click_down(comment_id) {
-      var self = this;
-      var data = {
-        user: JSON.stringify($user),
-        comment_id
-      };
-      ajax({
-        type: "post",
-        url: "/huoshu/public/index/comment/like_down",
-        data,
-        success(returnJsonStr) {
-          var returnJson = JSON.parse(returnJsonStr);
-          layer.msg(returnJson.message);
-          Vue.toast(returnJson.message);
-          if (returnJson.success) {
-            self.loadding = true;
-            self.init();
-          }
-        }
-      });
-    },
-    ajax_lick_up(comment_id) {
-      var self = this;
-      var data = {
-        user: JSON.stringify($user),
-        comment_id
-      };
-      ajax({
-        type: "post",
-        url: "/huoshu/public/index/comment/like",
-        data,
-        success(returnJsonStr) {
-          var returnJson = JSON.parse(returnJsonStr);
-          layer.msg(returnJson.message);
-          Vue.toast(returnJson.message);
-          if (returnJson.success) {
-            self.loadding = true;
-            self.init();
-          }
-        }
-      });
-    },
-    like_down(comment_id) {
-      if ($user.status == 0) {
-        Vue.toast("请先登录", {
-          horizontalPosition: "center",
-          verticalPosition: "bottom"
-        });
-      } else {
-        this.ajax_click_down(comment_id);
-      }
-    },
-    like_up(comment_id) {
-      if ($user.status == 0) {
-        Vue.toast("请先登录", {
-          horizontalPosition: "center",
-          verticalPosition: "bottom"
-        });
-      } else {
-        this.ajax_lick_up(comment_id);
-      }
-    },
-    page_click(page1) {
-      this.$data.page = page1;
-      this.init();
-    },
-    ok_btn() {
-      var html = this.$refs["comment"].value;
-      var data = {
-        article: JSON.stringify($article),
-        user: JSON.stringify($user),
-        comment: html
-      };
-      var self = this;
-      ajax({
-        type: "post",
-        url: "/huoshu/public/index/article/add_comment",
-        data,
-        before() {
-          layer.load(1);
-        },
-        success(returnJson) {
-          layer.closeAll();
-          layer.msg("保存成功");
-          self.init();
-        }
-      });
-    }
-  }
-};
-</script>

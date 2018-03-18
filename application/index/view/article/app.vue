@@ -3,15 +3,15 @@
 </style>
 <template>
   <div id="app">
-    <Nav :setResult="setResult" />
-    <Article /> 
+    <Header_back :title="'编辑'"/>
+    <Article />
     <Comments />
 
   </div>
 </template>
 
 <script>
-import Header from "../components/Header.vue";
+import Header_back from "../components/Header_back.vue";
 import Article from "./article.vue";
 import Comments from "./Comments.vue";
 export default {
@@ -23,7 +23,7 @@ export default {
   },
   created() {},
   components: {
-    Nav: Header,
+    Header_back,
     Article: Article,
     Comments: Comments
   },

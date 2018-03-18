@@ -2,15 +2,14 @@
 
 </style>
 <template>
-    <div id="app">
-        <Nav :setResult="setResult" />
-        <Article />
-
-    </div>
+  <div id="app">
+    <Header_back />
+    <Article />
+  </div>
 </template>
 
 <script>
-import Header from "../../components/Header.vue";
+import Header_back from "../../components/Header_back.vue";
 import Article from "./edite_article.vue";
 export default {
   data() {
@@ -21,7 +20,7 @@ export default {
   },
   created() {},
   components: {
-    Nav: Header,
+    Header_back,
     Article: Article
   },
   methods: {
