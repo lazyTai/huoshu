@@ -100,3 +100,39 @@ export function upload_image_in_artitle(opt) {
         }
     })
 }
+
+export function get_type_list_all(opt) {
+    var self = this;
+    ajax({
+        type: 'post',
+        data: opt.data,
+        url: "http://localhost/huoshu/public/index/type/get_type_list_all",
+        before() {
+            var index = layer.load(1, {
+                shade: [0.1, "#fff"] //0.1透明度的白色背景
+            });
+        },
+        success(returnJson) {
+            layer.closeAll();
+            opt.success && opt.success.call(self, returnJson);
+        }
+    })
+}
+
+export function articel_add(opt) {
+    var self = this;
+    ajax({
+        type: 'post',
+        data: opt.data,
+        url: "http://localhost/huoshu/public/index/article/add",
+        before() {
+            var index = layer.load(1, {
+                shade: [0.1, "#fff"] //0.1透明度的白色背景
+            });
+        },
+        success(returnJson) {
+            layer.closeAll();
+            opt.success && opt.success.call(self, returnJson);
+        }
+    })
+}

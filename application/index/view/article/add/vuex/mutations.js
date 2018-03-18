@@ -1,6 +1,6 @@
 import {
     set_cover_image_url, set_articel_title, set_articel_content,
-    set_dom_content
+    set_dom_content, push_select_array, remove_sub_type_in_selected
 } from './actionTypes'
 
 export default {
@@ -15,5 +15,29 @@ export default {
     },
     [set_dom_content](state, { dom }) {
         state.dom.$content = dom
+    },
+    [remove_sub_type_in_selected](state, { sub_type }) {
+        var index = null;
+        state.haved_selected.forEach((element, key) => {
+            if (sub_type.sub_id == element.sub_id) {
+                index = key
+            }
+        });
+        if (index != null) {
+            state.haved_selected.splice(index, 1)
+        }
+
+    },
+    [push_select_array](state, { sub_type }) {
+        var isHave = false;
+        state.haved_selected.forEach(element => {
+            if (element.sub_id == sub_type.sub_id) { isHave = true }
+        });
+
+        if (!isHave) {
+            if (state.haved_selected.length < 3) {
+                state.haved_selected.push(sub_type)
+            }
+        }
     }
 }

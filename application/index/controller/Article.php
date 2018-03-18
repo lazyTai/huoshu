@@ -116,13 +116,29 @@ class Article extends Controller
         }
     }
 
-    public function add(){
+    public function add_read(){
         $ext_user=input('session.ext_user');
         if($ext_user==''){
             return $this->error("请登录",'index/index');
         }else{
             $this->assign('user',$ext_user);
             return $this->fetch();
+        }
+      
+    }
+    public function add(){
+        $params=input('post.');
+        $params_articel=json_decode($params['articel'],true);
+        $params_haved_selected=json_decode($params['haved_selected'],true);
+        $ext_user=input('session.ext_user');
+        if($ext_user!=''){
+            $articel           = new ArticleDao;
+            $articel->title     = $params_articel['title'];
+            $articel->content    = $params_articel['content'];
+            $articel->image_src    = $params_articel['cover_image_url'];
+            $infor=$articel->save(); 
+            $articel_id=$articel->id;
+            Db::name('sub_type_article')->insert($data);
         }
       
     }

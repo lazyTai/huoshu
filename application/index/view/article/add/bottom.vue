@@ -24,7 +24,7 @@
   </div>
 </template>
 <script>
-import { upload_image_in_artitle } from "../../util/fetch";
+import { upload_image_in_artitle, articel_add } from "../../util/fetch";
 import { set_articel_content } from "./vuex/actionTypes";
 import Icon from "../../components/icon.vue";
 export default {
@@ -36,7 +36,7 @@ export default {
       this.dom_file.click();
     },
     click_save() {
-      var { articel } = this.$store.state;
+      var { articel, haved_selected } = this.$store.state;
       if (
         articel.title == "" ||
         articel.content == "" ||
@@ -45,6 +45,20 @@ export default {
         layer.msg("还有没有填！");
         return false;
       }
+      if (haved_selected.length <= 0) {
+        layer.msg("请选择分类");
+        return false;
+      }
+      articel_add({
+        data: {
+          articel: JSON.stringify(articel),
+          haved_selected: JSON.stringify(haved_selected)
+        },
+        success(json) {
+          var jsonReturn = JSON.parse(json);
+          debugger;
+        }
+      });
     }
   },
   mounted() {

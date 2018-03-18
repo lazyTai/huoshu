@@ -9,6 +9,7 @@ const store = new Vuex.Store({
             content: 'contentcontent',
             cover_image_url: '',
         },
+        haved_selected: [],
         dom: {
             $content: null
         }

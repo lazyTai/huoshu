@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="item">
-            <a href="/huoshu/public/index/article/add">
+            <a href="/huoshu/public/index/article/add_read">
                 <div>
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-add"></use>
