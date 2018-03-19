@@ -163,3 +163,4 @@ export const comment_like_down = _ajax("http://localhost/huoshu/public/index/com
 export const comment_like_up = _ajax("http://localhost/huoshu/public/index/comment/like", )
 export const add_comment = _ajax("http://localhost/huoshu/public/index/comment/add_comment", )
 export const save_articel = _ajax("http://localhost/huoshu/public/index/article/save", )
+export const seach = _ajax("http://localhost/huoshu/public/index/article/search", )

@@ -6,4 +6,5 @@ export const set_article = "set_article";
 export const set_dom = "set_dom";
 export const push_select_array = "push_select_array"
 export const remove_sub_type_in_selected = "remove_sub_type_in_selected"
+export const change_articel_cover = "change_articel_cover"
 

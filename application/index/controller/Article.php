@@ -13,6 +13,9 @@ class Article extends Controller
     {
         return "asd";
     }
+    public function search_html(){
+        return $this->fetch();
+    }
 
 
     public function save(){
@@ -197,5 +200,14 @@ class Article extends Controller
        $files=  request()->file('files');
        $infor= Util::upload_one( $files);
        return json($infor);
+    }
+
+
+    public function search(){
+        $params=input('post.');
+        $result=Db::query("SELECT * FROM think_article
+        WHERE title LIKE '%".$params['search']."%'");
+        return  json($result);
+
     }
 }

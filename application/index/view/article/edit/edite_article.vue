@@ -31,6 +31,16 @@
 .preview_title {
   font-size: 21px;
 }
+.cover_image {
+  width: 100%;
+  height: 100px;
+  opacity: 0.8;
+  margin-bottom: 10px;
+}
+.cover_image img {
+  width: 100%;
+  height: 100%;
+}
 :global(.content1 .image_content) {
   max-width: 100px;
   max-height: 100px;
@@ -44,6 +54,11 @@
 <template>
   <div class="editer ">
     <div class="container">
+      <div class="cover_image">
+        <img :src="$store.state.article.image_src" alt="" v-show="$store.state.article.image_src" @click="cover_click" />
+        <img :src="'/huoshu/public/uploads/404.jpg'" alt="" v-show="!$store.state.article.image_src" @click="cover_click">
+        <input type="file" ref="cover_image" v-show="false" />
+      </div>
       <div class="title">
         <input type="text" class="form-control" ref="title_input" v-show="!preview" :value="$store.state.article.title" />
         <div v-show="preview" class="preview_title">{{$store.state.article.title}}</div>
@@ -70,8 +85,12 @@
 </template>
 <script>
 import Bottom from "./bottom.vue";
-import { set_article, set_dom } from "../detail/vuex/actionTypes";
-import { save_articel } from "../../util/fetch";
+import {
+  set_article,
+  set_dom,
+  change_articel_cover
+} from "../detail/vuex/actionTypes";
+import { save_articel, upload_image_in_artitle } from "../../util/fetch";
 export default {
   data() {
     return {
@@ -88,8 +107,29 @@ export default {
       title: self.dom_title_input,
       content: self.dom_content_input
     });
+
+    this.dom_cover_image = this.$refs["cover_image"];
+    this.dom_cover_image.onchange = this.change_cover;
   },
   methods: {
+    cover_click() {
+      this.dom_cover_image.click();
+    },
+    change_cover() {
+      var self = this;
+      var { dispatch } = this.$store;
+      upload_image_in_artitle({
+        data: this.dom_cover_image.files,
+        success(res) {
+          var resJson = JSON.parse(res);
+          if (resJson.success) {
+            dispatch(change_articel_cover, {
+              cover: resJson.message
+            });
+          }
+        }
+      });
+    },
     change_title() {},
     preivew_btn() {
       var html = this.dom_content_input.innerHTML;

@@ -2,7 +2,7 @@ import {
     set_comments, set_current_page,
     set_page_count, order_comments,
     set_article, set_dom, push_select_array,
-    remove_sub_type_in_selected
+    remove_sub_type_in_selected, change_articel_cover
 } from './actionTypes'
 import _ from 'underscore'
 export default {
@@ -41,7 +41,7 @@ export default {
     },
     [set_article](state, { article }) {
         state.article = article
-        state.haved_selected=state.article.sub_types
+        state.haved_selected = state.article.sub_types
     },
     [set_dom](state, { title, content }) {
         state.dom.title = title
@@ -58,6 +58,9 @@ export default {
             state.haved_selected.splice(index, 1)
         }
 
+    },
+    [change_articel_cover](state, { cover }) {
+        state.article.image_src = cover;
     },
     [push_select_array](state, { sub_type }) {
         var isHave = false;

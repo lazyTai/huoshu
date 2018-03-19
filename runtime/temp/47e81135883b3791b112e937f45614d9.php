@@ -1,17 +1,16 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\detail.html";i:1521466147;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:80:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\search_html.html";i:1521467421;}*/ ?>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="/huoshu/public/static/common/tai.png" type="image/x-icon" />
     <title>活书</title>
 </head>
 
 <body>
     <script>
-        var $article = <?php echo $article; ?>;
-        var $user=<?php echo $user; ?>;
     </script>
     <div id="root">
         <router-view>
@@ -19,7 +18,6 @@
                 活书
             </div>
         </router-view>
-        
     </div>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="/huoshu/public/static/common/jquery.min.js"></script>
@@ -32,12 +30,11 @@
     <script src="/huoshu/public/static/layer/layer.js"></script>
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
-    <script src="/huoshu/public/static/js/ajaxform.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
-    <script src="/huoshu/public/static/js/article_detail/article_detail.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_hfd2hlamt0cw61or.js"></script>
+    <script src="/huoshu/public/static/js/search_html/search_html.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_h228rnh1pmohia4i.js"></script>
     <style>
-     .icon {
+      .icon {
        width: 1em; height: 1em;
        vertical-align: -0.15em;
        fill: currentColor;

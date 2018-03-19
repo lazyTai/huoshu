@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="item">
-            <a href="/huoshu/public/index/article/search">
+            <a href="/huoshu/public/index/article/search_html">
                 <div>
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-Magnifier"></use>

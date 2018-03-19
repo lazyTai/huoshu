@@ -1,6 +1,6 @@
 webpackJsonp([5],{
 
-/***/ 172:
+/***/ 173:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,7 +10,7 @@ var _vue = __webpack_require__(3);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _app = __webpack_require__(46);
+var _app = __webpack_require__(47);
 
 var _app2 = _interopRequireDefault(_app);
 
@@ -26,7 +26,7 @@ new _vue2.default({
 
 /***/ }),
 
-/***/ 25:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40,7 +40,7 @@ var _Header_back = __webpack_require__(8);
 
 var _Header_back2 = _interopRequireDefault(_Header_back);
 
-var _edite_article = __webpack_require__(49);
+var _edite_article = __webpack_require__(50);
 
 var _edite_article2 = _interopRequireDefault(_edite_article);
 
@@ -79,7 +79,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 26:
+/***/ 27:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89,7 +89,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _bottom = __webpack_require__(52);
+var _bottom = __webpack_require__(53);
 
 var _bottom2 = _interopRequireDefault(_bottom);
 
@@ -116,9 +116,31 @@ exports.default = {
       title: self.dom_title_input,
       content: self.dom_content_input
     });
+
+    this.dom_cover_image = this.$refs["cover_image"];
+    this.dom_cover_image.onchange = this.change_cover;
   },
 
   methods: {
+    cover_click: function cover_click() {
+      this.dom_cover_image.click();
+    },
+    change_cover: function change_cover() {
+      var self = this;
+      var dispatch = this.$store.dispatch;
+
+      (0, _fetch.upload_image_in_artitle)({
+        data: this.dom_cover_image.files,
+        success: function success(res) {
+          var resJson = JSON.parse(res);
+          if (resJson.success) {
+            dispatch(_actionTypes.change_articel_cover, {
+              cover: resJson.message
+            });
+          }
+        }
+      });
+    },
     change_title: function change_title() {},
     preivew_btn: function preivew_btn() {
       var html = this.dom_content_input.innerHTML;
@@ -230,10 +252,25 @@ exports.default = {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 
-/***/ 27:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -243,11 +280,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _stringify = __webpack_require__(24);
+var _stringify = __webpack_require__(25);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _icon = __webpack_require__(14);
+var _icon = __webpack_require__(16);
 
 var _icon2 = _interopRequireDefault(_icon);
 
@@ -366,19 +403,19 @@ module.exports = Vue;
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_app_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_0abbbf98_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_0abbbf98_hasScoped_false_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_app_vue__ = __webpack_require__(58);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(47)
+  __webpack_require__(48)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -425,13 +462,13 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(48);
+var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -452,7 +489,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 48:
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -467,19 +504,40 @@ exports.push([module.i, "\n\n", "", {"version":3,"sources":[],"names":[],"mappin
 
 /***/ }),
 
-/***/ 49:
+/***/ 5:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var set_comments = exports.set_comments = "set_comments";
+var set_current_page = exports.set_current_page = "set_current_page";
+var set_page_count = exports.set_page_count = "set_page_count";
+var order_comments = exports.order_comments = "order_comments";
+var set_article = exports.set_article = "set_article";
+var set_dom = exports.set_dom = "set_dom";
+var push_select_array = exports.push_select_array = "push_select_array";
+var remove_sub_type_in_selected = exports.remove_sub_type_in_selected = "remove_sub_type_in_selected";
+var change_articel_cover = exports.change_articel_cover = "change_articel_cover";
+
+/***/ }),
+
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_edite_article_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_161b5689_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_edite_article_vue__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_161b5689_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_edite_article_vue__ = __webpack_require__(57);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(50)
+  __webpack_require__(51)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -526,33 +584,13 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 5:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var set_comments = exports.set_comments = "set_comments";
-var set_current_page = exports.set_current_page = "set_current_page";
-var set_page_count = exports.set_page_count = "set_page_count";
-var order_comments = exports.order_comments = "order_comments";
-var set_article = exports.set_article = "set_article";
-var set_dom = exports.set_dom = "set_dom";
-var push_select_array = exports.push_select_array = "push_select_array";
-var remove_sub_type_in_selected = exports.remove_sub_type_in_selected = "remove_sub_type_in_selected";
-
-/***/ }),
-
-/***/ 50:
+/***/ 51:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(51);
+var content = __webpack_require__(52);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -573,7 +611,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 51:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -581,26 +619,26 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.editer[data-v-161b5689] {\r\n  margin: 10px;\r\n  margin-bottom: 50px;\n}\n.editer .content[data-v-161b5689] {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  letter-spacing: 1px;\n}\n.editer .padding10[data-v-161b5689] {\r\n  padding: 10px;\n}\n.right[data-v-161b5689] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.content1[data-v-161b5689] {\r\n  background: #eeee;\r\n  min-height: 40px;\n}\n.content2[data-v-161b5689] {\r\n  min-height: 40px;\r\n  background: #fff;\n}\n.label_all[data-v-161b5689] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  font-size: 12px;\n}\n.preview_title[data-v-161b5689] {\r\n  font-size: 21px;\n}\n[data-v-161b5689].content1 .image_content {\r\n  max-width: 100px;\r\n  max-height: 100px;\n}\n[data-v-161b5689].content1 .image_content img {\r\n  width: 100%;\r\n  height: 100%;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/edite_article.vue"],"names":[],"mappings":";AACA;EACA,aAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,kBAAA;EACA,iBAAA;CACA;AACA;EACA,iBAAA;EACA,iBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,gBAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,iBAAA;EACA,kBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA","file":"edite_article.vue","sourcesContent":["<style scoped>\r\n.editer {\r\n  margin: 10px;\r\n  margin-bottom: 50px;\r\n}\r\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  letter-spacing: 1px;\r\n}\r\n.editer .padding10 {\r\n  padding: 10px;\r\n}\r\n.right {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n.content1 {\r\n  background: #eeee;\r\n  min-height: 40px;\r\n}\r\n.content2 {\r\n  min-height: 40px;\r\n  background: #fff;\r\n}\r\n.label_all {\r\n  display: flex;\r\n  font-size: 12px;\r\n}\r\n.preview_title {\r\n  font-size: 21px;\r\n}\r\n:global(.content1 .image_content) {\r\n  max-width: 100px;\r\n  max-height: 100px;\r\n}\r\n:global(.content1 .image_content img) {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n</style>\r\n\r\n<template>\r\n  <div class=\"editer \">\r\n    <div class=\"container\">\r\n      <div class=\"title\">\r\n        <input type=\"text\" class=\"form-control\" ref=\"title_input\" v-show=\"!preview\" :value=\"$store.state.article.title\" />\r\n        <div v-show=\"preview\" class=\"preview_title\">{{$store.state.article.title}}</div>\r\n        <div class=\"label_all padding10\">\r\n          <span class=\"label_title\">更新时间：</span>\r\n          <span class=\"label_content\">{{$store.state.article.update_time}}</span>\r\n        </div>\r\n        <div class=\"padding10 right\">\r\n          <button class=\"btn btn-primary\" id=\"preview_btn\" @click=\"preivew_btn\" v-show=\"!preview\">预览</button>\r\n          <button class=\"btn btn-primary\" id=\"preview_btn\" @click=\"preivew_btn\" v-show=\"preview\">返回</button>\r\n          <button class=\"btn btn-success\" id=\"save_btn\" @click=\"save_btn\" v-show=\"!preview\">保存</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"content\">\r\n        <div class=\"content1\" v-html=\"$store.state.article.content\" contenteditable=\"true\" ref=\"content\" v-show=\"!preview\"> </div>\r\n        <div class=\"content2\" v-html=\"$store.state.article.content\" v-show=\"preview\"> </div>\r\n      </div>\r\n      <!-- <pre> -->\r\n      <!-- {{article}} -->\r\n      <!-- </pre> -->\r\n    </div>\r\n    <Bottom />\r\n  </div>\r\n</template>\r\n<script>\r\nimport Bottom from \"./bottom.vue\";\r\nimport { set_article, set_dom } from \"../detail/vuex/actionTypes\";\r\nimport { save_articel } from \"../../util/fetch\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      preview: false\r\n    };\r\n  },\r\n  components: { Bottom },\r\n  created() {},\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_title_input = this.$refs[\"title_input\"];\r\n    this.dom_content_input = this.$refs[\"content\"];\r\n    this.$store.dispatch(set_dom, {\r\n      title: self.dom_title_input,\r\n      content: self.dom_content_input\r\n    });\r\n  },\r\n  methods: {\r\n    change_title() {},\r\n    preivew_btn() {\r\n      var html = this.dom_content_input.innerHTML;\r\n      $article.content = html;\r\n      this.$data.preview = !this.$data.preview;\r\n    },\r\n    save_before() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article } = state;\r\n      var content = this.dom_content_input.innerHTML;\r\n      var title = this.dom_title_input.value;\r\n      article.title = title;\r\n      article.content = content;\r\n      dispatch(set_article, { article });\r\n    },\r\n    save_btn() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article } = state;\r\n      this.save_before();\r\n      save_articel({\r\n        data: article,\r\n        before() {\r\n          var index = layer.load(1, {\r\n            shade: [0.1, \"#fff\"] //0.1透明度的白色背景\r\n          });\r\n        },\r\n        success(jsonReturn) {\r\n          //   debugger;\r\n          layer.closeAll();\r\n          layer.msg(\"保存完毕\");\r\n          $article = JSON.parse(jsonReturn);\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.editer[data-v-161b5689] {\r\n  margin: 10px;\r\n  margin-bottom: 50px;\n}\n.editer .content[data-v-161b5689] {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  letter-spacing: 1px;\n}\n.editer .padding10[data-v-161b5689] {\r\n  padding: 10px;\n}\n.right[data-v-161b5689] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: end;\r\n  -webkit-justify-content: flex-end;\r\n          justify-content: flex-end;\n}\n.content1[data-v-161b5689] {\r\n  background: #eeee;\r\n  min-height: 40px;\n}\n.content2[data-v-161b5689] {\r\n  min-height: 40px;\r\n  background: #fff;\n}\n.label_all[data-v-161b5689] {\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  font-size: 12px;\n}\n.preview_title[data-v-161b5689] {\r\n  font-size: 21px;\n}\n.cover_image[data-v-161b5689] {\r\n  width: 100%;\r\n  height: 100px;\r\n  opacity: 0.8;\r\n  margin-bottom: 10px;\n}\n.cover_image img[data-v-161b5689] {\r\n  width: 100%;\r\n  height: 100%;\n}\n[data-v-161b5689].content1 .image_content {\r\n  max-width: 100px;\r\n  max-height: 100px;\n}\n[data-v-161b5689].content1 .image_content img {\r\n  width: 100%;\r\n  height: 100%;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/edite_article.vue"],"names":[],"mappings":";AACA;EACA,aAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;EACA,gBAAA;EACA,kBAAA;EACA,oBAAA;CACA;AACA;EACA,cAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,sBAAA;EAAA,kCAAA;UAAA,0BAAA;CACA;AACA;EACA,kBAAA;EACA,iBAAA;CACA;AACA;EACA,iBAAA;EACA,iBAAA;CACA;AACA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,gBAAA;CACA;AACA;EACA,gBAAA;CACA;AACA;EACA,YAAA;EACA,cAAA;EACA,aAAA;EACA,oBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA;AACA;EACA,iBAAA;EACA,kBAAA;CACA;AACA;EACA,YAAA;EACA,aAAA;CACA","file":"edite_article.vue","sourcesContent":["<style scoped>\r\n.editer {\r\n  margin: 10px;\r\n  margin-bottom: 50px;\r\n}\r\n.editer .content {\r\n  padding: 10px;\r\n  cursor: pointer;\r\n  line-height: 25px;\r\n  letter-spacing: 1px;\r\n}\r\n.editer .padding10 {\r\n  padding: 10px;\r\n}\r\n.right {\r\n  display: flex;\r\n  justify-content: flex-end;\r\n}\r\n.content1 {\r\n  background: #eeee;\r\n  min-height: 40px;\r\n}\r\n.content2 {\r\n  min-height: 40px;\r\n  background: #fff;\r\n}\r\n.label_all {\r\n  display: flex;\r\n  font-size: 12px;\r\n}\r\n.preview_title {\r\n  font-size: 21px;\r\n}\r\n.cover_image {\r\n  width: 100%;\r\n  height: 100px;\r\n  opacity: 0.8;\r\n  margin-bottom: 10px;\r\n}\r\n.cover_image img {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n:global(.content1 .image_content) {\r\n  max-width: 100px;\r\n  max-height: 100px;\r\n}\r\n:global(.content1 .image_content img) {\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n</style>\r\n\r\n<template>\r\n  <div class=\"editer \">\r\n    <div class=\"container\">\r\n      <div class=\"cover_image\">\r\n        <img :src=\"$store.state.article.image_src\" alt=\"\" v-show=\"$store.state.article.image_src\" @click=\"cover_click\" />\r\n        <img :src=\"'/huoshu/public/uploads/404.jpg'\" alt=\"\" v-show=\"!$store.state.article.image_src\" @click=\"cover_click\">\r\n        <input type=\"file\" ref=\"cover_image\" v-show=\"false\" />\r\n      </div>\r\n      <div class=\"title\">\r\n        <input type=\"text\" class=\"form-control\" ref=\"title_input\" v-show=\"!preview\" :value=\"$store.state.article.title\" />\r\n        <div v-show=\"preview\" class=\"preview_title\">{{$store.state.article.title}}</div>\r\n        <div class=\"label_all padding10\">\r\n          <span class=\"label_title\">更新时间：</span>\r\n          <span class=\"label_content\">{{$store.state.article.update_time}}</span>\r\n        </div>\r\n        <div class=\"padding10 right\">\r\n          <button class=\"btn btn-primary\" id=\"preview_btn\" @click=\"preivew_btn\" v-show=\"!preview\">预览</button>\r\n          <button class=\"btn btn-primary\" id=\"preview_btn\" @click=\"preivew_btn\" v-show=\"preview\">返回</button>\r\n          <button class=\"btn btn-success\" id=\"save_btn\" @click=\"save_btn\" v-show=\"!preview\">保存</button>\r\n        </div>\r\n      </div>\r\n      <div class=\"content\">\r\n        <div class=\"content1\" v-html=\"$store.state.article.content\" contenteditable=\"true\" ref=\"content\" v-show=\"!preview\"> </div>\r\n        <div class=\"content2\" v-html=\"$store.state.article.content\" v-show=\"preview\"> </div>\r\n      </div>\r\n      <!-- <pre> -->\r\n      <!-- {{article}} -->\r\n      <!-- </pre> -->\r\n    </div>\r\n    <Bottom />\r\n  </div>\r\n</template>\r\n<script>\r\nimport Bottom from \"./bottom.vue\";\r\nimport {\r\n  set_article,\r\n  set_dom,\r\n  change_articel_cover\r\n} from \"../detail/vuex/actionTypes\";\r\nimport { save_articel, upload_image_in_artitle } from \"../../util/fetch\";\r\nexport default {\r\n  data() {\r\n    return {\r\n      preview: false\r\n    };\r\n  },\r\n  components: { Bottom },\r\n  created() {},\r\n  mounted() {\r\n    var self = this;\r\n    this.dom_title_input = this.$refs[\"title_input\"];\r\n    this.dom_content_input = this.$refs[\"content\"];\r\n    this.$store.dispatch(set_dom, {\r\n      title: self.dom_title_input,\r\n      content: self.dom_content_input\r\n    });\r\n\r\n    this.dom_cover_image = this.$refs[\"cover_image\"];\r\n    this.dom_cover_image.onchange = this.change_cover;\r\n  },\r\n  methods: {\r\n    cover_click() {\r\n      this.dom_cover_image.click();\r\n    },\r\n    change_cover() {\r\n      var self = this;\r\n      var { dispatch } = this.$store;\r\n      upload_image_in_artitle({\r\n        data: this.dom_cover_image.files,\r\n        success(res) {\r\n          var resJson = JSON.parse(res);\r\n          if (resJson.success) {\r\n            dispatch(change_articel_cover, {\r\n              cover: resJson.message\r\n            });\r\n          }\r\n        }\r\n      });\r\n    },\r\n    change_title() {},\r\n    preivew_btn() {\r\n      var html = this.dom_content_input.innerHTML;\r\n      $article.content = html;\r\n      this.$data.preview = !this.$data.preview;\r\n    },\r\n    save_before() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article } = state;\r\n      var content = this.dom_content_input.innerHTML;\r\n      var title = this.dom_title_input.value;\r\n      article.title = title;\r\n      article.content = content;\r\n      dispatch(set_article, { article });\r\n    },\r\n    save_btn() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article } = state;\r\n      this.save_before();\r\n      save_articel({\r\n        data: article,\r\n        before() {\r\n          var index = layer.load(1, {\r\n            shade: [0.1, \"#fff\"] //0.1透明度的白色背景\r\n          });\r\n        },\r\n        success(jsonReturn) {\r\n          //   debugger;\r\n          layer.closeAll();\r\n          layer.msg(\"保存完毕\");\r\n          $article = JSON.parse(jsonReturn);\r\n        }\r\n      });\r\n    }\r\n  }\r\n};\r\n</script>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue__);
 /* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_script_index_0_bottom_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_78810384_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_bottom_vue__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_13_7_1_vue_loader_lib_template_compiler_index_id_data_v_78810384_hasScoped_true_buble_transforms_node_modules_vue_loader_13_7_1_vue_loader_lib_selector_type_template_index_0_bottom_vue__ = __webpack_require__(56);
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(53)
+  __webpack_require__(54)
 }
 var normalizeComponent = __webpack_require__(0)
 /* script */
@@ -647,13 +685,13 @@ if (false) {(function () {
 
 /***/ }),
 
-/***/ 53:
+/***/ 54:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(54);
+var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -674,7 +712,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 54:
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(true);
@@ -689,7 +727,7 @@ exports.push([module.i, "\n.bottom[data-v-78810384] {\r\n  border-top: 1px solid
 
 /***/ }),
 
-/***/ 55:
+/***/ 56:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -738,7 +776,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 56:
+/***/ 57:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -751,6 +789,47 @@ var render = function() {
     { staticClass: "editer " },
     [
       _c("div", { staticClass: "container" }, [
+        _c("div", { staticClass: "cover_image" }, [
+          _c("img", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.$store.state.article.image_src,
+                expression: "$store.state.article.image_src"
+              }
+            ],
+            attrs: { src: _vm.$store.state.article.image_src, alt: "" },
+            on: { click: _vm.cover_click }
+          }),
+          _vm._v(" "),
+          _c("img", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.$store.state.article.image_src,
+                expression: "!$store.state.article.image_src"
+              }
+            ],
+            attrs: { src: "/huoshu/public/uploads/404.jpg", alt: "" },
+            on: { click: _vm.cover_click }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: false,
+                expression: "false"
+              }
+            ],
+            ref: "cover_image",
+            attrs: { type: "file" }
+          })
+        ]),
+        _vm._v(" "),
         _c("div", { staticClass: "title" }, [
           _c("input", {
             directives: [
@@ -897,7 +976,7 @@ if (false) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -925,5 +1004,5 @@ if (false) {
 
 /***/ })
 
-},[172]);
+},[173]);
 //# sourceMappingURL=article_edit.js.map
