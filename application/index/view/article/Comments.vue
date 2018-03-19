@@ -4,7 +4,8 @@
     <div class="container">
       <div class="edit_place ">
         <div class="image_url">
-          <img :src="user.image_url" alt="">
+          <img :src="user.image_url" alt="" v-show="user.image_url">
+          <img :src="'/huoshu/public/uploads/404.jpg'" alt="" v-show="!user.image_url">
         </div>
 
         <textarea name="" id="" class="commonet_edit" rows="5" ref="comment"></textarea>
@@ -102,7 +103,7 @@ export default {
             window.pageYOffset + window.innerHeight >=
             document.documentElement.scrollHeight - 10
           ) {
-            if(self.$route.path=="/"){
+            if (self.$route.path == "/") {
               self.scroll_bottom(direction);
             }
           }
@@ -279,10 +280,10 @@ export default {
   border-radius: 50%;
   border: 1px solid #eee;
 }
-.image_url img{
+.image_url img {
   width: 100%;
   height: 100%;
- }
+}
 .commonet_edit {
   flex: 1;
   border: 1px solid #eee;

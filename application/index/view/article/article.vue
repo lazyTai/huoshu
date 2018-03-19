@@ -77,7 +77,8 @@
       <h1 class="a_title"> {{article.title}}</h1>
       <div class="user_info">
         <div class="user_image">
-          <img :src="user.image_url" alt="" />
+          <img :src="user.image_url" alt="" v-show="user.image_url" />
+          <img :src="'/huoshu/public/uploads/404.jpg'" alt="" v-show="!user.image_url" />
         </div>
         <div class="info">
           <div class="name_update_time">
