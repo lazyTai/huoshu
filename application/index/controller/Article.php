@@ -51,6 +51,14 @@ class Article extends Controller
             ->where(['article_id'=>$id])->count();
         $article['num_artitcle']=$num_artitcle;
 
+        /* 获取分类 */
+        $sub_types= Db::query("SELECT  * FROM think_sub_type st
+            RIGHT JOIN
+            (SELECT sub_type_id,article_id FROM think_sub_type_article  
+            WHERE article_id=".$id.") AS sa
+            ON sa.sub_type_id=st.id");
+        $article['sub_types']=$sub_types;
+        
         $this->assign("article", $article);
         if(input("session.ext_user")){
             $this->assign("user", json_encode(input("session.ext_user")));

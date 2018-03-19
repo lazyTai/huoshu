@@ -102,7 +102,9 @@ export default {
             window.pageYOffset + window.innerHeight >=
             document.documentElement.scrollHeight - 10
           ) {
-            self.scroll_bottom(direction);
+            if(self.$route.path=="/"){
+              self.scroll_bottom(direction);
+            }
           }
         }, 200),
         false

@@ -1,12 +1,13 @@
 <style scoped>
+.editer {
+  margin: 10px;
+  margin-bottom: 50px;
+}
 .editer .content {
   padding: 10px;
   cursor: pointer;
   line-height: 25px;
   letter-spacing: 1px;
-}
-.editer {
-  margin: 10px;
 }
 .editer .padding10 {
   padding: 10px;
