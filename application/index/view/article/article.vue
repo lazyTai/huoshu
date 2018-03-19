@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="right_btn">
-        <div @click="click_a(article)" class="btn btn-default edit_btn">點擊編輯</div>
+        <div @click="click_a(article)" class="btn btn-default edit_btn" v-if="article.user_id==user.id">點擊編輯</div>
       </div>
     </div>
 
@@ -107,9 +107,10 @@ export default {
   data() {
     return {
       article: $article,
-      user: $user
+      user: JSON.parse($user)
     };
   },
+  created() {},
   methods: {
     click_a(a) {
       this.$store.dispatch("set_article", {
