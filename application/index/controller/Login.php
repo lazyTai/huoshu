@@ -41,13 +41,14 @@ class Login extends Controller
         $exitUser = User::login($name, $password);
 
         if ($exitUser) {
-            if(!property_exists($exitUser,'image_url')){
-                $exitUser['image_url']="/huoshu/public/uploads/404.jpg";
+            $data=$exitUser->getData();
+            if(!isset($data['image_url'])){
+                $data['image_url']="/huoshu/public/uploads/404.jpg";
             }
             Session::set('ext_user', json_encode([
-                "name"=>$exitUser['name'],
-                "id"=>$exitUser['id'],
-                "image_url"=>$exitUser['image_url'],
+                "name"=>$data['name'],
+                "id"=>$data['id'],
+                "image_url"=>$data['image_url'],
                 ]));
             return json([
                 "success" => true,

@@ -69,10 +69,20 @@ class User extends Controller{
         $files=request()->file('files');
         $infor=Util::upload_one($files);
         if($infor['success']){
-           $profile= ProfileDao::get($user['id']);
-           $info=$profile->save(['image_url'=>$infor['message']]);
-           $infor['message']="操作成功";
-           return  json($infor);
+           $profile= ProfileDao::get(['user_id'=>$user['id']]);
+           if(isset($profile)){
+            $profile->image_url=$infor['message'];
+            $info=$profile->save();
+            $infor['message']="操作成功";
+            return  json($infor);
+           }else{
+            $profile= new ProfileDao;
+            $profile->image_url=$infor['message'];
+            $profile->user_id=$user['id'];
+            $info=$profile->save();
+            $infor['message']="操作成功";
+            return  json($infor);
+           }
         }else{
             return json($infor);
         }
