@@ -40,7 +40,10 @@ class Login extends Controller
 
         $exitUser = User::login($name, $password);
 
-        if (count($exitUser)) {
+        if ($exitUser) {
+            if(!property_exists($exitUser,'image_url')){
+                $exitUser['image_url']="/huoshu/public/uploads/404.jpg";
+            }
             Session::set('ext_user', json_encode([
                 "name"=>$exitUser['name'],
                 "id"=>$exitUser['id'],
@@ -54,7 +57,7 @@ class Login extends Controller
             Session::delete('ext_user');
             return json([
                 "success" => false,
-                "result" => "密码或者账号"
+                "result" => "密码或者账号錯誤"
             ]);
         }
 

@@ -118,7 +118,9 @@
       <div class="list_item" v-bind:key='index' v-for="(item,index) in  $store.state.result">
         <div class="user_info">
           <div class="list_item_user_image">
-            <img :src="item.head_image_url" alt="">
+            <img :src="item.head_image_url" alt="" v-show="item.head_image_url">
+            <img :src="'/huoshu/public/uploads/404.jpg'" alt="" v-show="!item.head_image_url">
+
           </div>
           <div class="list_item_user_name">
             {{item.user_name}}

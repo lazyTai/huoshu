@@ -15,10 +15,18 @@ class User extends Model
         $_name = $name;
         $_password = $password;
         $result = User::get(['name' => $_name, 'password' => $_password]);
-        $profile=  Profile::get(['user_id'=>$result->id]);
-        $result['image_url']= $profile->image_url;
-        $result['address']= $profile->address;
-        return $result;
+        if(isset($result)){
+            $profile=  Profile::get(['user_id'=>$result->id]);
+            if(isset($profile)){
+                $result['image_url']= $profile->image_url;
+                $result['address']= $profile->address;
+            }
+            return $result;
+        }else{
+            return false;
+        }
+        
+       
     }
 
     public static function user_profile($user_id)
