@@ -84,6 +84,8 @@ export default {
         },
         success(resjon) {
           var returnJson = JSON.parse(resjon);
+          if(returnJson['success']){}
+          Vue.toasted.show(returnJson['message'])
         }
       });
     }

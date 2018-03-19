@@ -50,7 +50,7 @@ export default {
     [remove_sub_type_in_selected](state, { sub_type }) {
         var index = null;
         state.haved_selected.forEach((element, key) => {
-            if (sub_type.sub_id == element.sub_id) {
+            if (sub_type.sub_type_id == element.sub_type_id) {
                 index = key
             }
         });
@@ -62,7 +62,7 @@ export default {
     [push_select_array](state, { sub_type }) {
         var isHave = false;
         state.haved_selected.forEach(element => {
-            if (element.sub_id == sub_type.sub_id) { isHave = true }
+            if (element.sub_type_id == sub_type.sub_type_id) { isHave = true }
         });
 
         if (!isHave) {

@@ -26,13 +26,10 @@ class Article extends Controller
             $article['content']=$params['content'];
             $article['image_src']=$params['image_src'];
             $article['type_id']=$params['type_id'];
-            $article['num_artitcle']=$params['num_artitcle'];
-            $article['num_like']=$params['num_like'];
-            $article['num_content']=$params['num_content'];
             $sub_types=$params['sub_types'];
             $sub_types_usb=[];
             foreach($sub_types as $key=>$value){
-                $cache['sub_type_id']=$value['sub_id'];
+                $cache['sub_type_id']=$value['sub_type_id'];
                 $cache['article_id']=$article['id'];
                 array_push( $sub_types_usb, $cache);
             }

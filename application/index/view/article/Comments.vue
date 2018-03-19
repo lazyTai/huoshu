@@ -35,7 +35,6 @@
                   <span v-show="comment_item.like_num">{{comment_item.like_num}}</span>
                   <span v-show="!comment_item.like_num">0</span>
                   <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
-                  <span class="glyphicon glyphicon-thumbs-down" @click="like_down(comment_item.id)"></span>
                 </div>
                 <div class="time">
                   <span class="glyphicon glyphicon-time"></span>
@@ -166,7 +165,7 @@ export default {
         data,
         success(returnJsonStr) {
           var returnJson = JSON.parse(returnJsonStr);
-          self.$toast.center(returnJson.message);
+          Vue.taosted.show(returnJson.message);
           if (returnJson.success) {
             self.loadding = true;
             self.init();
@@ -177,7 +176,7 @@ export default {
     ajax_lick_up(comment_id) {
       var self = this;
       var data = {
-        user: JSON.stringify($user),
+        user_id: JSON.parse($user).id,
         comment_id
       };
       comment_like_up({
@@ -188,9 +187,9 @@ export default {
             if (returnJson.success) {
               self.loadding = true;
               self.init();
+              self.$router.go(0)
             }
           }
-          debugger
           Vue.toasted.show(returnJson.message);
         }
       });

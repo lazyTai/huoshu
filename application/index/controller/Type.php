@@ -32,7 +32,7 @@ class Type extends Controller{
  } 
 
  public function get_type_list_all(){
-    $result= Db::view('Sub_type',['id'=>'sub_id','sub_type_name'
+    $result= Db::view('Sub_type',['id'=>'sub_type_id','sub_type_name'
     ,"image_url"],'Sub_type.header_type_id=Type.id')
     ->view('Type',['id'=>'parent_id','name'=>'parent_type'])
     ->order('parent_id asc')
