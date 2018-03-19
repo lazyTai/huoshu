@@ -159,6 +159,8 @@
         </div>
       </div>
     </div>
+
+    <Loading :loading='loading' />
   </div>
 </template>
 <script>
@@ -170,9 +172,15 @@ import {
   set_current_page
 } from "./vuex/actionTypes";
 
+import Loading from "../components/loading";
 export default {
+  components: {
+    Loading
+  },
   data() {
-    return {};
+    return {
+      loading: false
+    };
   },
   created() {
     this.init();
@@ -181,34 +189,34 @@ export default {
     dateFtt,
     init() {
       var self = this;
+      var beforeScrollTop = document.body.scrollTop;
       window.addEventListener(
         "scroll",
         _.throttle(function() {
-          // console.log("底部必读");
-          // console.log("window.pageYOffset", window.pageYOffset);
-          // console.log("window.innerHeight ", window.innerHeight);
-          // console.log(
-          //   "   document.documentElement.scrollHeight ",
-          //   document.documentElement.scrollHeight
-          // );
-          // console.log(
-          //   "  window.pageYOffset + window.innerHeight >=  document.documentElement.scrollHeight ",
-          //   window.pageYOffset + window.innerHeight >=
-          //     document.documentElement.scrollHeight-10
-          // );
+          var afterScrollTop = document.body.scrollTop,
+            delta = afterScrollTop - beforeScrollTop;
+          var direction = null;
+          if (delta === 0) return false;
+          direction = delta > 0 ? "down" : "up";
+          beforeScrollTop = afterScrollTop;
+
           if (
             window.pageYOffset + window.innerHeight >=
             document.documentElement.scrollHeight - 10
           ) {
             console.log("底部必读");
-            self.scroll_bottom();
+
+            if (!self.loading) {
+              self.scroll_bottom(direction);
+            }
           }
         }, 200),
         false
       );
     },
-    scroll_bottom() {
+    scroll_bottom(direction) {
       var self = this;
+      if (direction != "down") return false;
       var { currentPage, page } = this.$store.state;
       var { dispatch } = this.$store;
       if (currentPage <= page) {
@@ -222,17 +230,19 @@ export default {
       var { dispatch } = self.$store;
       get_index_list({
         data: { currentPage: data.currentPage },
+        before() {
+          self.loading = true;
+        },
         success(json) {
+          self.loading = false;
           var jsonResult = JSON.parse(json);
           if (jsonResult["result"].length > 0) {
             result = result.concat(jsonResult["result"]);
-            debugger;
             dispatch(set_result_list_current_page, {
               currentPage: currentPage + 1,
               result: result
             });
           } else {
-            console.log("这回真的没有了");
             let toast = self.$toasted.show("这回真的没有了 !!", {
               theme: "primary",
               position: "top-center",

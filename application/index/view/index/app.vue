@@ -24,7 +24,7 @@ export default {
     Header1,
     List,
     IndexType,
-    Bottom
+    Bottom,
   },
   methods: {
     setResult(result) {

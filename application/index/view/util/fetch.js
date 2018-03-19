@@ -20,9 +20,7 @@ export function get_index_list(opt) {
         data: opt.data,
         url: "http://localhost/huoshu/public/index/index/getList",
         before() {
-            var index = layer.load(1, {
-                shade: [0.1, "#fff"] //0.1透明度的白色背景
-            });
+            opt.before && opt.before.call()
         },
         success(returnJson) {
             layer.closeAll();
@@ -140,14 +138,14 @@ export function articel_add(opt) {
 
 function _ajax(url) {
     var self = this;
-    var index=0;
+    var index = 0;
     return (opt) => {
         ajax({
             type: 'post',
             data: opt.data,
             url,
             before() {
-                opt.before&&opt.before.call();
+                opt.before && opt.before.call();
             },
             success(returnJson) {
                 Vue.toasted.clear();

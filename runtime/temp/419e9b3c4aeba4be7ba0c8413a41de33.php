@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\index\index.html";i:1521258313;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\index\index.html";i:1521435733;}*/ ?>
 <html lang="en">
 
 <head>
@@ -35,7 +35,16 @@
     <script src="/huoshu/public/static/js/ajax.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
     <script src="/huoshu/public/static/js/index/index.js"></script>
-    <script src="//at.alicdn.com/t/font_391938_3lgx1w7oeqfo5hfr.js"></script>
+    <script src="//at.alicdn.com/t/font_391938_h228rnh1pmohia4i.js"></script>
+<style>
+    .icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+</style>
 </body>
 
 </html>
