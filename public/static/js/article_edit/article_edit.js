@@ -492,6 +492,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _stringify = __webpack_require__(19);
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _icon = __webpack_require__(67);
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -551,9 +555,24 @@ exports.default = {
     },
     click_type: function click_type() {
       this.save_before();
+      this.$router.push("/type");
     },
     click_save: function click_save() {
       this.save_before();
+      var _$store3 = this.$store,
+          dispatch = _$store3.dispatch,
+          state = _$store3.state;
+      var article = state.article,
+          dom = state.dom;
+
+      (0, _fetch.save_articel)({
+        data: {
+          article: (0, _stringify2.default)(article)
+        },
+        success: function success(resjon) {
+          var returnJson = JSON.parse(resjon);
+        }
+      });
     }
   },
   components: {
@@ -681,7 +700,7 @@ exports = module.exports = __webpack_require__(1)(true);
 
 
 // module
-exports.push([module.i, "\n.bottom[data-v-78810384] {\r\n  border-top: 1px solid #eee;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\n}\n.item[data-v-78810384] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  cursor: pointer;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\n}\n.item_font[data-v-78810384] {\r\n  font-size: 12px;\r\n  padding: 0px;\n}\r\n\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/bottom.vue"],"names":[],"mappings":";AAqFA;EACA,2BAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,iBAAA;EACA,YAAA;EACA,gBAAA;EACA,UAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,gBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,6BAAA;EAAA,8BAAA;EAAA,+BAAA;UAAA,uBAAA;EACA,aAAA;EACA,aAAA;CACA;AACA;EACA,gBAAA;EACA,aAAA;CACA","file":"bottom.vue","sourcesContent":["<template>\r\n  <div class=\"bottom\">\r\n    <div class=\"item\" @click=\"click_file\">\r\n      <div>\r\n        <Icon :icon=\"'tupian'\" />\r\n      </div>\r\n      <div class=\"item_font\">图片</div>\r\n    </div>\r\n\r\n    <div @click=\"click_type\" class=\"item\">\r\n      <div>\r\n        <Icon :icon=\"'tag'\" />\r\n      </div>\r\n      <div class=\"item_font\">分类</div>\r\n    </div>\r\n\r\n    <div class=\"item\" @click=\"click_save\">\r\n      <div>\r\n        <Icon :icon=\"'save'\" />\r\n      </div>\r\n      <div class=\"item_font\">保存</div>\r\n    </div>\r\n    <input type=\"file\" v-show=\"false\" ref=\"file\">\r\n  </div>\r\n</template>\r\n<script>\r\nimport Icon from \"../../components/icon.vue\";\r\nimport { set_article } from \"../detail/vuex/actionTypes\";\r\nimport { upload_image_in_artitle } from \"../../util/fetch\";\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  mounted() {\r\n    this.file = this.$refs[\"file\"];\r\n    this.file.onchange = this.chang_file;\r\n  },\r\n  methods: {\r\n    save_before() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article, dom } = state;\r\n      var content = dom.content.innerHTML;\r\n      var title = dom.title.value;\r\n      article.title = title;\r\n      article.content = content;\r\n      dispatch(set_article, { article });\r\n    },\r\n    chang_file() {\r\n      var self = this;\r\n      var { dispatch, state } = this.$store;\r\n      var { article, dom } = state;\r\n      upload_image_in_artitle({\r\n        data: self.file.files,\r\n        success(resjson) {\r\n          var returnJson = JSON.parse(resjson);\r\n          if (returnJson.success) {\r\n            article.content += `\r\n            <div   class=\"image_content\">\r\n              <img src=\"${returnJson.message}\" />\r\n            </div>\r\n             <br />\r\n            `;\r\n            dispatch(set_article, { article });\r\n          }\r\n        }\r\n      });\r\n    },\r\n    click_file() {\r\n      var self = this;\r\n      this.save_before();\r\n      self.file.click();\r\n    },\r\n    click_type() {\r\n      this.save_before();\r\n    },\r\n    click_save() {\r\n      this.save_before();\r\n    }\r\n  },\r\n  components: {\r\n    Icon\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.bottom {\r\n  border-top: 1px solid #eee;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\r\n}\r\n.item {\r\n  flex: 1;\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\r\n}\r\n.item_font {\r\n  font-size: 12px;\r\n  padding: 0px;\r\n}\r\n\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.bottom[data-v-78810384] {\r\n  border-top: 1px solid #eee;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\n}\n.item[data-v-78810384] {\r\n  -webkit-box-flex: 1;\r\n  -webkit-flex: 1;\r\n          flex: 1;\r\n  cursor: pointer;\r\n  display: -webkit-box;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-box-pack: center;\r\n  -webkit-justify-content: center;\r\n          justify-content: center;\r\n  -webkit-box-align: center;\r\n  -webkit-align-items: center;\r\n          align-items: center;\r\n  -webkit-box-orient: vertical;\r\n  -webkit-box-direction: normal;\r\n  -webkit-flex-direction: column;\r\n          flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\n}\n.item_font[data-v-78810384] {\r\n  font-size: 12px;\r\n  padding: 0px;\n}\r\n", "", {"version":3,"sources":["D:/phpStudy/WWW/huoshu/application/index/view/article/edit/application/index/view/article/edit/bottom.vue"],"names":[],"mappings":";AAgGA;EACA,2BAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,iBAAA;EACA,YAAA;EACA,gBAAA;EACA,UAAA;CACA;AACA;EACA,oBAAA;EAAA,gBAAA;UAAA,QAAA;EACA,gBAAA;EACA,qBAAA;EAAA,sBAAA;EAAA,cAAA;EACA,yBAAA;EAAA,gCAAA;UAAA,wBAAA;EACA,0BAAA;EAAA,4BAAA;UAAA,oBAAA;EACA,6BAAA;EAAA,8BAAA;EAAA,+BAAA;UAAA,uBAAA;EACA,aAAA;EACA,aAAA;CACA;AACA;EACA,gBAAA;EACA,aAAA;CACA","file":"bottom.vue","sourcesContent":["<template>\r\n  <div class=\"bottom\">\r\n    <div class=\"item\" @click=\"click_file\">\r\n      <div>\r\n        <Icon :icon=\"'tupian'\" />\r\n      </div>\r\n      <div class=\"item_font\">图片</div>\r\n    </div>\r\n\r\n    <div @click=\"click_type\" class=\"item\">\r\n      <div>\r\n        <Icon :icon=\"'tag'\" />\r\n      </div>\r\n      <div class=\"item_font\">分类</div>\r\n    </div>\r\n\r\n    <div class=\"item\" @click=\"click_save\">\r\n      <div>\r\n        <Icon :icon=\"'save'\" />\r\n      </div>\r\n      <div class=\"item_font\">保存</div>\r\n    </div>\r\n    <input type=\"file\" v-show=\"false\" ref=\"file\">\r\n  </div>\r\n</template>\r\n<script>\r\nimport Icon from \"../../components/icon.vue\";\r\nimport { set_article } from \"../detail/vuex/actionTypes\";\r\nimport { upload_image_in_artitle, save_articel } from \"../../util/fetch\";\r\nexport default {\r\n  data() {\r\n    return {};\r\n  },\r\n  mounted() {\r\n    this.file = this.$refs[\"file\"];\r\n    this.file.onchange = this.chang_file;\r\n  },\r\n  methods: {\r\n    save_before() {\r\n      var { dispatch, state } = this.$store;\r\n      var { article, dom } = state;\r\n      var content = dom.content.innerHTML;\r\n      var title = dom.title.value;\r\n      article.title = title;\r\n      article.content = content;\r\n      dispatch(set_article, { article });\r\n    },\r\n    chang_file() {\r\n      var self = this;\r\n      var { dispatch, state } = this.$store;\r\n      var { article, dom } = state;\r\n      upload_image_in_artitle({\r\n        data: self.file.files,\r\n        success(resjson) {\r\n          var returnJson = JSON.parse(resjson);\r\n          if (returnJson.success) {\r\n            article.content += `\r\n            <div   class=\"image_content\">\r\n              <img src=\"${returnJson.message}\" />\r\n            </div>\r\n             <br />\r\n            `;\r\n            dispatch(set_article, { article });\r\n          }\r\n        }\r\n      });\r\n    },\r\n    click_file() {\r\n      var self = this;\r\n      this.save_before();\r\n      self.file.click();\r\n    },\r\n    click_type() {\r\n      this.save_before();\r\n      this.$router.push(\"/type\");\r\n    },\r\n    click_save() {\r\n      this.save_before();\r\n      var { dispatch, state } = this.$store;\r\n      var { article, dom } = state;\r\n      save_articel({\r\n        data: {\r\n          article:JSON.stringify(article),\r\n        },\r\n        success(resjon) {\r\n          var returnJson = JSON.parse(resjon);\r\n        }\r\n      });\r\n    }\r\n  },\r\n  components: {\r\n    Icon\r\n  }\r\n};\r\n</script>\r\n<style scoped>\r\n.bottom {\r\n  border-top: 1px solid #eee;\r\n  display: flex;\r\n  background: #fff;\r\n  width: 100%;\r\n  position: fixed;\r\n  bottom: 0;\r\n}\r\n.item {\r\n  flex: 1;\r\n  cursor: pointer;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  flex-direction: column;\r\n  padding: 4px;\r\n  height: 40px;\r\n}\r\n.item_font {\r\n  font-size: 12px;\r\n  padding: 0px;\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
@@ -759,6 +778,8 @@ var set_page_count = exports.set_page_count = "set_page_count";
 var order_comments = exports.order_comments = "order_comments";
 var set_article = exports.set_article = "set_article";
 var set_dom = exports.set_dom = "set_dom";
+var push_select_array = exports.push_select_array = "push_select_array";
+var remove_sub_type_in_selected = exports.remove_sub_type_in_selected = "remove_sub_type_in_selected";
 
 /***/ }),
 

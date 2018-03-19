@@ -16,17 +16,42 @@ class Article extends Controller
 
 
     public function save(){
-        $params=input('post.');
-        $article['id']=$params['id'];
-        $article['title']=$params['title'];
-        $article['content']=$params['content'];
-        $article['image_src']=$params['image_src'];
-        $article['type_id']=$params['type_id'];
-        $article['num_artitcle']=$params['num_artitcle'];
-        $article['num_like']=$params['num_like'];
-        $article['num_content']=$params['num_content'];
-        $infor=ArticleDao::update($article);
-        return  json($infor);
+        $params=json_decode( input('post.')['article'],true);
+        $returnJson=["message"=>'',"success"=>false];
+        // 启动事务
+        Db::startTrans();
+        try{
+            $article['id']=$params['id'];
+            $article['title']=$params['title'];
+            $article['content']=$params['content'];
+            $article['image_src']=$params['image_src'];
+            $article['type_id']=$params['type_id'];
+            $article['num_artitcle']=$params['num_artitcle'];
+            $article['num_like']=$params['num_like'];
+            $article['num_content']=$params['num_content'];
+            $sub_types=$params['sub_types'];
+            $sub_types_usb=[];
+            foreach($sub_types as $key=>$value){
+                $cache['sub_type_id']=$value['sub_id'];
+                $cache['article_id']=$article['id'];
+                array_push( $sub_types_usb, $cache);
+            }
+           
+            $infor=ArticleDao::update($article);
+            /* 修改分类 */
+            Db::table('think_sub_type_article')->where('article_id', $article['id'])->delete();
+            $insert_info=Db::table('think_sub_type_article')->insertAll($sub_types_usb);
+            // 提交事务
+            Db::commit();    
+            $returnJson['success']=true;
+            $returnJson['message']='修改成功';
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            $returnJson['success']=false;
+            $returnJson['message']=$e->xdebug_message;
+        }
+        return  json($returnJson);
     }
     public function edit($id){
         $article=ArticleDao::get($id);

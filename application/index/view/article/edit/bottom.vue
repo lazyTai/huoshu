@@ -26,7 +26,7 @@
 <script>
 import Icon from "../../components/icon.vue";
 import { set_article } from "../detail/vuex/actionTypes";
-import { upload_image_in_artitle } from "../../util/fetch";
+import { upload_image_in_artitle, save_articel } from "../../util/fetch";
 export default {
   data() {
     return {};
@@ -72,9 +72,20 @@ export default {
     },
     click_type() {
       this.save_before();
+      this.$router.push("/type");
     },
     click_save() {
       this.save_before();
+      var { dispatch, state } = this.$store;
+      var { article, dom } = state;
+      save_articel({
+        data: {
+          article:JSON.stringify(article),
+        },
+        success(resjon) {
+          var returnJson = JSON.parse(resjon);
+        }
+      });
     }
   },
   components: {
@@ -105,5 +116,4 @@ export default {
   font-size: 12px;
   padding: 0px;
 }
-
 </style>

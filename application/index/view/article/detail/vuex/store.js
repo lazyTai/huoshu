@@ -7,6 +7,7 @@ const store = new Vuex.Store({
         pageCount: 0,
         comments: [],
         article: {},
+        haved_selected:[],
         dom: {
             title: null,
             content: null

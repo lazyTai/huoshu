@@ -17,12 +17,13 @@ class Comment extends Controller{
     $article_id= $params['article_id'];
     $page= $params['page'];
     $order= $params['order'];
-    $asc= Db::view('User',['id'=>'user_id','name'=>'user_name'])
+    
+    $comments= Db::view('User',['id'=>'user_id','name'=>'user_name'])
     ->view('Profile',['image_url'=>"user_image_url"],'Profile.user_id=User.id')
     ->view('Comment','id,article_id,comment,update_time,like_num','Comment.article_id=User.id')
     ->where('article_id', '=', $article_id)
     ->page($page,5)
-    ->order([$order=>$asc])
+    ->order([$order=>$order])
     ->select();
 
     $count=Db::view('User',['id'=>'user_id','name'=>'user_name'])

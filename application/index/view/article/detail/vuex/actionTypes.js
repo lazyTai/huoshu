@@ -4,4 +4,6 @@ export const set_page_count = "set_page_count";
 export const order_comments = "order_comments";
 export const set_article = "set_article";
 export const set_dom = "set_dom";
+export const push_select_array = "push_select_array"
+export const remove_sub_type_in_selected = "remove_sub_type_in_selected"
 

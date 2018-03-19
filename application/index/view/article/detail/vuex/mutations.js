@@ -1,7 +1,8 @@
 import {
     set_comments, set_current_page,
     set_page_count, order_comments,
-    set_article, set_dom
+    set_article, set_dom, push_select_array,
+    remove_sub_type_in_selected
 } from './actionTypes'
 import _ from 'underscore'
 export default {
@@ -40,9 +41,34 @@ export default {
     },
     [set_article](state, { article }) {
         state.article = article
+        state.haved_selected=state.article.sub_types
     },
     [set_dom](state, { title, content }) {
         state.dom.title = title
         state.dom.content = content
     },
+    [remove_sub_type_in_selected](state, { sub_type }) {
+        var index = null;
+        state.haved_selected.forEach((element, key) => {
+            if (sub_type.sub_id == element.sub_id) {
+                index = key
+            }
+        });
+        if (index != null) {
+            state.haved_selected.splice(index, 1)
+        }
+
+    },
+    [push_select_array](state, { sub_type }) {
+        var isHave = false;
+        state.haved_selected.forEach(element => {
+            if (element.sub_id == sub_type.sub_id) { isHave = true }
+        });
+
+        if (!isHave) {
+            if (state.haved_selected.length < 3) {
+                state.haved_selected.push(sub_type)
+            }
+        }
+    }
 }
