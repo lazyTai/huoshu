@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\login\index.html";i:1518744061;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:72:"D:\phpStudy\WWW\huoshu\public/../application/index\view\login\index.html";i:1521472457;}*/ ?>
 <html lang="en">
 
 <head>
@@ -17,6 +17,7 @@
             活书
         </div>
     </div>
+    <img src="<?php echo captcha_src(); ?>" alt="captcha"   id="yzm_image"  style="display:none"/> 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

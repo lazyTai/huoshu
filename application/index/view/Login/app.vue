@@ -17,6 +17,14 @@
       </div>
 
       <div class="row">
+        <div class="col-xs-10 col-xs-offset-1  form-group">
+          <label for="exampleInputPassword1">验证码</label>
+          <input type="text" v-model="captcha" class="form-control" />
+          <img :src="yzm_src" />
+        </div>
+      </div>
+
+      <div class="row">
         <div class="col-xs-10 col-xs-offset-1">
           <button class="btn btn-primary" @click="login">login</button>
           <a class="register">register</a>
@@ -40,11 +48,17 @@
 </style>
 <script>
 export default {
+  mounted() {
+    this.dom_yzm = document.querySelector("#yzm_image");
+    this.$data.yzm_src = this.dom_yzm.src;
+  },
   data() {
     return {
       msg: "fuck",
       name: "",
-      password: ""
+      password: "",
+      yzm_src: "",
+      captcha: ""
     };
   },
   methods: {
@@ -55,15 +69,16 @@ export default {
         type: "post",
         data: {
           name: self.$data.name,
-          password: self.$data.password
+          password: self.$data.password,
+          captcha: self.$data.captcha
         },
         success(json) {
           var $result = JSON.parse(json);
           if ($result["success"]) {
-            layer.msg($result["result"]);
+            layer.msg($result["message"]);
             location.href = "/huoshu/public/index";
           } else {
-            layer.msg($result["result"]);
+            layer.msg($result["message"]);
           }
         }
       });

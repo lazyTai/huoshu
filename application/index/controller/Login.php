@@ -31,12 +31,14 @@ class Login extends Controller
     {
         $name = input('post.name');
         $password = input('post.password');
-        $data = input('post.captcha');
+        $captcha = input('post.captcha');
         // dump(captcha_check($data));
-        // if (!captcha_check($data)) {
-        //  //验证失败
-        //     return $this->error("验证码错误", "Login/login");
-        // };
+        if (!captcha_check($captcha)) {
+         //验证失败
+            return json(
+                ['success'=>false,'message'=>"验证码错误"]
+            );
+        };
 
         $exitUser = User::login($name, $password);
 
@@ -52,13 +54,13 @@ class Login extends Controller
                 ]));
             return json([
                 "success" => true,
-                "result" => "登录成功"
+                "message" => "登录成功"
             ]);
         } else {
             Session::delete('ext_user');
             return json([
                 "success" => false,
-                "result" => "密码或者账号錯誤"
+                "message" => "密码或者账号錯誤"
             ]);
         }
 
