@@ -233,6 +233,9 @@ export default {
         before() {
           self.loading = true;
         },
+        error(){
+           self.loading = false;
+        },
         success(json) {
           self.loading = false;
           var jsonResult = JSON.parse(json);

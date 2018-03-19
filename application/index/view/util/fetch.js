@@ -22,6 +22,9 @@ export function get_index_list(opt) {
         before() {
             opt.before && opt.before.call()
         },
+        error(){
+            opt.error && opt.error.call()
+        },
         success(returnJson) {
             layer.closeAll();
             opt.success && opt.success.call(self, returnJson);

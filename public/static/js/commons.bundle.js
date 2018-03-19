@@ -886,6 +886,9 @@ function get_index_list(opt) {
         before: function before() {
             opt.before && opt.before.call();
         },
+        error: function error() {
+            opt.error && opt.error.call();
+        },
         success: function success(returnJson) {
             layer.closeAll();
             opt.success && opt.success.call(self, returnJson);
