@@ -211,24 +211,22 @@ export default {
       var { dispatch } = this.$store;
       if (currentPage <= page) {
         /* 滚动的时候，加页数 */
-        dispatch(set_current_page, { currentPage: currentPage + 1 });
-        self.getList();
+        self.getList({ currentPage: currentPage + 1 });
       }
     },
-    getList() {
+    getList(data) {
       var self = this;
       var { currentPage, result } = self.$store.state;
       var { dispatch } = self.$store;
       get_index_list({
-        data: {
-          currentPage
-        },
+        data: { currentPage: data.currentPage },
         success(json) {
           var jsonResult = JSON.parse(json);
           if (jsonResult["result"].length > 0) {
             result = result.concat(jsonResult["result"]);
+            debugger;
             dispatch(set_result_list_current_page, {
-              currentPage: currentPage,
+              currentPage: currentPage + 1,
               result: result
             });
           } else {

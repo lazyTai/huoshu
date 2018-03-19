@@ -1,17 +1,16 @@
 import Vue from 'vue';
 import App from './app.vue'
+import Edit from './edit/app.vue' 
 
 import store from './detail/vuex/store'
 import VueRouter from 'vue-router'
+import 'vue2-toast/lib/toast.css';
 import Toasted from 'vue-toasted';
-Vue.use(Toasted, {
-    theme: "primary",
-    position: "top-right",
-    duration: 1000
-})
-Vue.use(VueRouter)
+Vue.use(Toasted)
+
 const routes = [
     { path: '/', component: App },
+    { path: '/edit', component: Edit },
 ]
 const router = new VueRouter({ routes })
 new Vue({

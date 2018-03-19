@@ -1,8 +1,9 @@
 import {
     set_comments, set_current_page,
-    set_page_count
+    set_page_count, order_comments,
+    set_article, set_dom
 } from './actionTypes'
-
+import _ from 'underscore'
 export default {
     [set_comments](state, { comments }) {
         comments.forEach(small_item => {
@@ -23,5 +24,25 @@ export default {
     },
     [set_page_count](state, { pageCount }) {
         state.pageCount = pageCount;
+    },
+    [order_comments](state, { order, desc }) {
+        state.comments = _.sortBy(state.comments, function (item) {
+            var item_order = item[order];
+            if (order = "update_time") {
+                item_order = Date.parse(new Date(item[order]));
+            }
+            if (desc == "desc") {
+                return -item_order
+            } else {
+                return item_order
+            }
+        });
+    },
+    [set_article](state, { article }) {
+        state.article = article
+    },
+    [set_dom](state, { title, content }) {
+        state.dom.title = title
+        state.dom.content = content
     },
 }

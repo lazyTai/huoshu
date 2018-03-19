@@ -14,6 +14,10 @@
   margin-right: 5px;
   border: 1px solid #eee;
 }
+.user_image img {
+  width: 100%;
+  height: 100%;
+}
 .info {
   flex: 1;
 }
@@ -56,12 +60,13 @@
 .right_btn {
   text-align: right;
 }
-:global(.article_content .content_image ){
-  max-width:300px;
-  max-height: 300px;;
+
+:global(.article_content .content_image) {
+  max-width: 300px;
+  max-height: 300px;
 }
-:global(.article_content .content_image img){
-  width:100%;
+:global(.article_content .content_image img) {
+  width: 100%;
   height: 100%;
 }
 </style>
@@ -87,7 +92,7 @@
         </div>
       </div>
       <div class="right_btn">
-        <a class="btn btn-default edit_btn" :href="'/huoshu/public/index/article/edit?id='+article.id">點擊編輯</a>
+        <div @click="click_a(article)" class="btn btn-default edit_btn">點擊編輯</div>
       </div>
     </div>
 
@@ -103,6 +108,14 @@ export default {
       article: $article,
       user: $user
     };
+  },
+  methods: {
+    click_a(a) {
+      this.$store.dispatch("set_article", {
+        article: a
+      });
+      this.$router.push({ path: "/edit" });
+    }
   }
 };
 </script>

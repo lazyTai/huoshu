@@ -15,18 +15,15 @@
 
       <div class="show_commonets">
         <div class="title">
-          <span>1条评论 </span>
+          <span>{{$store.state.comments.length}}条评论 </span>
           <span class="right">
-            <small @click="init('like_num','desc')">按喜欢排序 </small>
-            <small @click="init('update_time','desc')">按时间正序</small>
-            <small @click="init('update_time','asc')">按时间倒序</small>
+            <small @click="click_order('like_num','desc')">按喜欢排序 </small>
+            <small @click="click_order('update_time','desc')">按时间正序</small>
+            <small @click="click_order('update_time','asc')">按时间倒序</small>
           </span>
         </div>
 
-        <div class="load" v-show="loadding">
-          <img src="/huoshu/public/static/layer/theme/default/loading-1.gif" alt=""> loading
-        </div>
-        <div class="commet" :key="key" v-for="(comment_item,key) in $store.state.comments" v-show="!loadding">
+        <div class="commet" :key="key" v-for="(comment_item,key) in $store.state.comments">
           <div class="commeter_info">
             <img :src="comment_item.user_image_url" alt="" class="image_url" />
             <div class="name_time_like">
@@ -47,6 +44,9 @@
             {{comment_item.comment}}
           </div>
         </div>
+        <div class="load" v-show="loadding">
+          <img src="/huoshu/public/static/layer/theme/default/loading-1.gif" alt=""> loading
+        </div>
 
       </div>
     </div>
@@ -58,15 +58,16 @@
 <script>
 import {
   read_comment,
+  add_comment,
   comment_like_down,
-  comment_like_up,
-  add_comment
+  comment_like_up
 } from "../util/fetch";
 import _ from "underscore";
 import {
   set_comments,
   set_page_count,
-  set_current_page
+  set_current_page,
+  order_comments
 } from "./detail/vuex/actionTypes";
 
 export default {
@@ -81,6 +82,9 @@ export default {
     this.event_scroll();
   },
   methods: {
+    click_order(order, desc) {
+      this.$store.dispatch(order_comments, { order, desc });
+    },
     event_scroll() {
       var self = this;
       var beforeScrollTop = document.body.scrollTop;
@@ -115,7 +119,7 @@ export default {
         dispatch(set_current_page, { currentPage: currentPage + 1 });
         self.init();
       } else {
-        Vue.toasted.show("没有评论了");
+        Vue.toasted.show("没有评论了", { duration: 1000 });
       }
     },
     init(order = "like_num", asc = "desc") {
@@ -128,7 +132,6 @@ export default {
         order,
         asc
       };
-
       read_comment({
         data,
         before() {
@@ -153,8 +156,7 @@ export default {
         data,
         success(returnJsonStr) {
           var returnJson = JSON.parse(returnJsonStr);
-          layer.msg(returnJson.message);
-          Vue.toast(returnJson.message);
+          self.$toast.center(returnJson.message);
           if (returnJson.success) {
             self.loadding = true;
             self.init();
@@ -172,7 +174,7 @@ export default {
         data,
         success(returnJsonStr) {
           var returnJson = JSON.parse(returnJsonStr);
-          layer.msg(returnJson.message);
+          this.$toast.center(returnJson.message);
           if (returnJson.success) {
             self.loadding = true;
             self.init();
@@ -205,6 +207,7 @@ export default {
       this.init();
     },
     ok_btn() {
+      var self = this;
       var html = this.$refs["comment"].value;
       var data = {
         article: JSON.stringify($article),
@@ -214,13 +217,10 @@ export default {
       var self = this;
       add_comment({
         data,
-        before() {
-          layer.load(1);
-        },
         success(returnJson) {
-          layer.closeAll();
-          layer.msg("保存成功");
+          Vue.toasted.show("保存成功");
           self.init();
+          self.$refs["comment"].value = "";
         }
       });
     }
@@ -277,6 +277,10 @@ export default {
   border-radius: 50%;
   border: 1px solid #eee;
 }
+.image_url img{
+  width: 100%;
+  height: 100%;
+ }
 .commonet_edit {
   flex: 1;
   border: 1px solid #eee;

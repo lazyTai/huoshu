@@ -12,8 +12,12 @@ class Comment extends Controller{
     // CommentDao::get([""])
      return json("index ");
  }
- public function read($article_id,$page=1,$order="like_num",$asc='desc'){
-    $comments= Db::view('User',['id'=>'user_id','name'=>'user_name'])
+ public function read(){
+    $params=input('post.');
+    $article_id= $params['article_id'];
+    $page= $params['page'];
+    $order= $params['order'];
+    $asc= Db::view('User',['id'=>'user_id','name'=>'user_name'])
     ->view('Profile',['image_url'=>"user_image_url"],'Profile.user_id=User.id')
     ->view('Comment','id,article_id,comment,update_time,like_num','Comment.article_id=User.id')
     ->where('article_id', '=', $article_id)
@@ -152,11 +156,14 @@ class Comment extends Controller{
       $articel=json_decode($params['article'],true);
       $user=json_decode($params['user'],true);
       $comment=$params['comment'];
+      date_default_timezone_set("Asia/Shanghai");
       $infor=Db::table('think_comment')->insert([
           'article_id'=>$articel['id'],
           'user_id'=>$user['id'],
           'comment'=>$comment,
-          'like_num'=>0
+          'like_num'=>0,
+          'update_time'=>date("Y-m-d H:i:s") ,
+          'create_time'=>date("Y-m-d H:i:s") 
       ]);
       if( $infor>0){
           return json(['message'=> $infor,'success'=>true]);

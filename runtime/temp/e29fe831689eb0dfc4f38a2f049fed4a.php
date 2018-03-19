@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\detail.html";i:1521374024;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:75:"D:\phpStudy\WWW\huoshu\public/../application/index\view\article\detail.html";i:1521421329;}*/ ?>
 <html lang="en">
 
 <head>
@@ -32,6 +32,7 @@
     <script src="/huoshu/public/static/layer/layer.js"></script>
     <script src="/huoshu/public/static/js/vue.js"></script>
     <script src="/huoshu/public/static/js/ajax.js"></script>
+    <script src="/huoshu/public/static/js/ajaxform.js"></script>
     <script src="/huoshu/public/static/js/commons.bundle.js"></script>
     <script src="/huoshu/public/static/js/article_detail/article_detail.js"></script>
     <script src="//at.alicdn.com/t/font_391938_hfd2hlamt0cw61or.js"></script>

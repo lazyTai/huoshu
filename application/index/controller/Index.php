@@ -48,15 +48,16 @@ class Index extends Controller
     }
     public function getList()
     {
-
-        $params = input('post.');
-        $currentpage = $params['currentPage'] - 1;;
-        $result = Article::page([], $currentpage)['data'];
-        $page = Article::page([], $currentpage)['page'];
-        return json([
-            "result" => $result,
-            "page" => $page
-        ]);
+            $params = input('post.');
+            if(isset($params)){
+                $currentpage = $params['currentPage'] - 1;;
+                $result = Article::page([], $currentpage)['data'];
+                $page = Article::page([], $currentpage)['page'];
+                return json([
+                    "result" => $result,
+                    "page" => $page
+                ]);
+            }
     }
     public function hello($name = "liumingtai")
     {
