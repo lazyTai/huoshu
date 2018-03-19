@@ -18,22 +18,18 @@ class Comment extends Controller{
     $page= $params['page'];
     $order= $params['order'];
     
-    $comments= Db::view('User',['id'=>'user_id','name'=>'user_name'])
-    ->view('Profile',['image_url'=>"user_image_url"],'Profile.user_id=User.id')
-    ->view('Comment','id,article_id,comment,update_time,like_num','Comment.article_id=User.id')
-    ->where('article_id', '=', $article_id)
-    ->page($page,5)
-    ->order([$order=>$order])
-    ->select();
-
-    $count=Db::view('User',['id'=>'user_id','name'=>'user_name'])
-    ->view('Profile',['image_url'=>"user_image_url"],'Profile.user_id=User.id')
-    ->view('Comment','id,article_id,comment,update_time,like_num','Comment.article_id=User.id')
-    ->where('article_id', '=', $article_id)->count();
-
-    $json['data']= $comments;
-    $json['count']= ceil($count/5);
-    return json($json);
+    $comments= CommentDao::read_comments(["article_id"=> $article_id],$page);
+    
+    if($comments){
+        $count=CommentDao::read_comments_count(["article_id"=> $article_id]);
+        $json['data']= $comments;
+        $json['count']= ceil($count/5);
+        $json['success']= true;
+        return json($json);
+    }else{
+        return json(['success'=>false]);
+    }
+   
  }
 
  public function like_down(){
@@ -162,7 +158,6 @@ class Comment extends Controller{
           'article_id'=>$articel['id'],
           'user_id'=>$user['id'],
           'comment'=>$comment,
-          'like_num'=>0,
           'update_time'=>date("Y-m-d H:i:s") ,
           'create_time'=>date("Y-m-d H:i:s") 
       ]);

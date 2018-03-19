@@ -26,11 +26,14 @@
 
         <div class="commet" :key="key" v-for="(comment_item,key) in $store.state.comments">
           <div class="commeter_info">
-            <img :src="comment_item.user_image_url" alt="" class="image_url" />
+            <img :src="comment_item.user_image_url" v-show="comment_item.user_image_url" alt="" class="image_url" />
+            <img src="/huoshu/public/uploads/404.jpg" class="image_url" v-show="!comment_item.user_image_url" />
             <div class="name_time_like">
               <div class="name">{{comment_item.user_name}}</div>
               <div class="time_like">
-                <div class="like">like:{{comment_item.like_num}}
+                <div class="like">like:
+                  <span v-show="comment_item.like_num">{{comment_item.like_num}}</span>
+                  <span v-show="!comment_item.like_num">0</span>
                   <span class="glyphicon glyphicon-thumbs-up" @click="like_up(comment_item.id)"></span>
                   <span class="glyphicon glyphicon-thumbs-down" @click="like_down(comment_item.id)"></span>
                 </div>
@@ -142,10 +145,14 @@ export default {
         },
         success(returnJson) {
           self.loadding = false;
-          dispatch(set_comments, { comments: JSON.parse(returnJson)["data"] });
-          dispatch(set_page_count, {
-            pageCount: JSON.parse(returnJson)["count"]
-          });
+          if (JSON.parse(returnJson)["success"]) {
+            dispatch(set_comments, {
+              comments: JSON.parse(returnJson)["data"]
+            });
+            dispatch(set_page_count, {
+              pageCount: JSON.parse(returnJson)["count"]
+            });
+          }
         }
       });
     },
@@ -177,11 +184,14 @@ export default {
         data,
         success(returnJsonStr) {
           var returnJson = JSON.parse(returnJsonStr);
-          this.$toast.center(returnJson.message);
           if (returnJson.success) {
-            self.loadding = true;
-            self.init();
+            if (returnJson.success) {
+              self.loadding = true;
+              self.init();
+            }
           }
+          debugger
+          Vue.toasted.show(returnJson.message);
         }
       });
     },
