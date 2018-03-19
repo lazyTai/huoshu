@@ -1473,7 +1473,7 @@ exports.default = (_set_cover_image_url$ = {}, (0, _defineProperty3.default)(_se
 
     var index = null;
     state.haved_selected.forEach(function (element, key) {
-        if (sub_type.sub_id == element.sub_id) {
+        if (sub_type.sub_type_id == element.sub_type_id) {
             index = key;
         }
     });
@@ -1485,7 +1485,7 @@ exports.default = (_set_cover_image_url$ = {}, (0, _defineProperty3.default)(_se
 
     var isHave = false;
     state.haved_selected.forEach(function (element) {
-        if (element.sub_id == sub_type.sub_id) {
+        if (element.sub_type_id == sub_type.sub_type_id) {
             isHave = true;
         }
     });

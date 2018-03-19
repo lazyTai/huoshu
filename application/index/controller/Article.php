@@ -160,12 +160,13 @@ class Article extends Controller
         $params=input('post.');
         $params_articel=json_decode($params['articel'],true);
         $params_haved_selected=json_decode($params['haved_selected'],true);
-        $ext_user=input('session.ext_user');
+        $ext_user=json_decode(input('session.ext_user'),true);
         if($ext_user!=''){
             Db::startTrans();
             try{
                 $articel           = new ArticleDao;
                 $articel->title     = $params_articel['title'];
+                $articel->user_id     =  $ext_user['id'];
                 $articel->content    = $params_articel['content'];
                 $articel->image_src    = $params_articel['cover_image_url'];
                 $infor=$articel->save(); 
@@ -173,7 +174,7 @@ class Article extends Controller
                 $inserArray=[];
                 foreach ($params_haved_selected as $key => $value){
                     $insert=[
-                        "sub_type_id"=>$value['sub_id'],
+                        "sub_type_id"=>$value['sub_type_id'],
                         "article_id"=>$articel_id
                     ];
                     
